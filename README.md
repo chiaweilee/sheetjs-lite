@@ -1,6 +1,6 @@
 # r-xlsx
 
-This is a fork of `xlsx`, which has spreadsheet data parser only, and it's smaller.
+A fork of `xlsx`. Spreadsheet data parser only, but smaller.
 
 ## Difference
 
