@@ -1,4 +1,6 @@
-# xlsx.lite
+# r-xlsx
+
+This is a fork of `xlsx`, which has spreadsheet data parser only, and it's smaller.
 
 ## Difference
 
@@ -34,5 +36,5 @@ Compared with official `xlsx`.
 ## Install
 
 ```
-npm install xlsx.lite
+npm install r-xlsx
 ```

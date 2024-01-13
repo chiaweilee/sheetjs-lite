@@ -1,11 +1,14 @@
 {
-  "name": "xlsx.lite",
+  "name": "r-xlsx",
   "version": "0.20.1",
   "description": "Spreadsheet Data Parse Toolkit for Browser",
   "main": "dist/xlsx.full.min.js",
   "module": "dist/xlsx.full.min.js",
   "unpkg": "dist/xlsx.full.min.js",
   "jsdelivr": "dist/xlsx.full.min.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "lint": "eslint src --fix",
     "test": "jest"
