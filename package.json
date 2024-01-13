@@ -1,0 +1,24 @@
+{
+  "name": "sheetjs-lite",
+  "version": "0.20.1",
+  "description": "Spreadsheet Data Parse Toolkit for Browser",
+  "main": "dist/xlsx.full.min.js",
+  "module": "dist/xlsx.full.min.js",
+  "unpkg": "dist/xlsx.full.min.js",
+  "jsdelivr": "dist/xlsx.full.min.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chiaweilee/sheetjs-lite.git"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/chiaweilee/sheetjs-lite/issues"
+  },
+  "homepage": "https://github.com/chiaweilee/sheetjs-lite#readme",
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
