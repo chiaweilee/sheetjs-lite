@@ -5,3 +5,5 @@
 /.idea
 /.pnpm-*.log
 /src/.umi
+/src/.umi-production
+
