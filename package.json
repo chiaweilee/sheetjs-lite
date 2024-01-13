@@ -1,5 +1,5 @@
 {
-  "name": "sheetjs-lite",
+  "name": "xlsx.lite",
   "version": "0.20.1",
   "description": "Spreadsheet Data Parse Toolkit for Browser",
   "main": "dist/xlsx.full.min.js",

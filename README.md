@@ -25,8 +25,14 @@ Compared with official `xlsx`.
 
 ### Dist Size
 
-| Dist             | Origin Size | Lite Size            |
-| ---------------- | ----------- | -------------------- |
-| xlsx.full.min    | 944 KB      | C1                   |
-| xlsx.core.min.js | 500 KB      | C1                   |
-| xlsx.mini.min.js | 276 KB      | 219 KB (20% smaller) |
+| Dist             | Origin Size | Lite Size                               |
+| ---------------- | ----------- | --------------------------------------- |
+| xlsx.full.min    | 944 KB      | 845 KB (10% smaller, 306 KB after gzip) |
+| xlsx.core.min.js | 500 KB      | 403 KB (20% smaller, 131 KB after gzip) |
+| xlsx.mini.min.js | 276 KB      | 219 KB (20% smaller, 60 KB after gzip)  |
+
+## Install
+
+```
+npm install xlsx.lite
+```
