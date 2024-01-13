@@ -1,4 +1,5 @@
 {
+  "plugins": ["unused-vars"],
   "rules": {
     "no-unused-vars": "off",
     "unused-vars/no-unused-imports": "error",

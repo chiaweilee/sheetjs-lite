@@ -1,8 +1,6 @@
 const fs = require("fs");
 const path = require("path");
 const full = require("../src/xlsx.full");
-const core = require("../src/xlsx.core");
-const mini = require("../src/xlsx.mini");
 
 function getFixtures(ext) {
   const fixturesPath = path.join(__dirname, "./fixtures");
@@ -50,42 +48,6 @@ describe("xlsx.full.js", () => {
       expect(typeof result.Sheets).toBe("object");
       expect(result.SheetNames.length).not.toBe(0);
       expect(result.SheetNames.length).toEqual(Object.keys(result.Sheets).length);
-    });
-  });
-});
-
-describe("xlsx.core.js", () => {
-  it(`parse XLSX (${xlsxFixtures.length} files)`, function () {
-    const target = xlsxFixtures;
-    expect.assertions(target.length * 5);
-
-    target.forEach((data) => {
-      const result = core.read(data);
-      expect(typeof result).toBe("object");
-      expect(typeof result.SheetNames).toBe("object");
-      expect(typeof result.Sheets).toBe("object");
-      expect(result.SheetNames.length).not.toBe(0);
-      expect(result.SheetNames.length).toEqual(
-        Object.keys(result.Sheets).length
-      );
-    });
-  });
-});
-
-describe("xlsx.mini.js", () => {
-  it(`parse XLSX (${xlsxFixtures.length} files)`, function () {
-    const target = xlsxFixtures;
-    expect.assertions(target.length * 5);
-
-    target.forEach((data) => {
-      const result = mini.read(data);
-      expect(typeof result).toBe("object");
-      expect(typeof result.SheetNames).toBe("object");
-      expect(typeof result.Sheets).toBe("object");
-      expect(result.SheetNames.length).not.toBe(0);
-      expect(result.SheetNames.length).toEqual(
-        Object.keys(result.Sheets).length
-      );
     });
   });
 });

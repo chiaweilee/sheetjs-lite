@@ -25,8 +25,8 @@ Compared with official `xlsx`.
 
 ### Dist Size
 
-| Dist             | Origin Size | Lite Size |
-| ---------------- | ----------- | --------- |
-| xlsx.full.min    | 944 KB      | C1        |
-| xlsx.core.min.js | 500 KB      | C1        |
-| xlsx.mini.min.js | 276 KB      | C2        |
+| Dist             | Origin Size | Lite Size            |
+| ---------------- | ----------- | -------------------- |
+| xlsx.full.min    | 944 KB      | C1                   |
+| xlsx.core.min.js | 500 KB      | C1                   |
+| xlsx.mini.min.js | 276 KB      | 219 KB (20% smaller) |

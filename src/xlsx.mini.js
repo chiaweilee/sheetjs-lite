@@ -5,7 +5,7 @@ function make_xlsx_lib(e) {
 	var r = 1200,
 	t = 1252;
 	var a;
-	var n = [874, 932, 936, 949, 950, 1250, 1251, 1252, 1253, 1254, 1255, 1256, 1257, 1258, 1e4];
+	var n = [874, 932, 936, 949, 950, 1250, 1251, 1252, 1253, 1254, 1255, 1256, 1257, 1258, 1e4, ];
 	var i = {
 		0 : 1252,
 		1 : 65001,
@@ -26,7 +26,7 @@ function make_xlsx_lib(e) {
 		222 : 874,
 		238 : 1250,
 		255 : 1252,
-		69 : 6969
+		69 : 6969,
 	};
 	var s = function(e) {
 		if (n.indexOf(e) == -1) return;
@@ -78,27 +78,6 @@ function make_xlsx_lib(e) {
 	var v = function Ic(e) {
 		return String.fromCharCode(e)
 	};
-	function g(e) {
-		a = e;
-		o = function(e) {
-			r = e;
-			s(e)
-		};
-		p = function(e) {
-			if (e.charCodeAt(0) === 255 && e.charCodeAt(1) === 254) {
-				return a.utils.decode(1200, f(e.slice(2)))
-			}
-			return e
-		};
-		m = function n(e) {
-			if (r === 1200) return String.fromCharCode(e);
-			return a.utils.decode(r, [e & 255, e >> 8])[0]
-		};
-		v = function i(e) {
-			return a.utils.decode(t, [e])[0]
-		};
-		oa()
-	}
 	var b = null;
 	var w = true;
 	var k = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=";
@@ -115,64 +94,9 @@ function make_xlsx_lib(e) {
 			t = e.charCodeAt(c++);
 			i = t >> 2;
 			a = e.charCodeAt(c++);
-			s = (t & 3) << 4 | a >> 4;
+			s = ((t & 3) << 4) | (a >> 4);
 			n = e.charCodeAt(c++);
-			l = (a & 15) << 2 | n >> 6;
-			o = n & 63;
-			if (isNaN(a)) {
-				l = o = 64
-			} else if (isNaN(n)) {
-				o = 64
-			}
-			r += k.charAt(i) + k.charAt(s) + k.charAt(l) + k.charAt(o)
-		}
-		return r
-	}
-	function x(e) {
-		var r = "";
-		var t = 0,
-		a = 0,
-		n = 0,
-		i = 0,
-		s = 0,
-		l = 0,
-		o = 0;
-		for (var c = 0; c < e.length;) {
-			t = e.charCodeAt(c++);
-			if (t > 255) t = 95;
-			i = t >> 2;
-			a = e.charCodeAt(c++);
-			if (a > 255) a = 95;
-			s = (t & 3) << 4 | a >> 4;
-			n = e.charCodeAt(c++);
-			if (n > 255) n = 95;
-			l = (a & 15) << 2 | n >> 6;
-			o = n & 63;
-			if (isNaN(a)) {
-				l = o = 64
-			} else if (isNaN(n)) {
-				o = 64
-			}
-			r += k.charAt(i) + k.charAt(s) + k.charAt(l) + k.charAt(o)
-		}
-		return r
-	}
-	function S(e) {
-		var r = "";
-		var t = 0,
-		a = 0,
-		n = 0,
-		i = 0,
-		s = 0,
-		l = 0,
-		o = 0;
-		for (var c = 0; c < e.length;) {
-			t = e[c++];
-			i = t >> 2;
-			a = e[c++];
-			s = (t & 3) << 4 | a >> 4;
-			n = e[c++];
-			l = (a & 15) << 2 | n >> 6;
+			l = ((a & 15) << 2) | (n >> 6);
 			o = n & 63;
 			if (isNaN(a)) {
 				l = o = 64
@@ -196,25 +120,25 @@ function make_xlsx_lib(e) {
 		for (var c = 0; c < e.length;) {
 			i = k.indexOf(e.charAt(c++));
 			s = k.indexOf(e.charAt(c++));
-			t = i << 2 | s >> 4;
+			t = (i << 2) | (s >> 4);
 			r += String.fromCharCode(t);
 			l = k.indexOf(e.charAt(c++));
-			a = (s & 15) << 4 | l >> 2;
+			a = ((s & 15) << 4) | (l >> 2);
 			if (l !== 64) {
 				r += String.fromCharCode(a)
 			}
 			o = k.indexOf(e.charAt(c++));
-			n = (l & 3) << 6 | o;
+			n = ((l & 3) << 6) | o;
 			if (o !== 64) {
 				r += String.fromCharCode(n)
 			}
 		}
 		return r
 	}
-	var _ = function() {
-		return typeof Buffer !== "undefined" && typeof undefined !== "undefined" && typeof {} !== "undefined" && !!{}.node
-	} ();
-	var A = function() {
+	var _ = (function() {
+		return (typeof Buffer !== "undefined" && typeof undefined !== "undefined" && typeof {} !== "undefined" && !!{}.node)
+	})();
+	var A = (function() {
 		if (typeof Buffer !== "undefined") {
 			var e = !Buffer.from;
 			if (!e) try {
@@ -228,14 +152,14 @@ function make_xlsx_lib(e) {
 			}: Buffer.from.bind(Buffer)
 		}
 		return function() {}
-	} ();
-	var T = function() {
+	})();
+	var T = (function() {
 		if (typeof Buffer === "undefined") return false;
 		var e = A([65, 0]);
 		if (!e) return false;
 		var r = e.toString("utf16le");
 		return r.length == 1
-	} ();
+	})();
 	function E(e) {
 		if (_) return Buffer.alloc ? Buffer.alloc(e) : new Buffer(e);
 		return typeof Uint8Array != "undefined" ? new Uint8Array(e) : new Array(e)
@@ -250,13 +174,6 @@ function make_xlsx_lib(e) {
 			return e.charCodeAt(0) & 255
 		})
 	};
-	function O(e) {
-		if (typeof ArrayBuffer === "undefined") return D(e);
-		var r = new ArrayBuffer(e.length),
-		t = new Uint8Array(r);
-		for (var a = 0; a != e.length; ++a) t[a] = e.charCodeAt(a) & 255;
-		return r
-	}
 	function M(e) {
 		if (Array.isArray(e)) return e.map(function(e) {
 			return String.fromCharCode(e)
@@ -264,10 +181,6 @@ function make_xlsx_lib(e) {
 		var r = [];
 		for (var t = 0; t < e.length; ++t) r[t] = String.fromCharCode(e[t]);
 		return r.join("")
-	}
-	function N(e) {
-		if (typeof Uint8Array === "undefined") throw new Error("Unsupported");
-		return new Uint8Array(e)
 	}
 	function I(e) {
 		if (typeof ArrayBuffer == "undefined") throw new Error("Unsupported");
@@ -309,19 +222,19 @@ function make_xlsx_lib(e) {
 			var s = e.charCodeAt(i);
 			if (s < 128) n[t++] = s;
 			else if (s < 2048) {
-				n[t++] = 192 | s >> 6 & 31;
-				n[t++] = 128 | s & 63
+				n[t++] = 192 | ((s >> 6) & 31);
+				n[t++] = 128 | (s & 63)
 			} else if (s >= 55296 && s < 57344) {
 				s = (s & 1023) + 64;
 				var l = e.charCodeAt(++i) & 1023;
-				n[t++] = 240 | s >> 8 & 7;
-				n[t++] = 128 | s >> 2 & 63;
-				n[t++] = 128 | l >> 6 & 15 | (s & 3) << 4;
-				n[t++] = 128 | l & 63
+				n[t++] = 240 | ((s >> 8) & 7);
+				n[t++] = 128 | ((s >> 2) & 63);
+				n[t++] = 128 | ((l >> 6) & 15) | ((s & 3) << 4);
+				n[t++] = 128 | (l & 63)
 			} else {
-				n[t++] = 224 | s >> 12 & 15;
-				n[t++] = 128 | s >> 6 & 63;
-				n[t++] = 128 | s & 63
+				n[t++] = 224 | ((s >> 12) & 15);
+				n[t++] = 128 | ((s >> 6) & 63);
+				n[t++] = 128 | (s & 63)
 			}
 			if (t > a) {
 				r.push(n.slice(0, t));
@@ -369,10 +282,10 @@ function make_xlsx_lib(e) {
 	}
 	function Y(e, r) {
 		r = r || 0;
-		return e.length >= 7 + r && (e.charCodeAt(r) | 32) === 103 && (e.charCodeAt(r + 1) | 32) === 101 && (e.charCodeAt(r + 2) | 32) === 110 && (e.charCodeAt(r + 3) | 32) === 101 && (e.charCodeAt(r + 4) | 32) === 114 && (e.charCodeAt(r + 5) | 32) === 97 && (e.charCodeAt(r + 6) | 32) === 108
+		return (e.length >= 7 + r && (e.charCodeAt(r) | 32) === 103 && (e.charCodeAt(r + 1) | 32) === 101 && (e.charCodeAt(r + 2) | 32) === 110 && (e.charCodeAt(r + 3) | 32) === 101 && (e.charCodeAt(r + 4) | 32) === 114 && (e.charCodeAt(r + 5) | 32) === 97 && (e.charCodeAt(r + 6) | 32) === 108)
 	}
-	var J = [["Sun", "Sunday"], ["Mon", "Monday"], ["Tue", "Tuesday"], ["Wed", "Wednesday"], ["Thu", "Thursday"], ["Fri", "Friday"], ["Sat", "Saturday"]];
-	var Z = [["J", "Jan", "January"], ["F", "Feb", "February"], ["M", "Mar", "March"], ["A", "Apr", "April"], ["M", "May", "May"], ["J", "Jun", "June"], ["J", "Jul", "July"], ["A", "Aug", "August"], ["S", "Sep", "September"], ["O", "Oct", "October"], ["N", "Nov", "November"], ["D", "Dec", "December"]];
+	var J = [["Sun", "Sunday"], ["Mon", "Monday"], ["Tue", "Tuesday"], ["Wed", "Wednesday"], ["Thu", "Thursday"], ["Fri", "Friday"], ["Sat", "Saturday"], ];
+	var Z = [["J", "Jan", "January"], ["F", "Feb", "February"], ["M", "Mar", "March"], ["A", "Apr", "April"], ["M", "May", "May"], ["J", "Jun", "June"], ["J", "Jul", "July"], ["A", "Aug", "August"], ["S", "Sep", "September"], ["O", "Oct", "October"], ["N", "Nov", "November"], ["D", "Dec", "December"], ];
 	function K(e) {
 		if (!e) e = {};
 		e[0] = "General";
@@ -435,7 +348,7 @@ function make_xlsx_lib(e) {
 		47 : "mmss.0",
 		48 : "##0.0E+0",
 		49 : "@",
-		56 : '"上午/下午 "hh"時"mm"分"ss"秒 "'
+		56 : '"上午/下午 "hh"時"mm"分"ss"秒 "',
 	};
 	var Q = {
 		5 : 37,
@@ -479,7 +392,7 @@ function make_xlsx_lib(e) {
 		79 : 45,
 		80 : 46,
 		81 : 47,
-		82 : 0
+		82 : 0,
 	};
 	var ee = {
 		5 : '"$"#,##0_);\\("$"#,##0\\)',
@@ -493,7 +406,7 @@ function make_xlsx_lib(e) {
 		41 : '_(* #,##0_);_(* \\(#,##0\\);_(* "-"_);_(@_)',
 		42 : '_("$"* #,##0_);_("$"* \\(#,##0\\);_("$"* "-"_);_(@_)',
 		43 : '_(* #,##0.00_);_(* \\(#,##0.00\\);_(* "-"??_);_(@_)',
-		44 : '_("$"* #,##0.00_);_("$"* \\(#,##0.00\\);_("$"* "-"??_);_(@_)'
+		44 : '_("$"* #,##0.00_);_("$"* \\(#,##0.00\\);_("$"* "-"??_);_(@_)',
 	};
 	function re(e, r, t) {
 		var a = e < 0 ? -1 : 1;
@@ -526,7 +439,7 @@ function make_xlsx_lib(e) {
 			}
 		}
 		if (!t) return [0, a * l, f];
-		var h = Math.floor(a * l / f);
+		var h = Math.floor((a * l) / f);
 		return [h, a * l - h * f, f]
 	}
 	function te(e) {
@@ -556,11 +469,11 @@ function make_xlsx_lib(e) {
 			H: 0,
 			M: 0,
 			S: 0,
-			q: 0
+			q: 0,
 		};
 		if (Math.abs(l.u) < 1e-6) l.u = 0;
 		if (r && r.date1904) a += 1462;
-		if (l.u > .9999) {
+		if (l.u > 0.9999) {
 			l.u = 0;
 			if (++n == 86400) {
 				l.T = n = 0; ++a; ++l.D
@@ -632,9 +545,9 @@ function make_xlsx_lib(e) {
 			return "";
 		case "object":
 			if (e == null) return "";
-			if (e instanceof Date) return $e(14, dr(e, r && r.date1904), r);
+			if (e instanceof Date) return $e(14, dr(e, r && r.date1904), r)
 		}
-		throw new Error("unsupported value in General format: " + e)
+		throw new Error("unsupported value in General format: " + e);
 	}
 	function fe(e, r) {
 		r[0] -= 581;
@@ -654,7 +567,6 @@ function make_xlsx_lib(e) {
 		case 121:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
 				o = l % 100;
 				c = 2;
@@ -662,13 +574,12 @@ function make_xlsx_lib(e) {
 			default:
 				o = l % 1e4;
 				c = 4;
-				break;
+				break
 			}
 			break;
 		case 109:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
 				o = t.m;
 				c = r.length;
@@ -678,13 +589,12 @@ function make_xlsx_lib(e) {
 			case 5:
 				return Z[t.m - 1][0];
 			default:
-				return Z[t.m - 1][2];
+				return Z[t.m - 1][2]
 			}
 			break;
 		case 100:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
 				o = t.d;
 				c = r.length;
@@ -692,15 +602,14 @@ function make_xlsx_lib(e) {
 			case 3:
 				return J[t.q][0];
 			default:
-				return J[t.q][1];
+				return J[t.q][1]
 			}
 			break;
 		case 104:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
-				o = 1 + (t.H + 11) % 12;
+				o = 1 + ((t.H + 11) % 12);
 				c = r.length;
 				break;
 			default:
@@ -710,7 +619,6 @@ function make_xlsx_lib(e) {
 		case 72:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
 				o = t.H;
 				c = r.length;
@@ -722,7 +630,6 @@ function make_xlsx_lib(e) {
 		case 77:
 			switch (r.length) {
 			case 1:
-				;
 			case 2:
 				o = t.M;
 				c = r.length;
@@ -745,17 +652,14 @@ function make_xlsx_lib(e) {
 		case 90:
 			switch (r) {
 			case "[h]":
-				;
 			case "[hh]":
 				o = t.D * 24 + t.H;
 				break;
 			case "[m]":
-				;
 			case "[mm]":
 				o = (t.D * 24 + t.H) * 60 + t.M;
 				break;
 			case "[s]":
-				;
 			case "[ss]":
 				o = ((t.D * 24 + t.H) * 60 + t.M) * 60 + (a == 0 ? Math.round(t.S + t.u) : t.S);
 				break;
@@ -767,7 +671,7 @@ function make_xlsx_lib(e) {
 		case 101:
 			o = l;
 			c = 1;
-			break;
+			break
 		}
 		var f = c > 0 ? z(o, c) : "";
 		return f
@@ -801,7 +705,7 @@ function make_xlsx_lib(e) {
 			if (n === -1) n = e.indexOf("E");
 			var i = Math.floor(Math.log(r) * Math.LOG10E) % n;
 			if (i < 0) i += n;
-			t = (r / Math.pow(10, i)).toPrecision(a + 1 + (n + i) % n);
+			t = (r / Math.pow(10, i)).toPrecision(a + 1 + ((n + i) % n));
 			if (t.indexOf("e") === -1) {
 				var s = Math.floor(Math.log(r) * Math.LOG10E);
 				if (t.indexOf(".") === -1) t = t.charAt(0) + "." + t.substr(1) + "E+" + (s - t.length + i);
@@ -828,7 +732,7 @@ function make_xlsx_lib(e) {
 		i = Math.floor(n / a);
 		var s = n - i * a,
 		l = a;
-		return t + (i === 0 ? "": "" + i) + " " + (s === 0 ? xr(" ", e[1].length + 1 + e[4].length) : W(s, e[1].length) + e[2] + "/" + e[3] + z(l, e[4].length))
+		return (t + (i === 0 ? "": "" + i) + " " + (s === 0 ? xr(" ", e[1].length + 1 + e[4].length) : W(s, e[1].length) + e[2] + "/" + e[3] + z(l, e[4].length)))
 	}
 	function we(e, r, t) {
 		return t + (r === 0 ? "": "" + r) + xr(" ", e[1].length + 2 + e[4].length)
@@ -839,7 +743,7 @@ function make_xlsx_lib(e) {
 	function Se(e) {
 		var r = "",
 		t;
-		for (var a = 0; a != e.length; ++a) switch (t = e.charCodeAt(a)) {
+		for (var a = 0; a != e.length; ++a) switch ((t = e.charCodeAt(a))) {
 		case 35:
 			break;
 		case 63:
@@ -849,7 +753,7 @@ function make_xlsx_lib(e) {
 			r += "0";
 			break;
 		default:
-			r += String.fromCharCode(t);
+			r += String.fromCharCode(t)
 		}
 		return r
 	}
@@ -870,7 +774,7 @@ function make_xlsx_lib(e) {
 		return 0
 	}
 	function Te(e) {
-		if (e < 2147483647 && e > -2147483648) return "" + (e >= 0 ? e | 0 : e - 1 | 0);
+		if (e < 2147483647 && e > -2147483648) return "" + (e >= 0 ? e | 0 : (e - 1) | 0);
 		return "" + Math.floor(e)
 	}
 	function Ee(e, r, t) {
@@ -892,9 +796,9 @@ function make_xlsx_lib(e) {
 			if (n === "0") n = "";
 			return n.length > r.length ? n: Se(r.substr(0, r.length - n.length)) + n
 		}
-		if (i = r.match(ge)) return be(i, o, c);
+		if ((i = r.match(ge))) return be(i, o, c);
 		if (r.match(/^#+0+$/)) return c + G(o, r.length - r.indexOf("0"));
-		if (i = r.match(ke)) {
+		if ((i = r.match(ke))) {
 			n = Ce(t, i[1].length).replace(/^([^\.]+)$/, "$1." + Se(i[1])).replace(/\.$/, "." + Se(i[1])).replace(/\.(\d*)$/,
 			function(e, r) {
 				return "." + r + xr("0", Se(i[1]).length - r.length)
@@ -902,15 +806,15 @@ function make_xlsx_lib(e) {
 			return r.indexOf("0.") !== -1 ? n: n.replace(/^0\./, ".")
 		}
 		r = r.replace(/^#+([0.])/, "$1");
-		if (i = r.match(/^(0*)\.(#*)$/)) {
-			return c + Ce(o, i[2].length).replace(/\.(\d*[1-9])0*$/, ".$1").replace(/^(-?\d*)$/, "$1.").replace(/^0\./, i[1].length ? "0.": ".")
+		if ((i = r.match(/^(0*)\.(#*)$/))) {
+			return (c + Ce(o, i[2].length).replace(/\.(\d*[1-9])0*$/, ".$1").replace(/^(-?\d*)$/, "$1.").replace(/^0\./, i[1].length ? "0.": "."))
 		}
-		if (i = r.match(/^#{1,3},##0(\.?)$/)) return c + he(G(o, 0));
-		if (i = r.match(/^#,##0\.([#0]*0)$/)) {
+		if ((i = r.match(/^#{1,3},##0(\.?)$/))) return c + he(G(o, 0));
+		if ((i = r.match(/^#,##0\.([#0]*0)$/))) {
 			return t < 0 ? "-" + Ee(e, r, -t) : he("" + (Math.floor(t) + Ae(t, i[1].length))) + "." + z(_e(t, i[1].length), i[1].length)
 		}
-		if (i = r.match(/^#,#*,#0/)) return Ee(e, r.replace(/^#,#*,/, ""), t);
-		if (i = r.match(/^([0#]+)(\\?-([0#]+))+$/)) {
+		if ((i = r.match(/^#,#*,#0/))) return Ee(e, r.replace(/^#,#*,/, ""), t);
+		if ((i = r.match(/^([0#]+)(\\?-([0#]+))+$/))) {
 			n = U(Ee(e, r.replace(/[\\-]/g, ""), t));
 			s = 0;
 			return U(U(r.replace(/\\/g, "")).replace(/[0#]/g,
@@ -923,7 +827,7 @@ function make_xlsx_lib(e) {
 			return "(" + n.substr(0, 3) + ") " + n.substr(3, 3) + "-" + n.substr(6)
 		}
 		var f = "";
-		if (i = r.match(/^([#0?]+)( ?)\/( ?)([#0?]+)/)) {
+		if ((i = r.match(/^([#0?]+)( ?)\/( ?)([#0?]+)/))) {
 			s = Math.min(i[4].length, 7);
 			l = re(o, Math.pow(10, s) - 1, false);
 			n = "" + c;
@@ -935,24 +839,24 @@ function make_xlsx_lib(e) {
 			n += f;
 			return n
 		}
-		if (i = r.match(/^# ([#0?]+)( ?)\/( ?)([#0?]+)/)) {
+		if ((i = r.match(/^# ([#0?]+)( ?)\/( ?)([#0?]+)/))) {
 			s = Math.min(Math.max(i[1].length, i[4].length), 7);
 			l = re(o, Math.pow(10, s) - 1, true);
-			return c + (l[0] || (l[1] ? "": "0")) + " " + (l[1] ? W(l[1], s) + i[2] + "/" + i[3] + j(l[2], s) : xr(" ", 2 * s + 1 + i[2].length + i[3].length))
+			return (c + (l[0] || (l[1] ? "": "0")) + " " + (l[1] ? W(l[1], s) + i[2] + "/" + i[3] + j(l[2], s) : xr(" ", 2 * s + 1 + i[2].length + i[3].length)))
 		}
-		if (i = r.match(/^[#0?]+$/)) {
+		if ((i = r.match(/^[#0?]+$/))) {
 			n = G(t, 0);
 			if (r.length <= n.length) return n;
 			return Se(r.substr(0, r.length - n.length)) + n
 		}
-		if (i = r.match(/^([#0?]+)\.([#0]+)$/)) {
+		if ((i = r.match(/^([#0?]+)\.([#0]+)$/))) {
 			n = "" + t.toFixed(Math.min(i[2].length, 10)).replace(/([^0])0+$/, "$1");
 			s = n.indexOf(".");
 			var u = r.indexOf(".") - s,
 			h = r.length - n.length - u;
 			return Se(r.substr(0, u) + n + r.substr(r.length - h))
 		}
-		if (i = r.match(/^00,000\.([#0]*0)$/)) {
+		if ((i = r.match(/^00,000\.([#0]*0)$/))) {
 			s = _e(t, i[1].length);
 			return t < 0 ? "-" + Ee(e, r, -t) : he(Te(t)).replace(/^\d,\d{3}$/, "0$&").replace(/^\d*$/,
 			function(e) {
@@ -963,9 +867,7 @@ function make_xlsx_lib(e) {
 		case "###,##0.00":
 			return Ee(e, "#,##0.00", t);
 		case "###,###":
-			;
 		case "##,###":
-			;
 		case "#,###":
 			var d = he(G(o, 0));
 			return d !== "0" ? c + d: "";
@@ -974,9 +876,8 @@ function make_xlsx_lib(e) {
 		case "#,###.00":
 			return Ee(e, "#,##0.00", t).replace(/^0\./, ".");
 		default:
-			;
 		}
-		throw new Error("unsupported format |" + r + "|")
+		throw new Error("unsupported format |" + r + "|");
 	}
 	function Fe(e, r, t) {
 		var a = r.length - 1;
@@ -998,7 +899,7 @@ function make_xlsx_lib(e) {
 			if (n === -1) n = e.indexOf("E");
 			var i = Math.floor(Math.log(r) * Math.LOG10E) % n;
 			if (i < 0) i += n;
-			t = (r / Math.pow(10, i)).toPrecision(a + 1 + (n + i) % n);
+			t = (r / Math.pow(10, i)).toPrecision(a + 1 + ((n + i) % n));
 			if (!t.match(/[Ee]/)) {
 				var s = Math.floor(Math.log(r) * Math.LOG10E);
 				if (t.indexOf(".") === -1) t = t.charAt(0) + "." + t.substr(1) + "E+" + (s - t.length + i);
@@ -1033,9 +934,9 @@ function make_xlsx_lib(e) {
 			if (t === 0) n = "";
 			return n.length > r.length ? n: Se(r.substr(0, r.length - n.length)) + n
 		}
-		if (i = r.match(ge)) return we(i, o, c);
+		if ((i = r.match(ge))) return we(i, o, c);
 		if (r.match(/^#+0+$/)) return c + z(o, r.length - r.indexOf("0"));
-		if (i = r.match(ke)) {
+		if ((i = r.match(ke))) {
 			n = ("" + t).replace(/^([^\.]+)$/, "$1." + Se(i[1])).replace(/\.$/, "." + Se(i[1]));
 			n = n.replace(/\.(\d*)$/,
 			function(e, r) {
@@ -1044,15 +945,15 @@ function make_xlsx_lib(e) {
 			return r.indexOf("0.") !== -1 ? n: n.replace(/^0\./, ".")
 		}
 		r = r.replace(/^#+([0.])/, "$1");
-		if (i = r.match(/^(0*)\.(#*)$/)) {
-			return c + ("" + o).replace(/\.(\d*[1-9])0*$/, ".$1").replace(/^(-?\d*)$/, "$1.").replace(/^0\./, i[1].length ? "0.": ".")
+		if ((i = r.match(/^(0*)\.(#*)$/))) {
+			return (c + ("" + o).replace(/\.(\d*[1-9])0*$/, ".$1").replace(/^(-?\d*)$/, "$1.").replace(/^0\./, i[1].length ? "0.": "."))
 		}
-		if (i = r.match(/^#{1,3},##0(\.?)$/)) return c + he("" + o);
-		if (i = r.match(/^#,##0\.([#0]*0)$/)) {
+		if ((i = r.match(/^#{1,3},##0(\.?)$/))) return c + he("" + o);
+		if ((i = r.match(/^#,##0\.([#0]*0)$/))) {
 			return t < 0 ? "-" + Me(e, r, -t) : he("" + t) + "." + xr("0", i[1].length)
 		}
-		if (i = r.match(/^#,#*,#0/)) return Me(e, r.replace(/^#,#*,/, ""), t);
-		if (i = r.match(/^([0#]+)(\\?-([0#]+))+$/)) {
+		if ((i = r.match(/^#,#*,#0/))) return Me(e, r.replace(/^#,#*,/, ""), t);
+		if ((i = r.match(/^([0#]+)(\\?-([0#]+))+$/))) {
 			n = U(Me(e, r.replace(/[\\-]/g, ""), t));
 			s = 0;
 			return U(U(r.replace(/\\/g, "")).replace(/[0#]/g,
@@ -1065,7 +966,7 @@ function make_xlsx_lib(e) {
 			return "(" + n.substr(0, 3) + ") " + n.substr(3, 3) + "-" + n.substr(6)
 		}
 		var f = "";
-		if (i = r.match(/^([#0?]+)( ?)\/( ?)([#0?]+)/)) {
+		if ((i = r.match(/^([#0?]+)( ?)\/( ?)([#0?]+)/))) {
 			s = Math.min(i[4].length, 7);
 			l = re(o, Math.pow(10, s) - 1, false);
 			n = "" + c;
@@ -1077,24 +978,24 @@ function make_xlsx_lib(e) {
 			n += f;
 			return n
 		}
-		if (i = r.match(/^# ([#0?]+)( ?)\/( ?)([#0?]+)/)) {
+		if ((i = r.match(/^# ([#0?]+)( ?)\/( ?)([#0?]+)/))) {
 			s = Math.min(Math.max(i[1].length, i[4].length), 7);
 			l = re(o, Math.pow(10, s) - 1, true);
-			return c + (l[0] || (l[1] ? "": "0")) + " " + (l[1] ? W(l[1], s) + i[2] + "/" + i[3] + j(l[2], s) : xr(" ", 2 * s + 1 + i[2].length + i[3].length))
+			return (c + (l[0] || (l[1] ? "": "0")) + " " + (l[1] ? W(l[1], s) + i[2] + "/" + i[3] + j(l[2], s) : xr(" ", 2 * s + 1 + i[2].length + i[3].length)))
 		}
-		if (i = r.match(/^[#0?]+$/)) {
+		if ((i = r.match(/^[#0?]+$/))) {
 			n = "" + t;
 			if (r.length <= n.length) return n;
 			return Se(r.substr(0, r.length - n.length)) + n
 		}
-		if (i = r.match(/^([#0]+)\.([#0]+)$/)) {
+		if ((i = r.match(/^([#0]+)\.([#0]+)$/))) {
 			n = "" + t.toFixed(Math.min(i[2].length, 10)).replace(/([^0])0+$/, "$1");
 			s = n.indexOf(".");
 			var u = r.indexOf(".") - s,
 			h = r.length - n.length - u;
 			return Se(r.substr(0, u) + n + r.substr(r.length - h))
 		}
-		if (i = r.match(/^00,000\.([#0]*0)$/)) {
+		if ((i = r.match(/^00,000\.([#0]*0)$/))) {
 			return t < 0 ? "-" + Me(e, r, -t) : he("" + t).replace(/^\d,\d{3}$/, "0$&").replace(/^\d*$/,
 			function(e) {
 				return "00," + (e.length < 3 ? z(0, 3 - e.length) : "") + e
@@ -1102,16 +1003,14 @@ function make_xlsx_lib(e) {
 		}
 		switch (r) {
 		case "###,###":
-			;
 		case "##,###":
-			;
 		case "#,###":
 			var d = he("" + o);
 			return d !== "0" ? c + d: "";
 		default:
-			if (r.match(/\.[0#?]*$/)) return Me(e, r.slice(0, r.lastIndexOf(".")), t) + Se(r.slice(r.lastIndexOf(".")));
+			if (r.match(/\.[0#?]*$/)) return (Me(e, r.slice(0, r.lastIndexOf(".")), t) + Se(r.slice(r.lastIndexOf("."))))
 		}
-		throw new Error("unsupported format |" + r + "|")
+		throw new Error("unsupported format |" + r + "|");
 	}
 	function Ne(e, r, t) {
 		return (t | 0) === t ? Me(e, r, t) : Ee(e, r, t)
@@ -1125,15 +1024,13 @@ function make_xlsx_lib(e) {
 			t = !t;
 			break;
 		case 95:
-			;
 		case 42:
-			;
 		case 92:
 			++a;
 			break;
 		case 59:
 			r[r.length] = e.substr(n, a - n);
-			n = a + 1;
+			n = a + 1
 		}
 		r[r.length] = e.substr(n);
 		if (t === true) throw new Error("Format |" + e + "| unterminated string ");
@@ -1145,7 +1042,7 @@ function make_xlsx_lib(e) {
 		t = "",
 		a = "";
 		while (r < e.length) {
-			switch (t = e.charAt(r)) {
+			switch ((t = e.charAt(r))) {
 			case "G":
 				if (Y(e, r)) r += 6;
 				r++;
@@ -1163,39 +1060,24 @@ function make_xlsx_lib(e) {
 				++r;
 				break;
 			case "B":
-				;
 			case "b":
 				if (e.charAt(r + 1) === "1" || e.charAt(r + 1) === "2") return true;
 			case "M":
-				;
 			case "D":
-				;
 			case "Y":
-				;
 			case "H":
-				;
 			case "S":
-				;
 			case "E":
-				;
 			case "m":
-				;
 			case "d":
-				;
 			case "y":
-				;
 			case "h":
-				;
 			case "s":
-				;
 			case "e":
-				;
 			case "g":
 				return true;
 			case "A":
-				;
 			case "a":
-				;
 			case "上":
 				if (e.substr(r, 3).toUpperCase() === "A/P") return true;
 				if (e.substr(r, 5).toUpperCase() === "AM/PM") return true;
@@ -1207,11 +1089,9 @@ function make_xlsx_lib(e) {
 				if (a.match(Pe)) return true;
 				break;
 			case ".":
-				;
 			case "0":
-				;
 			case "#":
-				while (r < e.length && ("0#?.,E+-%".indexOf(t = e.charAt(++r)) > -1 || t == "\\" && e.charAt(r + 1) == "-" && "0#".indexOf(e.charAt(r + 2)) > -1)) {}
+				while (r < e.length && ("0#?.,E+-%".indexOf((t = e.charAt(++r))) > -1 || (t == "\\" && e.charAt(r + 1) == "-" && "0#".indexOf(e.charAt(r + 2)) > -1))) {}
 				break;
 			case "?":
 				while (e.charAt(++r) === t) {}
@@ -1221,26 +1101,17 @@ function make_xlsx_lib(e) {
 				if (e.charAt(r) == " " || e.charAt(r) == "*")++r;
 				break;
 			case "(":
-				;
 			case ")":
 				++r;
 				break;
 			case "1":
-				;
 			case "2":
-				;
 			case "3":
-				;
 			case "4":
-				;
 			case "5":
-				;
 			case "6":
-				;
 			case "7":
-				;
 			case "8":
-				;
 			case "9":
 				while (r < e.length && "0123456789".indexOf(e.charAt(++r)) > -1) {}
 				break;
@@ -1249,7 +1120,7 @@ function make_xlsx_lib(e) {
 				break;
 			default:
 				++r;
-				break;
+				break
 			}
 		}
 		return false
@@ -1265,12 +1136,12 @@ function make_xlsx_lib(e) {
 		u;
 		var h = "H";
 		while (s < e.length) {
-			switch (l = e.charAt(s)) {
+			switch ((l = e.charAt(s))) {
 			case "G":
 				if (!Y(e, s)) throw new Error("unrecognized character " + l + " in " + e);
 				n[n.length] = {
 					t: "G",
-					v: "General"
+					v: "General",
 				};
 				s += 7;
 				break;
@@ -1278,7 +1149,7 @@ function make_xlsx_lib(e) {
 				for (i = ""; (u = e.charCodeAt(++s)) !== 34 && s < e.length;) i += String.fromCharCode(u);
 				n[n.length] = {
 					t: "t",
-					v: i
+					v: i,
 				}; ++s;
 				break;
 			case "\\":
@@ -1286,24 +1157,23 @@ function make_xlsx_lib(e) {
 				p = d === "(" || d === ")" ? d: "t";
 				n[n.length] = {
 					t: p,
-					v: d
+					v: d,
 				}; ++s;
 				break;
 			case "_":
 				n[n.length] = {
 					t: "t",
-					v: " "
+					v: " ",
 				};
 				s += 2;
 				break;
 			case "@":
 				n[n.length] = {
 					t: "T",
-					v: r
+					v: r,
 				}; ++s;
 				break;
 			case "B":
-				;
 			case "b":
 				if (e.charAt(s + 1) === "1" || e.charAt(s + 1) === "2") {
 					if (c == null) {
@@ -1312,36 +1182,25 @@ function make_xlsx_lib(e) {
 					}
 					n[n.length] = {
 						t: "X",
-						v: e.substr(s, 2)
+						v: e.substr(s, 2),
 					};
 					o = l;
 					s += 2;
 					break
-				};
+				}
 			case "M":
-				;
 			case "D":
-				;
 			case "Y":
-				;
 			case "H":
-				;
 			case "S":
-				;
 			case "E":
 				l = l.toLowerCase();
 			case "m":
-				;
 			case "d":
-				;
 			case "y":
-				;
 			case "h":
-				;
 			case "s":
-				;
 			case "e":
-				;
 			case "g":
 				if (r < 0) return "";
 				if (c == null) {
@@ -1354,18 +1213,16 @@ function make_xlsx_lib(e) {
 				if (l === "h") l = h;
 				n[n.length] = {
 					t: l,
-					v: i
+					v: i,
 				};
 				o = l;
 				break;
 			case "A":
-				;
 			case "a":
-				;
 			case "上":
 				var m = {
 					t: l,
-					v: l
+					v: l,
 				};
 				if (c == null) c = ae(r, t);
 				if (e.substr(s, 3).toUpperCase() === "A/P") {
@@ -1401,14 +1258,14 @@ function make_xlsx_lib(e) {
 					}
 					n[n.length] = {
 						t: "Z",
-						v: i.toLowerCase()
+						v: i.toLowerCase(),
 					};
 					o = i.charAt(1)
 				} else if (i.indexOf("$") > -1) {
 					i = (i.match(/\$([^-\[\]]*)/) || [])[1] || "$";
 					if (!Re(e)) n[n.length] = {
 						t: "t",
-						v: i
+						v: i,
 					}
 				}
 				break;
@@ -1418,18 +1275,17 @@ function make_xlsx_lib(e) {
 					while (++s < e.length && (l = e.charAt(s)) === "0") i += l;
 					n[n.length] = {
 						t: "s",
-						v: i
+						v: i,
 					};
 					break
-				};
+				}
 			case "0":
-				;
 			case "#":
 				i = l;
-				while (++s < e.length && "0#?.,E+-%".indexOf(l = e.charAt(s)) > -1) i += l;
+				while (++s < e.length && "0#?.,E+-%".indexOf((l = e.charAt(s))) > -1) i += l;
 				n[n.length] = {
 					t: "n",
-					v: i
+					v: i,
 				};
 				break;
 			case "?":
@@ -1437,7 +1293,7 @@ function make_xlsx_lib(e) {
 				while (e.charAt(++s) === l) i += l;
 				n[n.length] = {
 					t: l,
-					v: i
+					v: i,
 				};
 				o = l;
 				break;
@@ -1446,56 +1302,47 @@ function make_xlsx_lib(e) {
 				if (e.charAt(s) == " " || e.charAt(s) == "*")++s;
 				break;
 			case "(":
-				;
 			case ")":
 				n[n.length] = {
 					t: a === 1 ? "t": l,
-					v: l
+					v: l,
 				}; ++s;
 				break;
 			case "1":
-				;
 			case "2":
-				;
 			case "3":
-				;
 			case "4":
-				;
 			case "5":
-				;
 			case "6":
-				;
 			case "7":
-				;
 			case "8":
-				;
 			case "9":
 				i = l;
 				while (s < e.length && "0123456789".indexOf(e.charAt(++s)) > -1) i += e.charAt(s);
 				n[n.length] = {
 					t: "D",
-					v: i
+					v: i,
 				};
 				break;
 			case " ":
 				n[n.length] = {
 					t: l,
-					v: l
+					v: l,
 				}; ++s;
 				break;
 			case "$":
 				n[n.length] = {
 					t: "t",
-					v: "$"
+					v: "$",
 				}; ++s;
 				break;
 			default:
 				if (",$-+/():!^&'~{}<>=€acfijklopqrtuvwxzP".indexOf(l) === -1) throw new Error("unrecognized character " + l + " in " + e);
 				n[n.length] = {
 					t: "t",
-					v: l
+					v: l,
 				}; ++s;
-				break;
+				break
 			}
 		}
 		var v = 0,
@@ -1504,22 +1351,19 @@ function make_xlsx_lib(e) {
 		for (s = n.length - 1, o = "t"; s >= 0; --s) {
 			switch (n[s].t) {
 			case "h":
-				;
 			case "H":
 				n[s].t = h;
 				o = "h";
 				if (v < 1) v = 1;
 				break;
 			case "s":
-				if (b = n[s].v.match(/\.0+$/)) {
+				if ((b = n[s].v.match(/\.0+$/))) {
 					g = Math.max(g, b[0].length - 1);
 					v = 4
 				}
 				if (v < 3) v = 3;
 			case "d":
-				;
 			case "y":
-				;
 			case "e":
 				o = n[s].t;
 				break;
@@ -1538,7 +1382,7 @@ function make_xlsx_lib(e) {
 			case "Z":
 				if (v < 1 && n[s].v.match(/[Hh]/)) v = 1;
 				if (v < 2 && n[s].v.match(/[Mm]/)) v = 2;
-				if (v < 3 && n[s].v.match(/[Ss]/)) v = 3;
+				if (v < 3 && n[s].v.match(/[Ss]/)) v = 3
 			}
 		}
 		var w;
@@ -1546,11 +1390,9 @@ function make_xlsx_lib(e) {
 		case 0:
 			break;
 		case 1:
-			;
 		case 2:
-			;
 		case 3:
-			if (c.u >= .5) {
+			if (c.u >= 0.5) {
 				c.u = 0; ++c.S
 			}
 			if (c.S >= 60) {
@@ -1579,7 +1421,7 @@ function make_xlsx_lib(e) {
 				break;
 			case 3:
 				c.u = Math.round(c.u * 1e3) / 1e3;
-				break;
+				break
 			}
 			if (c.u >= 1) {
 				c.u = 0; ++c.S
@@ -1599,18 +1441,15 @@ function make_xlsx_lib(e) {
 				w.H = c.H;
 				c = w
 			}
-			break;
+			break
 		}
 		var k = "",
 		y;
 		for (s = 0; s < n.length; ++s) {
 			switch (n[s].t) {
 			case "t":
-				;
 			case "T":
-				;
 			case " ":
-				;
 			case "D":
 				break;
 			case "X":
@@ -1618,36 +1457,26 @@ function make_xlsx_lib(e) {
 				n[s].t = ";";
 				break;
 			case "d":
-				;
 			case "m":
-				;
 			case "y":
-				;
 			case "h":
-				;
 			case "H":
-				;
 			case "M":
-				;
 			case "s":
-				;
 			case "e":
-				;
 			case "b":
-				;
 			case "Z":
 				n[s].v = ue(n[s].t.charCodeAt(0), n[s].v, c, g);
 				n[s].t = "t";
 				break;
 			case "n":
-				;
 			case "?":
 				y = s + 1;
-				while (n[y] != null && ((l = n[y].t) === "?" || l === "D" || (l === " " || l === "t") && n[y + 1] != null && (n[y + 1].t === "?" || n[y + 1].t === "t" && n[y + 1].v === "/") || n[s].t === "(" && (l === " " || l === "n" || l === ")") || l === "t" && (n[y].v === "/" || n[y].v === " " && n[y + 1] != null && n[y + 1].t == "?"))) {
+				while (n[y] != null && ((l = n[y].t) === "?" || l === "D" || ((l === " " || l === "t") && n[y + 1] != null && (n[y + 1].t === "?" || (n[y + 1].t === "t" && n[y + 1].v === "/"))) || (n[s].t === "(" && (l === " " || l === "n" || l === ")")) || (l === "t" && (n[y].v === "/" || (n[y].v === " " && n[y + 1] != null && n[y + 1].t == "?"))))) {
 					n[s].v += n[y].v;
 					n[y] = {
 						v: "",
-						t: ";"
+						t: ";",
 					}; ++y
 				}
 				k += n[s].v;
@@ -1656,7 +1485,7 @@ function make_xlsx_lib(e) {
 			case "G":
 				n[s].t = "t";
 				n[s].v = ce(r, t);
-				break;
+				break
 			}
 		}
 		var x = "",
@@ -1711,7 +1540,7 @@ function make_xlsx_lib(e) {
 				if (y >= 0 && A < n.length) n[A].v = C.substr(0, y + 1) + n[A].v;
 				y = C.indexOf(".") + 1;
 				for (s = _; s < n.length; ++s) {
-					if (n[s] == null || "n?(".indexOf(n[s].t) === -1 && s !== _) continue;
+					if (n[s] == null || ("n?(".indexOf(n[s].t) === -1 && s !== _)) continue;
 					f = n[s].v.indexOf(".") > -1 && s === _ ? n[s].v.indexOf(".") + 1 : 0;
 					x = n[s].v.substr(0, f);
 					for (; f < n[s].v.length; ++f) {
@@ -1754,7 +1583,7 @@ function make_xlsx_lib(e) {
 			break;
 		case "<=":
 			if (e <= t) return true;
-			break;
+			break
 		}
 		return false
 	}
@@ -1776,7 +1605,7 @@ function make_xlsx_lib(e) {
 			t = n > -1 ? [t[0], t[1], t[0], t[2]] : [t[0], t[1], t[2], "@"];
 			break;
 		case 4:
-			break;
+			break
 		}
 		var i = r > 0 ? t[0] : r < 0 ? t[1] : t[2];
 		if (t[0].indexOf("[") === -1 && t[1].indexOf("[") === -1) return [a, i];
@@ -1798,9 +1627,9 @@ function make_xlsx_lib(e) {
 		case "number":
 			if (e == 14 && t.dateNF) a = t.dateNF;
 			else a = (t.table != null ? t.table: q)[e];
-			if (a == null) a = t.table && t.table[Q[e]] || q[Q[e]];
+			if (a == null) a = (t.table && t.table[Q[e]]) || q[Q[e]];
 			if (a == null) a = ee[e] || "General";
-			break;
+			break
 		}
 		if (Y(a, 0)) return ce(r, t);
 		if (r instanceof Date) r = dr(r, t.date1904);
@@ -1843,8 +1672,8 @@ function make_xlsx_lib(e) {
 		parse_date_code: ae,
 		is_date: Re,
 		get_table: function Rc() {
-			return Ve._table = q
-		}
+			return (Ve._table = q)
+		},
 	};
 	var Xe = {
 		5 : '"$"#,##0_);\\("$"#,##0\\)',
@@ -1900,7 +1729,7 @@ function make_xlsx_lib(e) {
 		78 : "m/d/yy h:mm",
 		79 : "mm:ss",
 		80 : "[h]:mm:ss",
-		81 : "mmss.0"
+		81 : "mmss.0",
 	};
 	var Ge = /[dD]+|[mM]+|[yYeE]+|[Hh]+|[Ss]+/g;
 	function Ye(e) {
@@ -1933,7 +1762,7 @@ function make_xlsx_lib(e) {
 			case "m":
 				if (s >= 0) l = c;
 				else n = c;
-				break;
+				break
 			}
 		});
 		Ge.lastIndex = 0;
@@ -1941,7 +1770,7 @@ function make_xlsx_lib(e) {
 			l = n;
 			n = -1
 		}
-		var c = ("" + (a >= 0 ? a: (new Date).getFullYear())).slice(-4) + "-" + ("00" + (n >= 1 ? n: 1)).slice(-2) + "-" + ("00" + (i >= 1 ? i: 1)).slice(-2);
+		var c = ("" + (a >= 0 ? a: new Date().getFullYear())).slice(-4) + "-" + ("00" + (n >= 1 ? n: 1)).slice(-2) + "-" + ("00" + (i >= 1 ? i: 1)).slice(-2);
 		if (c.length == 7) c = "0" + c;
 		if (c.length == 8) c = "20" + c;
 		var f = ("00" + (s >= 0 ? s: 0)).slice(-2) + ":" + ("00" + (l >= 0 ? l: 0)).slice(-2) + ":" + ("00" + (o >= 0 ? o: 0)).slice(-2);
@@ -1950,12 +1779,12 @@ function make_xlsx_lib(e) {
 		return c + "T" + f
 	}
 	var Ze = {
-		"d.m": "d\\.m"
+		"d.m": "d\\.m",
 	};
 	function Ke(e, r) {
 		return We(Ze[e] || e, r)
 	}
-	var qe = function() {
+	var qe = (function() {
 		var e = {};
 		e.version = "1.2.0";
 		function r() {
@@ -1963,14 +1792,14 @@ function make_xlsx_lib(e) {
 			r = new Array(256);
 			for (var t = 0; t != 256; ++t) {
 				e = t;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
-				e = e & 1 ? -306674912 ^ e >>> 1 : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
+				e = e & 1 ? -306674912 ^ (e >>> 1) : e >>> 1;
 				r[t] = e
 			}
 			return typeof Int32Array !== "undefined" ? new Int32Array(r) : r
@@ -1984,7 +1813,7 @@ function make_xlsx_lib(e) {
 			for (a = 0; a != 256; ++a) n[a] = e[a];
 			for (a = 0; a != 256; ++a) {
 				t = e[a];
-				for (r = 256 + a; r < 4096; r += 256) t = n[r] = t >>> 8 ^ e[t & 255]
+				for (r = 256 + a; r < 4096; r += 256) t = n[r] = (t >>> 8) ^ e[t & 255]
 			}
 			var i = [];
 			for (a = 1; a != 16; ++a) i[a - 1] = typeof Int32Array !== "undefined" && typeof n.subarray == "function" ? n.subarray(a * 256, a * 256 + 256) : n.slice(a * 256, a * 256 + 256);
@@ -2009,16 +1838,16 @@ function make_xlsx_lib(e) {
 		function k(e, r) {
 			var a = r ^ -1;
 			for (var n = 0,
-			i = e.length; n < i;) a = a >>> 8 ^ t[(a ^ e.charCodeAt(n++)) & 255];
+			i = e.length; n < i;) a = (a >>> 8) ^ t[(a ^ e.charCodeAt(n++)) & 255];
 			return~a
 		}
 		function y(e, r) {
 			var a = r ^ -1,
 			n = e.length - 15,
 			k = 0;
-			for (; k < n;) a = w[e[k++] ^ a & 255] ^ b[e[k++] ^ a >> 8 & 255] ^ g[e[k++] ^ a >> 16 & 255] ^ v[e[k++] ^ a >>> 24] ^ m[e[k++]] ^ p[e[k++]] ^ d[e[k++]] ^ h[e[k++]] ^ u[e[k++]] ^ f[e[k++]] ^ c[e[k++]] ^ o[e[k++]] ^ l[e[k++]] ^ s[e[k++]] ^ i[e[k++]] ^ t[e[k++]];
+			for (; k < n;) a = w[e[k++] ^ (a & 255)] ^ b[e[k++] ^ ((a >> 8) & 255)] ^ g[e[k++] ^ ((a >> 16) & 255)] ^ v[e[k++] ^ (a >>> 24)] ^ m[e[k++]] ^ p[e[k++]] ^ d[e[k++]] ^ h[e[k++]] ^ u[e[k++]] ^ f[e[k++]] ^ c[e[k++]] ^ o[e[k++]] ^ l[e[k++]] ^ s[e[k++]] ^ i[e[k++]] ^ t[e[k++]];
 			n += 15;
-			while (k < n) a = a >>> 8 ^ t[(a ^ e[k++]) & 255];
+			while (k < n) a = (a >>> 8) ^ t[(a ^ e[k++]) & 255];
 			return~a
 		}
 		function x(e, r) {
@@ -2029,21 +1858,21 @@ function make_xlsx_lib(e) {
 			l = 0; n < i;) {
 				s = e.charCodeAt(n++);
 				if (s < 128) {
-					a = a >>> 8 ^ t[(a ^ s) & 255]
+					a = (a >>> 8) ^ t[(a ^ s) & 255]
 				} else if (s < 2048) {
-					a = a >>> 8 ^ t[(a ^ (192 | s >> 6 & 31)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | s & 63)) & 255]
+					a = (a >>> 8) ^ t[(a ^ (192 | ((s >> 6) & 31))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | (s & 63))) & 255]
 				} else if (s >= 55296 && s < 57344) {
 					s = (s & 1023) + 64;
 					l = e.charCodeAt(n++) & 1023;
-					a = a >>> 8 ^ t[(a ^ (240 | s >> 8 & 7)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | s >> 2 & 63)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | l >> 6 & 15 | (s & 3) << 4)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | l & 63)) & 255]
+					a = (a >>> 8) ^ t[(a ^ (240 | ((s >> 8) & 7))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | ((s >> 2) & 63))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | ((l >> 6) & 15) | ((s & 3) << 4))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | (l & 63))) & 255]
 				} else {
-					a = a >>> 8 ^ t[(a ^ (224 | s >> 12 & 15)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | s >> 6 & 63)) & 255];
-					a = a >>> 8 ^ t[(a ^ (128 | s & 63)) & 255]
+					a = (a >>> 8) ^ t[(a ^ (224 | ((s >> 12) & 15))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | ((s >> 6) & 63))) & 255];
+					a = (a >>> 8) ^ t[(a ^ (128 | (s & 63))) & 255]
 				}
 			}
 			return~a
@@ -2053,8 +1882,8 @@ function make_xlsx_lib(e) {
 		e.buf = y;
 		e.str = x;
 		return e
-	} ();
-	var Qe = function Lc() {
+	})();
+	var Qe = (function Lc() {
 		var e = {};
 		e.version = "1.2.2";
 		function r(e, r) {
@@ -2063,7 +1892,7 @@ function make_xlsx_lib(e) {
 			for (var n = 0,
 			i = 0,
 			s = Math.min(t.length, a.length); n < s; ++n) {
-				if (i = t[n].length - a[n].length) return i;
+				if ((i = t[n].length - a[n].length)) return i;
 				if (t[n] != a[n]) return t[n] < a[n] ? -1 : 1
 			}
 			return t.length - a.length
@@ -2081,18 +1910,18 @@ function make_xlsx_lib(e) {
 		function n(e, r) {
 			if (typeof r === "string") r = new Date(r);
 			var t = r.getHours();
-			t = t << 6 | r.getMinutes();
-			t = t << 5 | r.getSeconds() >>> 1;
+			t = (t << 6) | r.getMinutes();
+			t = (t << 5) | (r.getSeconds() >>> 1);
 			e._W(2, t);
 			var a = r.getFullYear() - 1980;
-			a = a << 4 | r.getMonth() + 1;
-			a = a << 5 | r.getDate();
+			a = (a << 4) | (r.getMonth() + 1);
+			a = (a << 5) | r.getDate();
 			e._W(2, a)
 		}
 		function i(e) {
 			var r = e._R(2) & 65535;
 			var t = e._R(2) & 65535;
-			var a = new Date;
+			var a = new Date();
 			var n = t & 31;
 			t >>>= 5;
 			var i = t & 15;
@@ -2140,7 +1969,7 @@ function make_xlsx_lib(e) {
 						o = e._R(4);
 						s.csz = o * Math.pow(2, 32) + l
 					}
-					break;
+					break
 				}
 				e.l = i;
 				r[a] = s
@@ -2218,11 +2047,11 @@ function make_xlsx_lib(e) {
 			A.shift();
 			var F = {
 				FileIndex: T,
-				FullPaths: E
+				FullPaths: E,
 			};
 			if (r && r.raw) F.raw = {
 				header: w,
-				sectors: S
+				sectors: S,
 			};
 			return F
 		}
@@ -2236,7 +2065,7 @@ function make_xlsx_lib(e) {
 		function u(e, r) {
 			var t = 9;
 			e.l += 2;
-			switch (t = e._R(2)) {
+			switch ((t = e._R(2))) {
 			case 9:
 				if (r != 3) throw new Error("Sector Shift: Expected 9 saw " + t);
 				break;
@@ -2322,7 +2151,7 @@ function make_xlsx_lib(e) {
 		function m(e, r, t, a, n) {
 			var i = R;
 			if (e === R) {
-				if (r !== 0) throw new Error("DIFAT chain shorter than expected")
+				if (r !== 0) throw new Error("DIFAT chain shorter than expected");
 			} else if (e !== -1) {
 				var s = t[e],
 				l = (a >>> 2) - 1;
@@ -2345,15 +2174,15 @@ function make_xlsx_lib(e) {
 				n[o] = true;
 				i[i.length] = o;
 				s.push(e[o]);
-				var f = t[Math.floor(o * 4 / a)];
-				c = o * 4 & l;
+				var f = t[Math.floor((o * 4) / a)];
+				c = (o * 4) & l;
 				if (a < 4 + c) throw new Error("FAT boundary crossed: " + o + " 4 " + a);
 				if (!e[f]) break;
 				o = da(e[f], c)
 			}
 			return {
 				nodes: i,
-				data: Wt([s])
+				data: Wt([s]),
 			}
 		}
 		function g(e, r, t, a) {
@@ -2379,8 +2208,8 @@ function make_xlsx_lib(e) {
 					s[u] = true;
 					l[l.length] = u;
 					o.push(e[u]);
-					var m = t[Math.floor(u * 4 / a)];
-					d = u * 4 & c;
+					var m = t[Math.floor((u * 4) / a)];
+					d = (u * 4) & c;
 					if (a < 4 + d) throw new Error("FAT boundary crossed: " + u + " 4 " + a);
 					if (!e[m]) break;
 					u = da(e[m], d);
@@ -2388,7 +2217,7 @@ function make_xlsx_lib(e) {
 				}
 				i[h] = {
 					nodes: l,
-					data: Wt([o])
+					data: Wt([o]),
 				}
 			}
 			return i
@@ -2416,7 +2245,7 @@ function make_xlsx_lib(e) {
 					clsid: m._R(16),
 					state: m._R(4, "i"),
 					start: 0,
-					size: 0
+					size: 0,
 				};
 				var b = m._R(2) + m._R(2) + m._R(2) + m._R(2);
 				if (b !== 0) g.ct = w(m, m.l - 8);
@@ -2450,7 +2279,7 @@ function make_xlsx_lib(e) {
 			}
 		}
 		function w(e, r) {
-			return new Date((ha(e, r + 4) / 1e7 * Math.pow(2, 32) + ha(e, r) / 1e7 - 11644473600) * 1e3)
+			return new Date(((ha(e, r + 4) / 1e7) * Math.pow(2, 32) + ha(e, r) / 1e7 - 11644473600) * 1e3)
 		}
 		function k(e, r) {
 			o();
@@ -2467,7 +2296,7 @@ function make_xlsx_lib(e) {
 			case "base64":
 				return c(D(C(e)), r);
 			case "binary":
-				return c(D(e), r);
+				return c(D(e), r)
 			}
 			return c(e, r)
 		}
@@ -2481,7 +2310,7 @@ function make_xlsx_lib(e) {
 				e.FullPaths[0] = a + "/";
 				e.FileIndex[0] = {
 					name: a,
-					type: 5
+					type: 5,
 				}
 			}
 			if (t.CLSID) e.FileIndex[0].clsid = t.CLSID;
@@ -2501,7 +2330,7 @@ function make_xlsx_lib(e) {
 				size: 4,
 				L: 69,
 				R: 69,
-				C: 69
+				C: 69,
 			});
 			e.FullPaths.push(e.FullPaths[0] + r);
 			O(e)
@@ -2521,9 +2350,7 @@ function make_xlsx_lib(e) {
 					}
 					break;
 				case 1:
-					;
 				case 2:
-					;
 				case 5:
 					s = true;
 					if (isNaN(o.R * o.L * o.C)) i = true;
@@ -2531,7 +2358,7 @@ function make_xlsx_lib(e) {
 					break;
 				default:
 					i = true;
-					break;
+					break
 				}
 			}
 			if (!i && !n) return;
@@ -2555,8 +2382,9 @@ function make_xlsx_lib(e) {
 						clsid: $,
 						ct: c,
 						mt: c,
-						content: null
-					}]);
+						content: null,
+					},
+					]);
 					u[d] = true;
 					d = t(h[l][0]);
 					s = u[d]
@@ -2601,9 +2429,9 @@ function make_xlsx_lib(e) {
 			O(e);
 			switch (t.fileType) {
 			case "zip":
-				return Ne(e, t);
+				return Ne(e, t)
 			}
-			var a = function(e) {
+			var a = (function(e) {
 				var r = 0,
 				t = 0;
 				for (var a = 0; a < e.FileIndex.length; ++a) {
@@ -2611,22 +2439,22 @@ function make_xlsx_lib(e) {
 					if (!n.content) continue;
 					var i = n.content.length;
 					if (i > 0) {
-						if (i < 4096) r += i + 63 >> 6;
-						else t += i + 511 >> 9
+						if (i < 4096) r += (i + 63) >> 6;
+						else t += (i + 511) >> 9
 					}
 				}
-				var s = e.FullPaths.length + 3 >> 2;
-				var l = r + 7 >> 3;
-				var o = r + 127 >> 7;
+				var s = (e.FullPaths.length + 3) >> 2;
+				var l = (r + 7) >> 3;
+				var o = (r + 127) >> 7;
 				var c = l + t + s + o;
-				var f = c + 127 >> 7;
+				var f = (c + 127) >> 7;
 				var u = f <= 109 ? 0 : Math.ceil((f - 109) / 127);
-				while (c + f + u + 127 >> 7 > f) u = ++f <= 109 ? 0 : Math.ceil((f - 109) / 127);
+				while ((c + f + u + 127) >> 7 > f) u = ++f <= 109 ? 0 : Math.ceil((f - 109) / 127);
 				var h = [1, u, f, o, s, t, r, 0];
 				e.FileIndex[0].size = r << 6;
-				h[7] = (e.FileIndex[0].start = h[0] + h[1] + h[2] + h[3] + h[4] + h[5]) + (h[6] + 7 >> 3);
+				h[7] = (e.FileIndex[0].start = h[0] + h[1] + h[2] + h[3] + h[4] + h[5]) + ((h[6] + 7) >> 3);
 				return h
-			} (e);
+			})(e);
 			var n = Sa(a[7] << 9);
 			var i = 0,
 			s = 0; {
@@ -2675,9 +2503,9 @@ function make_xlsx_lib(e) {
 				c = f.content.length;
 				if (c < 4096) continue;
 				f.start = s;
-				l(c + 511 >> 9)
+				l((c + 511) >> 9)
 			}
-			l(a[6] + 7 >> 3);
+			l((a[6] + 7) >> 3);
 			while (n.l & 511) n._W(-4, W.ENDOFCHAIN);
 			s = i = 0;
 			for (o = 0; o < e.FileIndex.length; ++o) {
@@ -2686,7 +2514,7 @@ function make_xlsx_lib(e) {
 				c = f.content.length;
 				if (!c || c >= 4096) continue;
 				f.start = s;
-				l(c + 63 >> 6)
+				l((c + 63) >> 6)
 			}
 			while (n.l & 511) n._W(-4, W.ENDOFCHAIN);
 			for (i = 0; i < a[4] << 2; ++i) {
@@ -2699,7 +2527,7 @@ function make_xlsx_lib(e) {
 				}
 				f = e.FileIndex[i];
 				if (i === 0) f.start = f.size ? f.start - 1 : R;
-				var h = i === 0 && t.root || f.name;
+				var h = (i === 0 && t.root) || f.name;
 				if (h.length > 32) {
 					console.error("Name " + h + " will be truncated to " + h.slice(0, 32));
 					h = h.slice(0, 32)
@@ -2726,10 +2554,10 @@ function make_xlsx_lib(e) {
 			for (i = 1; i < e.FileIndex.length; ++i) {
 				f = e.FileIndex[i];
 				if (f.size >= 4096) {
-					n.l = f.start + 1 << 9;
+					n.l = (f.start + 1) << 9;
 					if (_ && Buffer.isBuffer(f.content)) {
 						f.content.copy(n, n.l, 0, f.size);
-						n.l += f.size + 511 & -512
+						n.l += (f.size + 511) & -512
 					} else {
 						for (o = 0; o < f.size; ++o) n._W(1, f.content[o]);
 						for (; o & 511; ++o) n._W(1, 0)
@@ -2741,7 +2569,7 @@ function make_xlsx_lib(e) {
 				if (f.size > 0 && f.size < 4096) {
 					if (_ && Buffer.isBuffer(f.content)) {
 						f.content.copy(n, n.l, 0, f.size);
-						n.l += f.size + 63 & -64
+						n.l += (f.size + 63) & -64
 					} else {
 						for (o = 0; o < f.size; ++o) n._W(1, f.content[o]);
 						for (; o & 63; ++o) n._W(1, 0)
@@ -2796,7 +2624,7 @@ function make_xlsx_lib(e) {
 			MAXREGSID: -6,
 			NOSTREAM: -1,
 			HEADER_CLSID: $,
-			EntryTypes: ["unknown", "storage", "stream", "lockbytes", "property", "root"]
+			EntryTypes: ["unknown", "storage", "stream", "lockbytes", "property", "root", ],
 		};
 		function j(e, r, t) {
 			o();
@@ -2810,7 +2638,7 @@ function make_xlsx_lib(e) {
 		}
 		function V(e, r) {
 			var t = M(e, r);
-			switch (r && r.type || "buffer") {
+			switch ((r && r.type) || "buffer") {
 			case "file":
 				o();
 				l.writeFileSync(r.filename, t);
@@ -2822,7 +2650,7 @@ function make_xlsx_lib(e) {
 			case "buffer":
 				if (_) return Buffer.isBuffer(t) ? t: A(t);
 			case "array":
-				return typeof t == "string" ? D(t) : t;
+				return typeof t == "string" ? D(t) : t
 			}
 			return t
 		}
@@ -2830,10 +2658,10 @@ function make_xlsx_lib(e) {
 		function G(e) {
 			try {
 				var r = e.InflateRaw;
-				var t = new r;
+				var t = new r();
 				t._processChunk(new Uint8Array([3, 0]), t._finishFlushFlag);
 				if (t.bytesRead) X = e;
-				else throw new Error("zlib does not expose bytesRead")
+				else throw new Error("zlib does not expose bytesRead");
 			} catch(a) {
 				console.error("cannot use native zlib: " + (a.message || a))
 			}
@@ -2841,7 +2669,7 @@ function make_xlsx_lib(e) {
 		function Y(e, r) {
 			if (!X) return Fe(e, r);
 			var t = X.InflateRaw;
-			var a = new t;
+			var a = new t();
 			var n = a._processChunk(e.slice(e.l), a._finishFlushFlag);
 			e.l += a.bytesRead;
 			return n
@@ -2850,47 +2678,47 @@ function make_xlsx_lib(e) {
 			return X ? X.deflateRawSync(e) : ye(e)
 		}
 		var Z = [16, 17, 18, 0, 8, 7, 9, 6, 10, 5, 11, 4, 12, 3, 13, 2, 14, 1, 15];
-		var K = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258];
-		var q = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577];
+		var K = [3, 4, 5, 6, 7, 8, 9, 10, 11, 13, 15, 17, 19, 23, 27, 31, 35, 43, 51, 59, 67, 83, 99, 115, 131, 163, 195, 227, 258, ];
+		var q = [1, 2, 3, 4, 5, 7, 9, 13, 17, 25, 33, 49, 65, 97, 129, 193, 257, 385, 513, 769, 1025, 1537, 2049, 3073, 4097, 6145, 8193, 12289, 16385, 24577, ];
 		function Q(e) {
-			var r = (e << 1 | e << 11) & 139536 | (e << 5 | e << 15) & 558144;
-			return (r >> 16 | r >> 8 | r) & 255
+			var r = (((e << 1) | (e << 11)) & 139536) | (((e << 5) | (e << 15)) & 558144);
+			return ((r >> 16) | (r >> 8) | r) & 255
 		}
 		var ee = typeof Uint8Array !== "undefined";
 		var re = ee ? new Uint8Array(1 << 8) : [];
 		for (var te = 0; te < 1 << 8; ++te) re[te] = Q(te);
 		function ae(e, r) {
 			var t = re[e & 255];
-			if (r <= 8) return t >>> 8 - r;
-			t = t << 8 | re[e >> 8 & 255];
-			if (r <= 16) return t >>> 16 - r;
-			t = t << 8 | re[e >> 16 & 255];
-			return t >>> 24 - r
+			if (r <= 8) return t >>> (8 - r);
+			t = (t << 8) | re[(e >> 8) & 255];
+			if (r <= 16) return t >>> (16 - r);
+			t = (t << 8) | re[(e >> 16) & 255];
+			return t >>> (24 - r)
 		}
 		function ne(e, r) {
 			var t = r & 7,
 			a = r >>> 3;
-			return (e[a] | (t <= 6 ? 0 : e[a + 1] << 8)) >>> t & 3
+			return ((e[a] | (t <= 6 ? 0 : e[a + 1] << 8)) >>> t) & 3
 		}
 		function ie(e, r) {
 			var t = r & 7,
 			a = r >>> 3;
-			return (e[a] | (t <= 5 ? 0 : e[a + 1] << 8)) >>> t & 7
+			return ((e[a] | (t <= 5 ? 0 : e[a + 1] << 8)) >>> t) & 7
 		}
 		function se(e, r) {
 			var t = r & 7,
 			a = r >>> 3;
-			return (e[a] | (t <= 4 ? 0 : e[a + 1] << 8)) >>> t & 15
+			return ((e[a] | (t <= 4 ? 0 : e[a + 1] << 8)) >>> t) & 15
 		}
 		function le(e, r) {
 			var t = r & 7,
 			a = r >>> 3;
-			return (e[a] | (t <= 3 ? 0 : e[a + 1] << 8)) >>> t & 31
+			return ((e[a] | (t <= 3 ? 0 : e[a + 1] << 8)) >>> t) & 31
 		}
 		function oe(e, r) {
 			var t = r & 7,
 			a = r >>> 3;
-			return (e[a] | (t <= 1 ? 0 : e[a + 1] << 8)) >>> t & 127
+			return ((e[a] | (t <= 1 ? 0 : e[a + 1] << 8)) >>> t) & 127
 		}
 		function ce(e, r, t) {
 			var a = r & 7,
@@ -2898,11 +2726,11 @@ function make_xlsx_lib(e) {
 			i = (1 << t) - 1;
 			var s = e[n] >>> a;
 			if (t < 8 - a) return s & i;
-			s |= e[n + 1] << 8 - a;
+			s |= e[n + 1] << (8 - a);
 			if (t < 16 - a) return s & i;
-			s |= e[n + 2] << 16 - a;
+			s |= e[n + 2] << (16 - a);
 			if (t < 24 - a) return s & i;
-			s |= e[n + 3] << 24 - a;
+			s |= e[n + 3] << (24 - a);
 			return s & i
 		}
 		function fe(e, r, t) {
@@ -2910,8 +2738,8 @@ function make_xlsx_lib(e) {
 			n = r >>> 3;
 			if (a <= 5) e[n] |= (t & 7) << a;
 			else {
-				e[n] |= t << a & 255;
-				e[n + 1] = (t & 7) >> 8 - a
+				e[n] |= (t << a) & 255;
+				e[n + 1] = (t & 7) >> (8 - a)
 			}
 			return r + 3
 		}
@@ -2978,12 +2806,12 @@ function make_xlsx_lib(e) {
 			o = e.length;
 			var f = ee ? new Uint16Array(o) : me(o);
 			for (i = 0; i < o; ++i) {
-				c[n = e[i]]++;
+				c[(n = e[i])]++;
 				if (a < n) a = n;
 				f[i] = 0
 			}
 			c[0] = 0;
-			for (i = 1; i <= a; ++i) c[i + 16] = l = l + c[i - 1] << 1;
+			for (i = 1; i <= a; ++i) c[i + 16] = l = (l + c[i - 1]) << 1;
 			for (i = 0; i < o; ++i) {
 				l = e[i];
 				if (l != 0) f[i] = c[l + 16]++
@@ -2992,8 +2820,8 @@ function make_xlsx_lib(e) {
 			for (i = 0; i < o; ++i) {
 				u = e[i];
 				if (u != 0) {
-					l = ae(f[i], a) >> a - u;
-					for (s = (1 << a + 4 - u) - 1; s >= 0; --s) r[l | s << u] = u & 15 | i << 4
+					l = ae(f[i], a) >> (a - u);
+					for (s = (1 << (a + 4 - u)) - 1; s >= 0; --s) r[l | (s << u)] = (u & 15) | (i << 4)
 				}
 			}
 			return a
@@ -3016,7 +2844,7 @@ function make_xlsx_lib(e) {
 			for (; r <= 287; r++) t.push(8);
 			ve(t, ge, 288)
 		})();
-		var ke = function Ge() {
+		var ke = (function Ge() {
 			var e = ee ? new Uint8Array(32768) : [];
 			var r = 0,
 			t = 0;
@@ -3049,7 +2877,7 @@ function make_xlsx_lib(e) {
 					if (l < 10) {
 						n = fe(t, n, +!!(i + l == r.length));
 						if (n & 7) n += 8 - (n & 7);
-						t.l = n / 8 | 0;
+						t.l = (n / 8) | 0;
 						t._W(2, l);
 						t._W(2, ~l & 65535);
 						while (l-->0) t[t.l++] = r[i++];
@@ -3060,10 +2888,10 @@ function make_xlsx_lib(e) {
 					var o = 0;
 					while (l-->0) {
 						var c = r[i];
-						o = (o << 5 ^ c) & 32767;
+						o = ((o << 5) ^ c) & 32767;
 						var f = -1,
 						u = 0;
-						if (f = s[o]) {
+						if ((f = s[o])) {
 							f |= i & ~32767;
 							if (f > i) f -= 32768;
 							if (f < i) while (r[f + u] == r[i + u] && u < 250)++u
@@ -3077,7 +2905,7 @@ function make_xlsx_lib(e) {
 								he(t, n, re[c - 23] >> 5);
 								n += 3
 							}
-							var h = c < 8 ? 0 : c - 4 >> 2;
+							var h = c < 8 ? 0 : (c - 4) >> 2;
 							if (h > 0) {
 								de(t, n, u - K[c]);
 								n += h
@@ -3085,14 +2913,14 @@ function make_xlsx_lib(e) {
 							c = e[i - f];
 							n = he(t, n, re[c] >> 3);
 							n -= 3;
-							var d = c < 4 ? 0 : c - 2 >> 1;
+							var d = c < 4 ? 0 : (c - 2) >> 1;
 							if (d > 0) {
 								de(t, n, i - f - q[c]);
 								n += d
 							}
 							for (var p = 0; p < u; ++p) {
 								s[o] = i & 32767;
-								o = (o << 5 ^ r[i]) & 32767; ++i
+								o = ((o << 5) ^ r[i]) & 32767; ++i
 							}
 							l -= u - 1
 						} else {
@@ -3104,14 +2932,14 @@ function make_xlsx_lib(e) {
 					}
 					n = he(t, n, 0) - 1
 				}
-				t.l = (n + 7) / 8 | 0;
+				t.l = ((n + 7) / 8) | 0;
 				return t.l
 			}
 			return function s(e, r) {
 				if (e.length < 8) return n(e, r);
 				return i(e, r)
 			}
-		} ();
+		})();
 		function ye(e) {
 			var r = Sa(50 + Math.floor(e.length * 1.1));
 			var t = ke(e, r);
@@ -3144,14 +2972,14 @@ function make_xlsx_lib(e) {
 			}
 			var d = 0;
 			c[0] = 0;
-			for (h = 1; h <= o; ++h) f[h] = d = d + c[h - 1] << 1;
+			for (h = 1; h <= o; ++h) f[h] = d = (d + c[h - 1]) << 1;
 			for (h = 0; h < u; ++h) if ((d = s[h]) != 0) l[h] = f[d]++;
 			var p = 0;
 			for (h = 0; h < u; ++h) {
 				p = s[h];
 				if (p != 0) {
-					d = re[l[h]] >> 8 - p;
-					for (var m = (1 << 7 - p) - 1; m >= 0; --m) Ce[d | m << p] = p & 7 | h << 3
+					d = re[l[h]] >> (8 - p);
+					for (var m = (1 << (7 - p)) - 1; m >= 0; --m) Ce[d | (m << p)] = (p & 7) | (h << 3)
 				}
 			}
 			var v = [];
@@ -3159,7 +2987,7 @@ function make_xlsx_lib(e) {
 			for (; v.length < t + a;) {
 				d = Ce[oe(e, r)];
 				r += d & 7;
-				switch (d >>>= 3) {
+				switch ((d >>>= 3)) {
 				case 16:
 					i = 3 + ne(e, r);
 					r += 2;
@@ -3179,7 +3007,7 @@ function make_xlsx_lib(e) {
 				default:
 					v.push(d);
 					if (o < d) o = d;
-					break;
+					break
 				}
 			}
 			var g = v.slice(0, t),
@@ -3206,7 +3034,7 @@ function make_xlsx_lib(e) {
 				t += 3;
 				if (a >>> 1 == 0) {
 					if (t & 7) t += 8 - (t & 7);
-					var c = e[t >>> 3] | e[(t >>> 3) + 1] << 8;
+					var c = e[t >>> 3] | (e[(t >>> 3) + 1] << 8);
 					t += 32;
 					if (c > 0) {
 						if (!r && s < i + c) {
@@ -3236,11 +3064,11 @@ function make_xlsx_lib(e) {
 					var u = a >>> 1 == 1 ? ge[f] : xe[f];
 					t += u & 15;
 					u >>>= 4;
-					if ((u >>> 8 & 255) === 0) n[i++] = u;
+					if (((u >>> 8) & 255) === 0) n[i++] = u;
 					else if (u == 256) break;
 					else {
 						u -= 257;
-						var h = u < 8 ? 0 : u - 4 >> 2;
+						var h = u < 8 ? 0 : (u - 4) >> 2;
 						if (h > 5) h = 0;
 						var d = i + K[u];
 						if (h > 0) {
@@ -3251,7 +3079,7 @@ function make_xlsx_lib(e) {
 						u = a >>> 1 == 1 ? be[f] : Se[f];
 						t += u & 15;
 						u >>>= 4;
-						var p = u < 4 ? 0 : u - 2 >> 1;
+						var p = u < 4 ? 0 : (u - 2) >> 1;
 						var m = q[u];
 						if (p > 0) {
 							m += ce(e, t, p);
@@ -3267,8 +3095,8 @@ function make_xlsx_lib(e) {
 					}
 				}
 			}
-			if (r) return [n, t + 7 >>> 3];
-			return [n.slice(0, i), t + 7 >>> 3]
+			if (r) return [n, (t + 7) >>> 3];
+			return [n.slice(0, i), (t + 7) >>> 3]
 		}
 		function Fe(e, r) {
 			var t = e.slice(e.l || 0);
@@ -3279,7 +3107,7 @@ function make_xlsx_lib(e) {
 		function De(e, r) {
 			if (e) {
 				if (typeof console !== "undefined") console.error(r)
-			} else throw new Error(r)
+			} else throw new Error(r);
 		}
 		function Oe(e, r) {
 			var t = e;
@@ -3288,10 +3116,10 @@ function make_xlsx_lib(e) {
 			n = [];
 			var i = {
 				FileIndex: a,
-				FullPaths: n
+				FullPaths: n,
 			};
 			S(i, {
-				root: r.root
+				root: r.root,
 			});
 			var l = t.length - 4;
 			while ((t[l] != 80 || t[l + 1] != 75 || t[l + 2] != 5 || t[l + 3] != 6) && l >= 0)--l;
@@ -3372,7 +3200,7 @@ function make_xlsx_lib(e) {
 			if (h != t) De(w, "Bad uncompressed size: " + t + " != " + h);
 			je(a, m, b, {
 				unsafe: true,
-				mt: c
+				mt: c,
 			})
 		}
 		function Ne(e, r) {
@@ -3471,7 +3299,7 @@ function make_xlsx_lib(e) {
 			png: "image/png",
 			mso: "application/x-mso",
 			thmx: "application/vnd.ms-officetheme",
-			sh33tj5: "application/octet-stream"
+			sh33tj5: "application/octet-stream",
 		};
 		function Pe(e, r) {
 			if (e.ctype) return e.ctype;
@@ -3553,7 +3381,7 @@ function make_xlsx_lib(e) {
 					break;
 				case "content-transfer-encoding":
 					n = c[2].trim();
-					break;
+					break
 				}
 			}++l;
 			switch (n.toLowerCase()) {
@@ -3567,13 +3395,13 @@ function make_xlsx_lib(e) {
 				throw new Error("Unsupported Content-Transfer-Encoding " + n);
 			}
 			var f = je(e, a.slice(t.length), s, {
-				unsafe: true
+				unsafe: true,
 			});
 			if (i) f.ctype = i
 		}
 		function ze(e, r) {
 			if (H(e.slice(0, 13)).toLowerCase() != "mime-version:") throw new Error("Unsupported MAD header");
-			var t = r && r.root || "";
+			var t = (r && r.root) || "";
 			var a = (_ && Buffer.isBuffer(e) ? e.toString("binary") : H(e)).split("\r\n");
 			var n = 0,
 			i = "";
@@ -3596,7 +3424,7 @@ function make_xlsx_lib(e) {
 			c = [];
 			var f = {
 				FileIndex: o,
-				FullPaths: c
+				FullPaths: c,
 			};
 			S(f);
 			var u, h = 0;
@@ -3612,7 +3440,7 @@ function make_xlsx_lib(e) {
 			var t = r || {};
 			var a = t.boundary || "SheetJS";
 			a = "------=" + a;
-			var n = ["MIME-Version: 1.0", 'Content-Type: multipart/related; boundary="' + a.slice(2) + '"', "", "", ""];
+			var n = ["MIME-Version: 1.0", 'Content-Type: multipart/related; boundary="' + a.slice(2) + '"', "", "", "", ];
 			var i = e.FullPaths[0],
 			s = i,
 			l = e.FileIndex[0];
@@ -3633,7 +3461,7 @@ function make_xlsx_lib(e) {
 				h = Math.min(1024, f.length),
 				d = 0;
 				for (var p = 0; p <= h; ++p) if ((d = f.charCodeAt(p)) >= 32 && d < 128)++u;
-				var m = u >= h * 4 / 5;
+				var m = u >= (h * 4) / 5;
 				n.push(a);
 				n.push("Content-Location: " + (t.root || "file:///C:/SheetJS/") + s);
 				n.push("Content-Transfer-Encoding: " + (m ? "quoted-printable": "base64"));
@@ -3662,7 +3490,7 @@ function make_xlsx_lib(e) {
 				}
 				s = {
 					name: a(r),
-					type: 2
+					type: 2,
 				};
 				e.FileIndex.push(s);
 				e.FullPaths.push(l);
@@ -3718,90 +3546,11 @@ function make_xlsx_lib(e) {
 			use_zlib: G,
 			_deflateRaw: ye,
 			_inflateRaw: Fe,
-			consts: W
+			consts: W,
 		};
 		return e
-	} ();
+	})();
 	var er;
-	function rr(e) {
-		er = e
-	}
-	function tr(e) {
-		if (typeof e === "string") return O(e);
-		if (Array.isArray(e)) return N(e);
-		return e
-	}
-	function ar(e, r, t) {
-		if (typeof er !== "undefined" && er.writeFileSync) return t ? er.writeFileSync(e, r, t) : er.writeFileSync(e, r);
-		if (typeof Deno !== "undefined") {
-			if (t && typeof r == "string") switch (t) {
-			case "utf8":
-				r = new TextEncoder(t).encode(r);
-				break;
-			case "binary":
-				r = O(r);
-				break;
-			default:
-				throw new Error("Unsupported encoding " + t);
-			}
-			return Deno.writeFileSync(e, r)
-		}
-		var a = t == "utf8" ? yt(r) : r;
-		if (typeof IE_SaveFile !== "undefined") return IE_SaveFile(a, e);
-		if (typeof Blob !== "undefined") {
-			var n = new Blob([tr(a)], {
-				type: "application/octet-stream"
-			});
-			if (typeof navigator !== "undefined" && navigator.msSaveBlob) return navigator.msSaveBlob(n, e);
-			if (typeof saveAs !== "undefined") return saveAs(n, e);
-			if (typeof URL !== "undefined" && typeof document !== "undefined" && document.createElement && URL.createObjectURL) {
-				var i = URL.createObjectURL(n);
-				if (typeof chrome === "object" && typeof(chrome.downloads || {}).download == "function") {
-					if (URL.revokeObjectURL && typeof setTimeout !== "undefined") setTimeout(function() {
-						URL.revokeObjectURL(i)
-					},
-					6e4);
-					return chrome.downloads.download({
-						url: i,
-						filename: e,
-						saveAs: true
-					})
-				}
-				var s = document.createElement("a");
-				if (s.download != null) {
-					s.download = e;
-					s.href = i;
-					document.body.appendChild(s);
-					s.click();
-					document.body.removeChild(s);
-					if (URL.revokeObjectURL && typeof setTimeout !== "undefined") setTimeout(function() {
-						URL.revokeObjectURL(i)
-					},
-					6e4);
-					return i
-				}
-			} else if (typeof URL !== "undefined" && !URL.createObjectURL && typeof chrome === "object") {
-				var l = "data:application/octet-stream;base64," + S(new Uint8Array(tr(a)));
-				return chrome.downloads.download({
-					url: l,
-					filename: e,
-					saveAs: true
-				})
-			}
-		}
-		if (typeof $ !== "undefined" && typeof File !== "undefined" && typeof Folder !== "undefined") try {
-			var o = File(e);
-			o.open("w");
-			o.encoding = "binary";
-			if (Array.isArray(r)) r = M(r);
-			o.write(r);
-			o.close();
-			return r
-		} catch(c) {
-			if (!c.message || !c.message.match(/onstruct/)) throw c
-		}
-		throw new Error("cannot save file " + e)
-	}
 	function nr(e) {
 		if (typeof er !== "undefined") return er.readFileSync(e);
 		if (typeof Deno !== "undefined") return Deno.readFileSync(e);
@@ -3813,9 +3562,9 @@ function make_xlsx_lib(e) {
 			r.close();
 			return t
 		} catch(a) {
-			if (!a.message || !a.message.match(/onstruct/)) throw a
+			if (!a.message || !a.message.match(/onstruct/)) throw a;
 		}
-		throw new Error("Cannot access file " + e)
+		throw new Error("Cannot access file " + e);
 	}
 	function ir(e) {
 		var r = Object.keys(e),
@@ -3823,31 +3572,10 @@ function make_xlsx_lib(e) {
 		for (var a = 0; a < r.length; ++a) if (Object.prototype.hasOwnProperty.call(e, r[a])) t.push(r[a]);
 		return t
 	}
-	function sr(e, r) {
-		var t = [],
-		a = ir(e);
-		for (var n = 0; n !== a.length; ++n) if (t[e[a[n]][r]] == null) t[e[a[n]][r]] = a[n];
-		return t
-	}
 	function lr(e) {
 		var r = [],
 		t = ir(e);
 		for (var a = 0; a !== t.length; ++a) r[e[t[a]]] = t[a];
-		return r
-	}
-	function or(e) {
-		var r = [],
-		t = ir(e);
-		for (var a = 0; a !== t.length; ++a) r[e[t[a]]] = parseInt(t[a], 10);
-		return r
-	}
-	function cr(e) {
-		var r = [],
-		t = ir(e);
-		for (var a = 0; a !== t.length; ++a) {
-			if (r[e[t[a]]] == null) r[e[t[a]]] = [];
-			r[e[t[a]]].push(t[a])
-		}
 		return r
 	}
 	var fr = Date.UTC(1899, 11, 30, 0, 0, 0);
@@ -3864,7 +3592,7 @@ function make_xlsx_lib(e) {
 	}
 	function pr(e) {
 		if (e >= 60 && e < 61) return e;
-		var r = new Date;
+		var r = new Date();
 		r.setTime((e > 60 ? e: e + 1) * 24 * 60 * 60 * 1e3 + fr);
 		return r
 	}
@@ -3889,7 +3617,7 @@ function make_xlsx_lib(e) {
 				if (!a) throw new Error("Unsupported ISO Duration Field: M");
 				else t *= 60;
 			case "S":
-				break;
+				break
 			}
 			r += t * parseInt(n[i], 10)
 		}
@@ -3905,7 +3633,7 @@ function make_xlsx_lib(e) {
 		t = e.match(gr);
 		if (t) return new Date(Date.UTC( + t[1], +t[2] - 1, +t[3], 0, 0, 0, 0));
 		t = e.match(br);
-		if (t) return new Date(Date.UTC( + t[1], +t[2] - 1, +t[3], +t[4], +t[5], t[6] && parseInt(t[6].slice(1), 10) || 0, t[7] && parseInt(t[7].slice(1), 10) || 0));
+		if (t) return new Date(Date.UTC( + t[1], +t[2] - 1, +t[3], +t[4], +t[5], (t[6] && parseInt(t[6].slice(1), 10)) || 0, (t[7] && parseInt(t[7].slice(1), 10)) || 0));
 		var a = new Date(e);
 		return a
 	}
@@ -3925,17 +3653,17 @@ function make_xlsx_lib(e) {
 			var t = {
 				"€": "",
 				"‚": "",
-				"ƒ": "",
+				ƒ: "",
 				"„": "",
 				"…": "",
 				"†": "",
 				"‡": "",
-				"ˆ": "",
+				ˆ: "",
 				"‰": "",
-				"Š": "",
+				Š: "",
 				"‹": "",
-				"Œ": "",
-				"Ž": "",
+				Œ: "",
+				Ž: "",
 				"‘": "",
 				"’": "",
 				"“": "",
@@ -3945,11 +3673,11 @@ function make_xlsx_lib(e) {
 				"—": "",
 				"˜": "",
 				"™": "",
-				"š": "",
+				š: "",
 				"›": "",
-				"œ": "",
-				"ž": "",
-				"Ÿ": ""
+				œ: "",
+				ž: "",
+				Ÿ: "",
 			};
 			if (Array.isArray(e)) e = new Uint8Array(e);
 			return new TextDecoder("latin1").decode(e).replace(/[€‚ƒ„…†‡ˆ‰Š‹ŒŽ‘’“”•–—˜™š›œžŸ]/g,
@@ -3995,13 +3723,13 @@ function make_xlsx_lib(e) {
 			t *= 100;
 			return ""
 		});
-		if (!isNaN(r = Number(a))) return r / t;
+		if (!isNaN((r = Number(a)))) return r / t;
 		a = a.replace(/[(](.*)[)]/,
 		function(e, r) {
 			t = -t;
 			return r
 		});
-		if (!isNaN(r = Number(a))) return r / t;
+		if (!isNaN((r = Number(a)))) return r / t;
 		return r
 	}
 	var Cr = /^(0?\d|1[0-2])(?:|:([0-5]?\d)(?:|(\.\d+)(?:|:([0-5]?\d))|:([0-5]?\d)(|\.\d+)))\s+([ap])m?$/;
@@ -4009,12 +3737,12 @@ function make_xlsx_lib(e) {
 	var Ar = /^(\d+)-(\d+)-(\d+)[T ](\d+):(\d+)(:\d+)(\.\d+)?[Z]?$/;
 	var Tr = new Date("6/9/69 00:00 UTC").valueOf() == -177984e5;
 	function Er(e) {
-		if (!e[2]) return new Date(Date.UTC(1899, 11, 31, +e[1] % 12 + (e[7] == "p" ? 12 : 0), 0, 0, 0));
+		if (!e[2]) return new Date(Date.UTC(1899, 11, 31, ( + e[1] % 12) + (e[7] == "p" ? 12 : 0), 0, 0, 0));
 		if (e[3]) {
-			if (e[4]) return new Date(Date.UTC(1899, 11, 31, +e[1] % 12 + (e[7] == "p" ? 12 : 0), +e[2], +e[4], parseFloat(e[3]) * 1e3));
+			if (e[4]) return new Date(Date.UTC(1899, 11, 31, ( + e[1] % 12) + (e[7] == "p" ? 12 : 0), +e[2], +e[4], parseFloat(e[3]) * 1e3));
 			else return new Date(Date.UTC(1899, 11, 31, e[7] == "p" ? 12 : 0, +e[1], +e[2], parseFloat(e[3]) * 1e3))
-		} else if (e[5]) return new Date(Date.UTC(1899, 11, 31, +e[1] % 12 + (e[7] == "p" ? 12 : 0), +e[2], +e[5], e[6] ? parseFloat(e[6]) * 1e3: 0));
-		else return new Date(Date.UTC(1899, 11, 31, +e[1] % 12 + (e[7] == "p" ? 12 : 0), +e[2], 0, 0))
+		} else if (e[5]) return new Date(Date.UTC(1899, 11, 31, ( + e[1] % 12) + (e[7] == "p" ? 12 : 0), +e[2], +e[5], e[6] ? parseFloat(e[6]) * 1e3: 0));
+		else return new Date(Date.UTC(1899, 11, 31, ( + e[1] % 12) + (e[7] == "p" ? 12 : 0), +e[2], 0, 0))
 	}
 	function Fr(e) {
 		if (!e[2]) return new Date(Date.UTC(1899, 11, 31, +e[1], 0, 0, 0));
@@ -4024,7 +3752,7 @@ function make_xlsx_lib(e) {
 		} else if (e[5]) return new Date(Date.UTC(1899, 11, 31, +e[1], +e[2], +e[5], e[6] ? parseFloat(e[6]) * 1e3: 0));
 		else return new Date(Date.UTC(1899, 11, 31, +e[1], +e[2], 0, 0))
 	}
-	var Dr = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+	var Dr = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december", ];
 	function Or(e) {
 		if (Ar.test(e)) return e.indexOf("Z") == -1 ? Ir(new Date(e)) : new Date(e);
 		var r = e.toLowerCase();
@@ -4034,12 +3762,9 @@ function make_xlsx_lib(e) {
 		a = t.match(_r);
 		if (a) return Fr(a);
 		a = t.match(br);
-		if (a) return new Date(Date.UTC( + a[1], +a[2] - 1, +a[3], +a[4], +a[5], a[6] && parseInt(a[6].slice(1), 10) || 0, a[7] && parseInt(a[7].slice(1), 10) || 0));
+		if (a) return new Date(Date.UTC( + a[1], +a[2] - 1, +a[3], +a[4], +a[5], (a[6] && parseInt(a[6].slice(1), 10)) || 0, (a[7] && parseInt(a[7].slice(1), 10)) || 0));
 		var n = new Date(Tr && e.indexOf("UTC") == -1 ? e + " UTC": e),
 		i = new Date(NaN);
-		var s = n.getYear(),
-		l = n.getMonth(),
-		o = n.getDate();
 		if (isNaN(o)) return i;
 		if (r.match(/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/)) {
 			r = r.replace(/[^a-z]/g, "").replace(/([^a-z]|^)[ap]m?([^a-z]|$)/, "");
@@ -4048,19 +3773,6 @@ function make_xlsx_lib(e) {
 		if (s < 0 || s > 8099 || e.match(/[^-0-9:,\/\\\ ]/)) return i;
 		return n
 	}
-	var Mr = function() {
-		var e = "abacaba".split(/(:?b)/i).length == 5;
-		return function r(t, a, n) {
-			if (e || typeof a == "string") return t.split(a);
-			var i = t.split(a),
-			s = [i[0]];
-			for (var l = 1; l < i.length; ++l) {
-				s.push(n);
-				s.push(i[l])
-			}
-			return s
-		}
-	} ();
 	function Nr(e) {
 		return new Date(e.getUTCFullYear(), e.getUTCMonth(), e.getUTCDate(), e.getUTCHours(), e.getUTCMinutes(), e.getUTCSeconds(), e.getUTCMilliseconds())
 	}
@@ -4150,27 +3862,23 @@ function make_xlsx_lib(e) {
 			Qe.utils.cfb_add(e, r, t)
 		} else e.file(r, t)
 	}
-	function Vr() {
-		return Qe.utils.cfb_new()
-	}
 	function Xr(e, r) {
 		switch (r.type) {
 		case "base64":
 			return Qe.read(e, {
-				type: "base64"
+				type: "base64",
 			});
 		case "binary":
 			return Qe.read(e, {
-				type: "binary"
+				type: "binary",
 			});
 		case "buffer":
-			;
 		case "array":
 			return Qe.read(e, {
-				type: "buffer"
-			});
+				type: "buffer",
+			})
 		}
-		throw new Error("Unrecognized type " + r.type)
+		throw new Error("Unrecognized type " + r.type);
 	}
 	function Gr(e, r) {
 		if (e.charAt(0) == "/") return e.slice(1);
@@ -4234,10 +3942,10 @@ function make_xlsx_lib(e) {
 		"&apos;": "'",
 		"&gt;": ">",
 		"&lt;": "<",
-		"&amp;": "&"
+		"&amp;": "&",
 	};
 	var nt = lr(at);
-	var it = function() {
+	var it = (function() {
 		var e = /&(?:quot|apos|gt|lt|amp|#x?([\da-fA-F]+));/gi,
 		r = /_x([\da-fA-F]{4})_/gi;
 		function t(a) {
@@ -4245,7 +3953,7 @@ function make_xlsx_lib(e) {
 			i = n.indexOf("<![CDATA[");
 			if (i == -1) return n.replace(e,
 			function(e, r) {
-				return at[e] || String.fromCharCode(parseInt(r, e.indexOf("x") > -1 ? 16 : 10)) || e
+				return (at[e] || String.fromCharCode(parseInt(r, e.indexOf("x") > -1 ? 16 : 10)) || e)
 			}).replace(r,
 			function(e, r) {
 				return String.fromCharCode(parseInt(r, 16))
@@ -4257,7 +3965,7 @@ function make_xlsx_lib(e) {
 			var a = t(e);
 			return r ? a.replace(/\r\n/g, "\n") : a
 		}
-	} ();
+	})();
 	var st = /[&<>'"]/g,
 	lt = /[\u0000-\u0008\u000b-\u001f\uFFFE-\uFFFF]/g;
 	function ot(e) {
@@ -4270,9 +3978,6 @@ function make_xlsx_lib(e) {
 			return "_x" + ("000" + e.charCodeAt(0).toString(16)).slice(-4) + "_"
 		})
 	}
-	function ct(e) {
-		return ot(e).replace(/ /g, "_x0020_")
-	}
 	var ft = /[\u0000-\u001f]/g;
 	function ut(e) {
 		var r = e + "";
@@ -4284,46 +3989,18 @@ function make_xlsx_lib(e) {
 			return "&#x" + ("000" + e.charCodeAt(0).toString(16)).slice(-4) + ";"
 		})
 	}
-	function ht(e) {
-		var r = e + "";
-		return r.replace(st,
-		function(e) {
-			return nt[e]
-		}).replace(ft,
-		function(e) {
-			return "&#x" + e.charCodeAt(0).toString(16).toUpperCase() + ";"
-		})
-	}
-	var dt = function() {
-		var e = /&#(\d+);/g;
-		function r(e, r) {
-			return String.fromCharCode(parseInt(r, 10))
-		}
-		return function t(a) {
-			return a.replace(e, r)
-		}
-	} ();
-	function pt(e) {
-		return e.replace(/(\r\n|[\r\n])/g, "&#10;")
-	}
 	function mt(e) {
 		switch (e) {
 		case 1:
-			;
 		case true:
-			;
 		case "1":
-			;
 		case "true":
 			return true;
 		case 0:
-			;
 		case false:
-			;
 		case "0":
-			;
 		case "false":
-			return false;
+			return false
 		}
 		return false
 	}
@@ -4350,12 +4027,12 @@ function make_xlsx_lib(e) {
 			}
 			i = e.charCodeAt(t++);
 			if (a < 240) {
-				r += String.fromCharCode((a & 15) << 12 | (n & 63) << 6 | i & 63);
+				r += String.fromCharCode(((a & 15) << 12) | ((n & 63) << 6) | (i & 63));
 				continue
 			}
 			s = e.charCodeAt(t++);
-			l = ((a & 7) << 18 | (n & 63) << 12 | (i & 63) << 6 | s & 63) - 65536;
-			r += String.fromCharCode(55296 + (l >>> 10 & 1023));
+			l = (((a & 7) << 18) | ((n & 63) << 12) | ((i & 63) << 6) | (s & 63)) - 65536;
+			r += String.fromCharCode(55296 + ((l >>> 10) & 1023));
 			r += String.fromCharCode(56320 + (l & 1023))
 		}
 		return r
@@ -4381,7 +4058,7 @@ function make_xlsx_lib(e) {
 				n = 4;
 				t = (l & 7) * 262144 + (e.charCodeAt(a + 1) & 63) * 4096 + (e.charCodeAt(a + 2) & 63) * 64 + (e.charCodeAt(a + 3) & 63);
 				t -= 65536;
-				s = 55296 + (t >>> 10 & 1023);
+				s = 55296 + ((t >>> 10) & 1023);
 				t = 56320 + (t & 1023)
 			}
 			if (s !== 0) {
@@ -4398,7 +4075,7 @@ function make_xlsx_lib(e) {
 		return A(e, "binary").toString("utf8")
 	}
 	var wt = "foo bar bazâð£";
-	var kt = _ && (bt(wt) == vt(wt) && bt || gt(wt) == vt(wt) && gt) || vt;
+	var kt = (_ && ((bt(wt) == vt(wt) && bt) || (gt(wt) == vt(wt) && gt))) || vt;
 	var yt = _ ?
 	function(e) {
 		return A(e, "utf8").toString("binary")
@@ -4417,29 +4094,29 @@ function make_xlsx_lib(e) {
 				break;
 			case a >= 55296 && a < 57344 : a -= 55296;
 				n = e.charCodeAt(t++) - 56320 + (a << 10);
-				r.push(String.fromCharCode(240 + (n >> 18 & 7)));
-				r.push(String.fromCharCode(144 + (n >> 12 & 63)));
-				r.push(String.fromCharCode(128 + (n >> 6 & 63)));
+				r.push(String.fromCharCode(240 + ((n >> 18) & 7)));
+				r.push(String.fromCharCode(144 + ((n >> 12) & 63)));
+				r.push(String.fromCharCode(128 + ((n >> 6) & 63)));
 				r.push(String.fromCharCode(128 + (n & 63)));
 				break;
 			default:
 				r.push(String.fromCharCode(224 + (a >> 12)));
-				r.push(String.fromCharCode(128 + (a >> 6 & 63)));
-				r.push(String.fromCharCode(128 + (a & 63)));
+				r.push(String.fromCharCode(128 + ((a >> 6) & 63)));
+				r.push(String.fromCharCode(128 + (a & 63)))
 			}
 		}
 		return r.join("")
 	};
-	var xt = function() {
+	var xt = (function() {
 		var e = {};
 		return function r(t, a) {
 			var n = t + "|" + (a || "");
 			if (e[n]) return e[n];
-			return e[n] = new RegExp("<(?:\\w+:)?" + t + '(?: xml:space="preserve")?(?:[^>]*)>([\\s\\S]*?)</(?:\\w+:)?' + t + ">", a || "")
+			return (e[n] = new RegExp("<(?:\\w+:)?" + t + '(?: xml:space="preserve")?(?:[^>]*)>([\\s\\S]*?)</(?:\\w+:)?' + t + ">", a || ""))
 		}
-	} ();
-	var St = function() {
-		var e = [["nbsp", " "], ["middot", "·"], ["quot", '"'], ["apos", "'"], ["gt", ">"], ["lt", "<"], ["amp", "&"]].map(function(e) {
+	})();
+	var St = (function() {
+		var e = [["nbsp", " "], ["middot", "·"], ["quot", '"'], ["apos", "'"], ["gt", ">"], ["lt", "<"], ["amp", "&"], ].map(function(e) {
 			return [new RegExp("&" + e[0] + ";", "ig"), e[1]]
 		});
 		return function r(t) {
@@ -4447,14 +4124,14 @@ function make_xlsx_lib(e) {
 			for (var n = 0; n < e.length; ++n) a = a.replace(e[n][0], e[n][1]);
 			return a
 		}
-	} ();
-	var Ct = function() {
+	})();
+	var Ct = (function() {
 		var e = {};
 		return function r(t) {
 			if (e[t] !== undefined) return e[t];
-			return e[t] = new RegExp("<(?:vt:)?" + t + ">([\\s\\S]*?)</(?:vt:)?" + t + ">", "g")
+			return (e[t] = new RegExp("<(?:vt:)?" + t + ">([\\s\\S]*?)</(?:vt:)?" + t + ">", "g"))
 		}
-	} ();
+	})();
 	var _t = /<\/?(?:vt:)?variant>/g,
 	At = /<(?:vt:)([^>]*)>([\s\S]*)</;
 	function Tt(e, r) {
@@ -4469,50 +4146,25 @@ function make_xlsx_lib(e) {
 			var r = e.replace(_t, "").match(At);
 			if (r) n.push({
 				v: kt(r[2]),
-				t: r[1]
+				t: r[1],
 			})
 		});
 		return n
 	}
 	var Et = /(^\s|\s$|\n)/;
-	function Ft(e, r) {
-		return "<" + e + (r.match(Et) ? ' xml:space="preserve"': "") + ">" + r + "</" + e + ">"
-	}
 	function Dt(e) {
 		return ir(e).map(function(r) {
 			return " " + r + '="' + e[r] + '"'
 		}).join("")
 	}
 	function Ot(e, r, t) {
-		return "<" + e + (t != null ? Dt(t) : "") + (r != null ? (r.match(Et) ? ' xml:space="preserve"': "") + ">" + r + "</" + e: "/") + ">"
-	}
-	function Mt(e, r) {
-		try {
-			return e.toISOString().replace(/\.\d*/, "")
-		} catch(t) {
-			if (r) throw t
-		}
-		return ""
-	}
-	function Nt(e, r) {
-		switch (typeof e) {
-		case "string":
-			var t = Ot("vt:lpwstr", ot(e));
-			if (r) t = t.replace(/&quot;/g, "_x0022_");
-			return t;
-		case "number":
-			return Ot((e | 0) == e ? "vt:i4": "vt:r8", ot(String(e)));
-		case "boolean":
-			return Ot("vt:bool", e ? "true": "false");
-		}
-		if (e instanceof Date) return Ot("vt:filetime", Mt(e));
-		throw new Error("Unable to serialize " + e)
+		return ("<" + e + (t != null ? Dt(t) : "") + (r != null ? (r.match(Et) ? ' xml:space="preserve"': "") + ">" + r + "</" + e: "/") + ">")
 	}
 	function It(e) {
 		if (_ && Buffer.isBuffer(e)) return e.toString("utf8");
 		if (typeof e === "string") return e;
 		if (typeof Uint8Array !== "undefined" && e instanceof Uint8Array) return kt(M(I(e)));
-		throw new Error("Bad input format: expected Buffer or string")
+		throw new Error("Bad input format: expected Buffer or string");
 	}
 	var Pt = /<(\/?)([^\s?><!\/:]*:|)([^\s?<>:\/]+)(?:[\s?:\/](?:[^>=]|="[^"]*?")*)?>/gm;
 	var Rt = {
@@ -4530,21 +4182,12 @@ function make_xlsx_lib(e) {
 		sjs: "http://schemas.openxmlformats.org/package/2006/sheetjs/core-properties",
 		vt: "http://schemas.openxmlformats.org/officeDocument/2006/docPropsVTypes",
 		xsi: "http://www.w3.org/2001/XMLSchema-instance",
-		xsd: "http://www.w3.org/2001/XMLSchema"
+		xsd: "http://www.w3.org/2001/XMLSchema",
 	};
-	var Lt = ["http://schemas.openxmlformats.org/spreadsheetml/2006/main", "http://purl.oclc.org/ooxml/spreadsheetml/main", "http://schemas.microsoft.com/office/excel/2006/main", "http://schemas.microsoft.com/office/excel/2006/2"];
-	var Bt = {
-		o: "urn:schemas-microsoft-com:office:office",
-		x: "urn:schemas-microsoft-com:office:excel",
-		ss: "urn:schemas-microsoft-com:office:spreadsheet",
-		dt: "uuid:C2F41010-65B3-11d1-A29F-00AA00C14882",
-		mv: "http://macVmlSchemaUri",
-		v: "urn:schemas-microsoft-com:vml",
-		html: "http://www.w3.org/TR/REC-html40"
-	};
+	var Lt = ["http://schemas.openxmlformats.org/spreadsheetml/2006/main", "http://purl.oclc.org/ooxml/spreadsheetml/main", "http://schemas.microsoft.com/office/excel/2006/main", "http://schemas.microsoft.com/office/excel/2006/2", ];
 	function Ut(e, r) {
 		var t = 1 - 2 * (e[r + 7] >>> 7);
-		var a = ((e[r + 7] & 127) << 4) + (e[r + 6] >>> 4 & 15);
+		var a = ((e[r + 7] & 127) << 4) + ((e[r + 6] >>> 4) & 15);
 		var n = e[r + 6] & 15;
 		for (var i = 5; i >= 0; --i) n = n * 256 + e[r + i];
 		if (a == 2047) return n == 0 ? t * Infinity: NaN;
@@ -4575,8 +4218,8 @@ function make_xlsx_lib(e) {
 			}
 		}
 		for (var l = 0; l <= 5; ++l, i /= 256) e[t + l] = i & 255;
-		e[t + 6] = (n & 15) << 4 | i & 15;
-		e[t + 7] = n >> 4 | a
+		e[t + 6] = ((n & 15) << 4) | (i & 15);
+		e[t + 7] = (n >> 4) | a
 	}
 	var $t = function(e) {
 		var r = [],
@@ -4649,7 +4292,7 @@ function make_xlsx_lib(e) {
 	};
 	var sa = ia;
 	var la = function zc(e) {
-		return Array.isArray(e) || typeof Uint8Array !== "undefined" && e instanceof Uint8Array
+		return (Array.isArray(e) || (typeof Uint8Array !== "undefined" && e instanceof Uint8Array))
 	};
 	if (_) {
 		Zt = function $c(e, r) {
@@ -4682,7 +4325,7 @@ function make_xlsx_lib(e) {
 			return ia(e, r)
 		};
 		la = function Gc(e) {
-			return Buffer.isBuffer(e) || Array.isArray(e) || typeof Uint8Array !== "undefined" && e instanceof Uint8Array
+			return (Buffer.isBuffer(e) || Array.isArray(e) || (typeof Uint8Array !== "undefined" && e instanceof Uint8Array))
 		}
 	}
 	function oa() {
@@ -4728,10 +4371,10 @@ function make_xlsx_lib(e) {
 		return e[r + 3] * (1 << 24) + (e[r + 2] << 16) + (e[r + 1] << 8) + e[r]
 	};
 	var da = function(e, r) {
-		return e[r + 3] << 24 | e[r + 2] << 16 | e[r + 1] << 8 | e[r]
+		return (e[r + 3] << 24) | (e[r + 2] << 16) | (e[r + 1] << 8) | e[r]
 	};
 	var pa = function(e, r) {
-		return e[r] << 24 | e[r + 1] << 16 | e[r + 2] << 8 | e[r + 3]
+		return (e[r] << 24) | (e[r + 1] << 16) | (e[r + 2] << 8) | e[r + 3]
 	};
 	function ma(e, t) {
 		var n = "",
@@ -4820,7 +4463,7 @@ function make_xlsx_lib(e) {
 			if (typeof a !== "undefined") {
 				n = a.utils.decode(r, this.slice(this.l, this.l + e));
 				break
-			};
+			}
 		case "sbcs-cont":
 			n = "";
 			u = this.l;
@@ -4847,7 +4490,6 @@ function make_xlsx_lib(e) {
 				this.l += 2;
 				return i;
 			case 4:
-				;
 			case - 4 : if (t === "i" || (this[this.l + 3] & 128) === 0) {
 					i = (e > 0 ? da: pa)(this, this.l);
 					this.l += 4;
@@ -4858,36 +4500,35 @@ function make_xlsx_lib(e) {
 				}
 				return s;
 			case 8:
-				;
 			case - 8 : if (t === "f") {
 					if (e == 8) s = sa(this, this.l);
-					else s = sa([this[this.l + 7], this[this.l + 6], this[this.l + 5], this[this.l + 4], this[this.l + 3], this[this.l + 2], this[this.l + 1], this[this.l + 0]], 0);
+					else s = sa([this[this.l + 7], this[this.l + 6], this[this.l + 5], this[this.l + 4], this[this.l + 3], this[this.l + 2], this[this.l + 1], this[this.l + 0], ], 0);
 					this.l += 8;
 					return s
 				} else e = 8;
 			case 16:
 				n = Xt(this, this.l, e);
-				break;
-			};
+				break
+			}
 		}
 		this.l += e;
 		return n
 	}
 	var va = function(e, r, t) {
 		e[t] = r & 255;
-		e[t + 1] = r >>> 8 & 255;
-		e[t + 2] = r >>> 16 & 255;
-		e[t + 3] = r >>> 24 & 255
+		e[t + 1] = (r >>> 8) & 255;
+		e[t + 2] = (r >>> 16) & 255;
+		e[t + 3] = (r >>> 24) & 255
 	};
 	var ga = function(e, r, t) {
 		e[t] = r & 255;
-		e[t + 1] = r >> 8 & 255;
-		e[t + 2] = r >> 16 & 255;
-		e[t + 3] = r >> 24 & 255
+		e[t + 1] = (r >> 8) & 255;
+		e[t + 2] = (r >> 16) & 255;
+		e[t + 3] = (r >> 24) & 255
 	};
 	var ba = function(e, r, t) {
 		e[t] = r & 255;
-		e[t + 1] = r >>> 8 & 255
+		e[t + 1] = (r >>> 8) & 255
 	};
 	function wa(e, n, i) {
 		var s = 0,
@@ -4955,12 +4596,12 @@ function make_xlsx_lib(e) {
 			if (i === "f") {
 				zt(this, n, this.l);
 				break
-			};
+			}
 		case 16:
 			break;
 		case - 4 : s = 4;
 			ga(this, n, this.l);
-			break;
+			break
 		}
 		this.l += s;
 		return this
@@ -4975,9 +4616,6 @@ function make_xlsx_lib(e) {
 		e._R = ma;
 		e.chk = ka;
 		e._W = wa
-	}
-	function xa(e, r) {
-		e.l += r
 	}
 	function Sa(e) {
 		var r = E(e);
@@ -4997,7 +4635,7 @@ function make_xlsx_lib(e) {
 			var c = XLSBRecordEnum[l] || XLSBRecordEnum[65535];
 			a = e._R(1);
 			i = a & 127;
-			for (n = 1; n < 4 && a & 128; ++n) i += ((a = e._R(1)) & 127) << 7 * n;
+			for (n = 1; n < 4 && a & 128; ++n) i += ((a = e._R(1)) & 127) << (7 * n);
 			o = e.l + i;
 			var f = c.f && c.f(e, i, t);
 			e.l = o;
@@ -5027,7 +4665,7 @@ function make_xlsx_lib(e) {
 		var i = function f(e) {
 			if (a && e < a.length - a.l) return a;
 			n();
-			return a = t(Math.max(e + 1, r))
+			return (a = t(Math.max(e + 1, r)))
 		};
 		var s = function u() {
 			n();
@@ -5043,91 +4681,14 @@ function make_xlsx_lib(e) {
 			next: i,
 			push: l,
 			end: s,
-			_bufs: e
+			_bufs: e,
 		}
-	}
-	function Aa(e, r, t, a) {
-		var n = +r,
-		i;
-		if (isNaN(n)) return;
-		if (!a) a = XLSBRecordEnum[n].p || (t || []).length || 0;
-		i = 1 + (n >= 128 ? 1 : 0) + 1;
-		if (a >= 128)++i;
-		if (a >= 16384)++i;
-		if (a >= 2097152)++i;
-		var s = e.next(i);
-		if (n <= 127) s._W(1, n);
-		else {
-			s._W(1, (n & 127) + 128);
-			s._W(1, n >> 7)
-		}
-		for (var l = 0; l != 4; ++l) {
-			if (a >= 128) {
-				s._W(1, (a & 127) + 128);
-				a >>= 7
-			} else {
-				s._W(1, a);
-				break
-			}
-		}
-		if (a > 0 && la(t)) e.push(t)
-	}
-	function Ta(e, r, t) {
-		var a = yr(e);
-		if (r.s) {
-			if (a.cRel) a.c += r.s.c;
-			if (a.rRel) a.r += r.s.r
-		} else {
-			if (a.cRel) a.c += r.c;
-			if (a.rRel) a.r += r.r
-		}
-		if (!t || t.biff < 12) {
-			while (a.c >= 256) a.c -= 256;
-			while (a.r >= 65536) a.r -= 65536
-		}
-		return a
-	}
-	function Ea(e, r, t) {
-		var a = yr(e);
-		a.s = Ta(a.s, r.s, t);
-		a.e = Ta(a.e, r.s, t);
-		return a
-	}
-	function Fa(e, r) {
-		if (e.cRel && e.c < 0) {
-			e = yr(e);
-			while (e.c < 0) e.c += r > 8 ? 16384 : 256
-		}
-		if (e.rRel && e.r < 0) {
-			e = yr(e);
-			while (e.r < 0) e.r += r > 8 ? 1048576 : r > 5 ? 65536 : 16384
-		}
-		var t = $a(e);
-		if (!e.cRel && e.cRel != null) t = La(t);
-		if (!e.rRel && e.rRel != null) t = Na(t);
-		return t
-	}
-	function Da(e, r) {
-		if (e.s.r == 0 && !e.s.rRel) {
-			if (e.e.r == (r.biff >= 12 ? 1048575 : r.biff >= 8 ? 65536 : 16384) && !e.e.rRel) {
-				return (e.s.cRel ? "": "$") + Ra(e.s.c) + ":" + (e.e.cRel ? "": "$") + Ra(e.e.c)
-			}
-		}
-		if (e.s.c == 0 && !e.s.cRel) {
-			if (e.e.c == (r.biff >= 12 ? 16383 : 255) && !e.e.cRel) {
-				return (e.s.rRel ? "": "$") + Ma(e.s.r) + ":" + (e.e.rRel ? "": "$") + Ma(e.e.r)
-			}
-		}
-		return Fa(e.s, r.biff) + ":" + Fa(e.e, r.biff)
 	}
 	function Oa(e) {
 		return parseInt(Ia(e), 10) - 1
 	}
 	function Ma(e) {
 		return "" + (e + 1)
-	}
-	function Na(e) {
-		return e.replace(/([A-Z]|^)(\d+)$/, "$1$$$2")
 	}
 	function Ia(e) {
 		return e.replace(/\$(\d+)$/, "$1")
@@ -5142,11 +4703,8 @@ function make_xlsx_lib(e) {
 	function Ra(e) {
 		if (e < 0) throw new Error("invalid column " + e);
 		var r = "";
-		for (++e; e; e = Math.floor((e - 1) / 26)) r = String.fromCharCode((e - 1) % 26 + 65) + r;
+		for (++e; e; e = Math.floor((e - 1) / 26)) r = String.fromCharCode(((e - 1) % 26) + 65) + r;
 		return r
-	}
-	function La(e) {
-		return e.replace(/^([A-Z])/, "$$$1")
 	}
 	function Ba(e) {
 		return e.replace(/^\$([A-Z])/, "$1")
@@ -5164,24 +4722,24 @@ function make_xlsx_lib(e) {
 		}
 		return {
 			c: t - 1,
-			r: r - 1
+			r: r - 1,
 		}
 	}
 	function $a(e) {
 		var r = e.c + 1;
 		var t = "";
-		for (; r; r = (r - 1) / 26 | 0) t = String.fromCharCode((r - 1) % 26 + 65) + t;
+		for (; r; r = ((r - 1) / 26) | 0) t = String.fromCharCode(((r - 1) % 26) + 65) + t;
 		return t + (e.r + 1)
 	}
 	function Wa(e) {
 		var r = e.indexOf(":");
 		if (r == -1) return {
 			s: za(e),
-			e: za(e)
+			e: za(e),
 		};
 		return {
 			s: za(e.slice(0, r)),
-			e: za(e.slice(r + 1))
+			e: za(e.slice(r + 1)),
 		}
 	}
 	function ja(e, r) {
@@ -5192,25 +4750,16 @@ function make_xlsx_lib(e) {
 		if (typeof r !== "string") r = $a(r);
 		return e == r ? e: e + ":" + r
 	}
-	function Ha(e) {
-		var r = Wa(e);
-		return "$" + Ra(r.s.c) + "$" + Ma(r.s.r) + ":$" + Ra(r.e.c) + "$" + Ma(r.e.r)
-	}
-	function Va(e, r) {
-		if (!e && !(r && r.biff <= 5 && r.biff >= 2)) throw new Error("empty sheet name");
-		if (/[^\w\u4E00-\u9FFF\u3040-\u30FF]/.test(e)) return "'" + e.replace(/'/g, "''") + "'";
-		return e
-	}
 	function Xa(e) {
 		var r = {
 			s: {
 				c: 0,
-				r: 0
+				r: 0,
 			},
 			e: {
 				c: 0,
-				r: 0
-			}
+				r: 0,
+			},
 		};
 		var t = 0,
 		a = 0,
@@ -5246,10 +4795,10 @@ function make_xlsx_lib(e) {
 	function Ga(e, r) {
 		var t = e.t == "d" && r instanceof Date;
 		if (e.z != null) try {
-			return e.w = $e(e.z, t ? dr(r) : r)
+			return (e.w = $e(e.z, t ? dr(r) : r))
 		} catch(a) {}
 		try {
-			return e.w = $e((e.XF || {}).numFmtId || (t ? 14 : 0), t ? dr(r) : r)
+			return (e.w = $e((e.XF || {}).numFmtId || (t ? 14 : 0), t ? dr(r) : r))
 		} catch(a) {
 			return "" + r
 		}
@@ -5268,7 +4817,7 @@ function make_xlsx_lib(e) {
 		a[t] = e;
 		return {
 			SheetNames: [t],
-			Sheets: a
+			Sheets: a,
 		}
 	}
 	function Za(e) {
@@ -5297,12 +4846,12 @@ function make_xlsx_lib(e) {
 		var c = {
 			s: {
 				c: 1e7,
-				r: 1e7
+				r: 1e7,
 			},
 			e: {
 				c: 0,
-				r: 0
-			}
+				r: 0,
+			},
 		};
 		if (i["!ref"]) {
 			var f = Xa(i["!ref"]);
@@ -5325,7 +4874,7 @@ function make_xlsx_lib(e) {
 			for (var m = 0; m != r[h].length; ++m) {
 				if (typeof r[h][m] === "undefined") continue;
 				var v = {
-					v: r[h][m]
+					v: r[h][m],
 				};
 				var g = l + m;
 				if (c.s.r > d) c.s.r = d;
@@ -5376,279 +4925,12 @@ function make_xlsx_lib(e) {
 	function qa(e, r) {
 		return Ka(null, e, r)
 	}
-	var Qa = 2;
-	var en = 3;
-	var rn = 11;
-	var tn = 12;
-	var an = 19;
-	var nn = 64;
-	var sn = 65;
-	var ln = 71;
-	var on = 4108;
-	var cn = 4126;
-	var fn = 80;
-	var un = 81;
-	var hn = [fn, un];
-	var dn = {
-		1 : {
-			n: "CodePage",
-			t: Qa
-		},
-		2 : {
-			n: "Category",
-			t: fn
-		},
-		3 : {
-			n: "PresentationFormat",
-			t: fn
-		},
-		4 : {
-			n: "ByteCount",
-			t: en
-		},
-		5 : {
-			n: "LineCount",
-			t: en
-		},
-		6 : {
-			n: "ParagraphCount",
-			t: en
-		},
-		7 : {
-			n: "SlideCount",
-			t: en
-		},
-		8 : {
-			n: "NoteCount",
-			t: en
-		},
-		9 : {
-			n: "HiddenCount",
-			t: en
-		},
-		10 : {
-			n: "MultimediaClipCount",
-			t: en
-		},
-		11 : {
-			n: "ScaleCrop",
-			t: rn
-		},
-		12 : {
-			n: "HeadingPairs",
-			t: on
-		},
-		13 : {
-			n: "TitlesOfParts",
-			t: cn
-		},
-		14 : {
-			n: "Manager",
-			t: fn
-		},
-		15 : {
-			n: "Company",
-			t: fn
-		},
-		16 : {
-			n: "LinksUpToDate",
-			t: rn
-		},
-		17 : {
-			n: "CharacterCount",
-			t: en
-		},
-		19 : {
-			n: "SharedDoc",
-			t: rn
-		},
-		22 : {
-			n: "HyperlinksChanged",
-			t: rn
-		},
-		23 : {
-			n: "AppVersion",
-			t: en,
-			p: "version"
-		},
-		24 : {
-			n: "DigSig",
-			t: sn
-		},
-		26 : {
-			n: "ContentType",
-			t: fn
-		},
-		27 : {
-			n: "ContentStatus",
-			t: fn
-		},
-		28 : {
-			n: "Language",
-			t: fn
-		},
-		29 : {
-			n: "Version",
-			t: fn
-		},
-		255 : {},
-		2147483648 : {
-			n: "Locale",
-			t: an
-		},
-		2147483651 : {
-			n: "Behavior",
-			t: an
-		},
-		1919054434 : {}
-	};
-	var pn = {
-		1 : {
-			n: "CodePage",
-			t: Qa
-		},
-		2 : {
-			n: "Title",
-			t: fn
-		},
-		3 : {
-			n: "Subject",
-			t: fn
-		},
-		4 : {
-			n: "Author",
-			t: fn
-		},
-		5 : {
-			n: "Keywords",
-			t: fn
-		},
-		6 : {
-			n: "Comments",
-			t: fn
-		},
-		7 : {
-			n: "Template",
-			t: fn
-		},
-		8 : {
-			n: "LastAuthor",
-			t: fn
-		},
-		9 : {
-			n: "RevNumber",
-			t: fn
-		},
-		10 : {
-			n: "EditTime",
-			t: nn
-		},
-		11 : {
-			n: "LastPrinted",
-			t: nn
-		},
-		12 : {
-			n: "CreatedDate",
-			t: nn
-		},
-		13 : {
-			n: "ModifiedDate",
-			t: nn
-		},
-		14 : {
-			n: "PageCount",
-			t: en
-		},
-		15 : {
-			n: "WordCount",
-			t: en
-		},
-		16 : {
-			n: "CharCount",
-			t: en
-		},
-		17 : {
-			n: "Thumbnail",
-			t: ln
-		},
-		18 : {
-			n: "Application",
-			t: fn
-		},
-		19 : {
-			n: "DocSecurity",
-			t: en
-		},
-		255 : {},
-		2147483648 : {
-			n: "Locale",
-			t: an
-		},
-		2147483651 : {
-			n: "Behavior",
-			t: an
-		},
-		1919054434 : {}
-	};
-	var mn = {
-		1 : "US",
-		2 : "CA",
-		3 : "",
-		7 : "RU",
-		20 : "EG",
-		30 : "GR",
-		31 : "NL",
-		32 : "BE",
-		33 : "FR",
-		34 : "ES",
-		36 : "HU",
-		39 : "IT",
-		41 : "CH",
-		43 : "AT",
-		44 : "GB",
-		45 : "DK",
-		46 : "SE",
-		47 : "NO",
-		48 : "PL",
-		49 : "DE",
-		52 : "MX",
-		55 : "BR",
-		61 : "AU",
-		64 : "NZ",
-		66 : "TH",
-		81 : "JP",
-		82 : "KR",
-		84 : "VN",
-		86 : "CN",
-		90 : "TR",
-		105 : "JS",
-		213 : "DZ",
-		216 : "MA",
-		218 : "LY",
-		351 : "PT",
-		354 : "IS",
-		358 : "FI",
-		420 : "CZ",
-		886 : "TW",
-		961 : "LB",
-		962 : "JO",
-		963 : "SY",
-		964 : "IQ",
-		965 : "KW",
-		966 : "SA",
-		971 : "AE",
-		972 : "IL",
-		974 : "QA",
-		981 : "IR",
-		65535 : "US"
-	};
-	var vn = [null, "solid", "mediumGray", "darkGray", "lightGray", "darkHorizontal", "darkVertical", "darkDown", "darkUp", "darkGrid", "darkTrellis", "lightHorizontal", "lightVertical", "lightDown", "lightUp", "lightGrid", "lightTrellis", "gray125", "gray0625"];
 	function gn(e) {
 		return e.map(function(e) {
-			return [e >> 16 & 255, e >> 8 & 255, e & 255]
+			return [(e >> 16) & 255, (e >> 8) & 255, e & 255]
 		})
 	}
-	var bn = gn([0, 16777215, 16711680, 65280, 255, 16776960, 16711935, 65535, 0, 16777215, 16711680, 65280, 255, 16776960, 16711935, 65535, 8388608, 32768, 128, 8421376, 8388736, 32896, 12632256, 8421504, 10066431, 10040166, 16777164, 13434879, 6684774, 16744576, 26316, 13421823, 128, 16711935, 16776960, 65535, 8388736, 8388608, 32896, 255, 52479, 13434879, 13434828, 16777113, 10079487, 16751052, 13408767, 16764057, 3368703, 3394764, 10079232, 16763904, 16750848, 16737792, 6710937, 9868950, 13158, 3381606, 13056, 3355392, 10040064, 10040166, 3355545, 3355443, 0, 16777215, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]);
+	var bn = gn([0, 16777215, 16711680, 65280, 255, 16776960, 16711935, 65535, 0, 16777215, 16711680, 65280, 255, 16776960, 16711935, 65535, 8388608, 32768, 128, 8421376, 8388736, 32896, 12632256, 8421504, 10066431, 10040166, 16777164, 13434879, 6684774, 16744576, 26316, 13421823, 128, 16711935, 16776960, 65535, 8388736, 8388608, 32896, 255, 52479, 13434879, 13434828, 16777113, 10079487, 16751052, 13408767, 16764057, 3368703, 3394764, 10079232, 16763904, 16750848, 16737792, 6710937, 9868950, 13158, 3381606, 13056, 3355392, 10040064, 10040166, 3355545, 3355443, 0, 16777215, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ]);
 	var wn = yr(bn);
 	var kn = {
 		0 : "#NULL!",
@@ -5659,7 +4941,7 @@ function make_xlsx_lib(e) {
 		36 : "#NUM!",
 		42 : "#N/A",
 		43 : "#GETTING_DATA",
-		255 : "#WTF?"
+		255 : "#WTF?",
 	};
 	var yn = {
 		"#NULL!": 0,
@@ -5670,9 +4952,8 @@ function make_xlsx_lib(e) {
 		"#NUM!": 36,
 		"#N/A": 42,
 		"#GETTING_DATA": 43,
-		"#WTF?": 255
+		"#WTF?": 255,
 	};
-	var xn = ["_xlnm.Consolidate_Area", "_xlnm.Auto_Open", "_xlnm.Auto_Close", "_xlnm.Extract", "_xlnm.Database", "_xlnm.Criteria", "_xlnm.Print_Area", "_xlnm.Print_Titles", "_xlnm.Recorder", "_xlnm.Data_Form", "_xlnm.Auto_Activate", "_xlnm.Auto_Deactivate", "_xlnm.Sheet_Title", "_xlnm._FilterDatabase"];
 	var Sn = {
 		"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml": "workbooks",
 		"application/vnd.ms-excel.sheet.macroEnabled.main+xml": "workbooks",
@@ -5763,48 +5044,7 @@ function make_xlsx_lib(e) {
 		"application/vnd.openxmlformats-package.relationships+xml": "rels",
 		"application/vnd.openxmlformats-officedocument.oleObject": "TODO",
 		"image/png": "TODO",
-		sheet: "js"
-	};
-	var Cn = {
-		workbooks: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml",
-			xlsm: "application/vnd.ms-excel.sheet.macroEnabled.main+xml",
-			xlsb: "application/vnd.ms-excel.sheet.binary.macroEnabled.main",
-			xlam: "application/vnd.ms-excel.addin.macroEnabled.main+xml",
-			xltx: "application/vnd.openxmlformats-officedocument.spreadsheetml.template.main+xml"
-		},
-		strs: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml",
-			xlsb: "application/vnd.ms-excel.sharedStrings"
-		},
-		comments: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.comments+xml",
-			xlsb: "application/vnd.ms-excel.comments"
-		},
-		sheets: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml",
-			xlsb: "application/vnd.ms-excel.worksheet"
-		},
-		charts: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.chartsheet+xml",
-			xlsb: "application/vnd.ms-excel.chartsheet"
-		},
-		dialogs: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.dialogsheet+xml",
-			xlsb: "application/vnd.ms-excel.dialogsheet"
-		},
-		macros: {
-			xlsx: "application/vnd.ms-excel.macrosheet+xml",
-			xlsb: "application/vnd.ms-excel.macrosheet"
-		},
-		metadata: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheetMetadata+xml",
-			xlsb: "application/vnd.ms-excel.sheetMetadata"
-		},
-		styles: {
-			xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml",
-			xlsb: "application/vnd.ms-excel.styles"
-		}
+		sheet: "js",
 	};
 	function _n() {
 		return {
@@ -5829,7 +5069,7 @@ function make_xlsx_lib(e) {
 			metadata: [],
 			people: [],
 			TODO: [],
-			xmlns: ""
+			xmlns: "",
 		}
 	}
 	function An(e) {
@@ -5848,7 +5088,7 @@ function make_xlsx_lib(e) {
 				break;
 			case "<Override":
 				if (r[Sn[a.ContentType]] !== undefined) r[Sn[a.ContentType]].push(a.PartName);
-				break;
+				break
 			}
 		});
 		if (r.xmlns !== Rt.CT) throw new Error("Unknown Namespace: " + r.xmlns);
@@ -5858,63 +5098,6 @@ function make_xlsx_lib(e) {
 		r.defaults = t;
 		delete r.calcchains;
 		return r
-	}
-	function Tn(e, r, t) {
-		var a = cr(Sn);
-		var n = [],
-		i;
-		if (!t) {
-			n[n.length] = Yr;
-			n[n.length] = Ot("Types", null, {
-				xmlns: Rt.CT,
-				"xmlns:xsd": Rt.xsd,
-				"xmlns:xsi": Rt.xsi
-			});
-			n = n.concat([["xml", "application/xml"], ["bin", "application/vnd.ms-excel.sheet.binary.macroEnabled.main"], ["vml", "application/vnd.openxmlformats-officedocument.vmlDrawing"], ["data", "application/vnd.openxmlformats-officedocument.model+data"], ["bmp", "image/bmp"], ["png", "image/png"], ["gif", "image/gif"], ["emf", "image/x-emf"], ["wmf", "image/x-wmf"], ["jpg", "image/jpeg"], ["jpeg", "image/jpeg"], ["tif", "image/tiff"], ["tiff", "image/tiff"], ["pdf", "application/pdf"], ["rels", "application/vnd.openxmlformats-package.relationships+xml"]].map(function(e) {
-				return Ot("Default", null, {
-					Extension: e[0],
-					ContentType: e[1]
-				})
-			}))
-		}
-		var s = function(t) {
-			if (e[t] && e[t].length > 0) {
-				i = e[t][0];
-				n[n.length] = Ot("Override", null, {
-					PartName: (i[0] == "/" ? "": "/") + i,
-					ContentType: Cn[t][r.bookType] || Cn[t]["xlsx"]
-				})
-			}
-		};
-		var l = function(t) { (e[t] || []).forEach(function(e) {
-				n[n.length] = Ot("Override", null, {
-					PartName: (e[0] == "/" ? "": "/") + e,
-					ContentType: Cn[t][r.bookType] || Cn[t]["xlsx"]
-				})
-			})
-		};
-		var o = function(r) { (e[r] || []).forEach(function(e) {
-				n[n.length] = Ot("Override", null, {
-					PartName: (e[0] == "/" ? "": "/") + e,
-					ContentType: a[r][0]
-				})
-			})
-		};
-		s("workbooks");
-		l("sheets");
-		l("charts");
-		o("themes"); ["strs", "styles"].forEach(s); ["coreprops", "extprops", "custprops"].forEach(o);
-		o("vba");
-		o("comments");
-		o("threadedcomments");
-		o("drawings");
-		l("metadata");
-		o("people");
-		if (!t && n.length > 2) {
-			n[n.length] = "</Types>";
-			n[1] = n[1].replace("/>", ">")
-		}
-		return n.join("")
 	}
 	var En = {
 		WB: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument",
@@ -5936,7 +5119,7 @@ function make_xlsx_lib(e) {
 		CHART: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chart",
 		CHARTEX: "http://schemas.microsoft.com/office/2014/relationships/chartEx",
 		CS: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/chartsheet",
-		WS: ["http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet", "http://purl.oclc.org/ooxml/officeDocument/relationships/worksheet"],
+		WS: ["http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet", "http://purl.oclc.org/ooxml/officeDocument/relationships/worksheet", ],
 		DS: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/dialogsheet",
 		MS: "http://schemas.microsoft.com/office/2006/relationships/xlMacrosheet",
 		IMG: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/image",
@@ -5945,7 +5128,7 @@ function make_xlsx_lib(e) {
 		TCMNT: "http://schemas.microsoft.com/office/2017/10/relationships/threadedComment",
 		PEOPLE: "http://schemas.microsoft.com/office/2017/10/relationships/person",
 		CONN: "http://schemas.openxmlformats.org/officeDocument/2006/relationships/connections",
-		VBA: "http://schemas.microsoft.com/office/2006/relationships/vbaProject"
+		VBA: "http://schemas.microsoft.com/office/2006/relationships/vbaProject",
 	};
 	function Fn(e) {
 		var r = e.lastIndexOf("/");
@@ -5953,7 +5136,7 @@ function make_xlsx_lib(e) {
 	}
 	function Dn(e, r) {
 		var t = {
-			"!id": {}
+			"!id": {},
 		};
 		if (!e) return t;
 		if (r.charAt(0) !== "/") {
@@ -5975,41 +5158,12 @@ function make_xlsx_lib(e) {
 		t["!id"] = a;
 		return t
 	}
-	function On(e) {
-		var r = [Yr, Ot("Relationships", null, {
-			xmlns: Rt.RELS
-		})];
-		ir(e["!id"]).forEach(function(t) {
-			r[r.length] = Ot("Relationship", null, e["!id"][t])
-		});
-		if (r.length > 2) {
-			r[r.length] = "</Relationships>";
-			r[1] = r[1].replace("/>", ">")
-		}
-		return r.join("")
-	}
-	function Mn(e, r, t, a, n, i) {
-		if (!n) n = {};
-		if (!e["!id"]) e["!id"] = {};
-		if (!e["!idx"]) e["!idx"] = 1;
-		if (r < 0) for (r = e["!idx"]; e["!id"]["rId" + r]; ++r) {}
-		e["!idx"] = r + 1;
-		n.Id = "rId" + r;
-		n.Type = a;
-		n.Target = t;
-		if (i) n.TargetMode = i;
-		else if ([En.HLINK, En.XPATH, En.XMISS].indexOf(n.Type) > -1) n.TargetMode = "External";
-		if (e["!id"][n.Id]) throw new Error("Cannot rewrite rId " + r);
-		e["!id"][n.Id] = n;
-		e[("/" + n.Target).replace("//", "/")] = n;
-		return r
-	}
 	var Nn = "application/vnd.oasis.opendocument.spreadsheet";
 	function In(e, r) {
 		var t = It(e);
 		var a;
 		var n;
-		while (a = Pt.exec(t)) switch (a[3]) {
+		while ((a = Pt.exec(t))) switch (a[3]) {
 		case "manifest":
 			break;
 		case "file-entry":
@@ -6017,47 +5171,16 @@ function make_xlsx_lib(e) {
 			if (n.path == "/" && n.type !== Nn) throw new Error("This OpenDocument is not a spreadsheet");
 			break;
 		case "encryption-data":
-			;
 		case "algorithm":
-			;
 		case "start-key-generation":
-			;
 		case "key-derivation":
 			throw new Error("Unsupported ODS Encryption");
 		default:
 			if (r && r.WTF) throw a;
 		}
 	}
-	function Pn(e) {
-		var r = [Yr];
-		r.push('<manifest:manifest xmlns:manifest="urn:oasis:names:tc:opendocument:xmlns:manifest:1.0" manifest:version="1.2">\n');
-		r.push('  <manifest:file-entry manifest:full-path="/" manifest:version="1.2" manifest:media-type="application/vnd.oasis.opendocument.spreadsheet"/>\n');
-		for (var t = 0; t < e.length; ++t) r.push('  <manifest:file-entry manifest:full-path="' + e[t][0] + '" manifest:media-type="' + e[t][1] + '"/>\n');
-		r.push("</manifest:manifest>");
-		return r.join("")
-	}
-	function Rn(e, r, t) {
-		return ['  <rdf:Description rdf:about="' + e + '">\n', '    <rdf:type rdf:resource="http://docs.oasis-open.org/ns/office/1.2/meta/' + (t || "odf") + "#" + r + '"/>\n', "  </rdf:Description>\n"].join("")
-	}
-	function Ln(e, r) {
-		return ['  <rdf:Description rdf:about="' + e + '">\n', '    <ns0:hasPart xmlns:ns0="http://docs.oasis-open.org/ns/office/1.2/meta/pkg#" rdf:resource="' + r + '"/>\n', "  </rdf:Description>\n"].join("")
-	}
-	function Bn(e) {
-		var r = [Yr];
-		r.push('<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">\n');
-		for (var t = 0; t != e.length; ++t) {
-			r.push(Rn(e[t][0], e[t][1]));
-			r.push(Ln("", e[t][0]))
-		}
-		r.push(Rn("", "Document", "pkg"));
-		r.push("</rdf:RDF>");
-		return r.join("")
-	}
-	function Un(r, t) {
-		return '<office:document-meta xmlns:office="urn:oasis:names:tc:opendocument:xmlns:office:1.0" xmlns:meta="urn:oasis:names:tc:opendocument:xmlns:meta:1.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" office:version="1.2"><office:meta><meta:generator>SheetJS ' + e.version + "</meta:generator></office:meta></office:document-meta>"
-	}
-	var zn = [["cp:category", "Category"], ["cp:contentStatus", "ContentStatus"], ["cp:keywords", "Keywords"], ["cp:lastModifiedBy", "LastAuthor"], ["cp:lastPrinted", "LastPrinted"], ["cp:revision", "RevNumber"], ["cp:version", "Version"], ["dc:creator", "Author"], ["dc:description", "Comments"], ["dc:identifier", "Identifier"], ["dc:language", "Language"], ["dc:subject", "Subject"], ["dc:title", "Title"], ["dcterms:created", "CreatedDate", "date"], ["dcterms:modified", "ModifiedDate", "date"]];
-	var $n = function() {
+	var zn = [["cp:category", "Category"], ["cp:contentStatus", "ContentStatus"], ["cp:keywords", "Keywords"], ["cp:lastModifiedBy", "LastAuthor"], ["cp:lastPrinted", "LastPrinted"], ["cp:revision", "RevNumber"], ["cp:version", "Version"], ["dc:creator", "Author"], ["dc:description", "Comments"], ["dc:identifier", "Identifier"], ["dc:language", "Language"], ["dc:subject", "Subject"], ["dc:title", "Title"], ["dcterms:created", "CreatedDate", "date"], ["dcterms:modified", "ModifiedDate", "date"], ];
+	var $n = (function() {
 		var e = new Array(zn.length);
 		for (var r = 0; r < zn.length; ++r) {
 			var t = zn[r];
@@ -6065,7 +5188,7 @@ function make_xlsx_lib(e) {
 			e[r] = new RegExp("<" + a + "[^>]*>([\\s\\S]*?)</" + a + ">")
 		}
 		return e
-	} ();
+	})();
 	function Wn(e) {
 		var r = {};
 		e = kt(e);
@@ -6077,55 +5200,13 @@ function make_xlsx_lib(e) {
 		}
 		return r
 	}
-	function jn(e, r, t, a, n) {
-		if (n[e] != null || r == null || r === "") return;
-		n[e] = r;
-		r = ot(r);
-		a[a.length] = t ? Ot(e, r, t) : Ft(e, r)
-	}
-	function Hn(e, r) {
-		var t = r || {};
-		var a = [Yr, Ot("cp:coreProperties", null, {
-			"xmlns:cp": Rt.CORE_PROPS,
-			"xmlns:dc": Rt.dc,
-			"xmlns:dcterms": Rt.dcterms,
-			"xmlns:dcmitype": Rt.dcmitype,
-			"xmlns:xsi": Rt.xsi
-		})],
-		n = {};
-		if (!e && !t.Props) return a.join("");
-		if (e) {
-			if (e.CreatedDate != null) jn("dcterms:created", typeof e.CreatedDate === "string" ? e.CreatedDate: Mt(e.CreatedDate, t.WTF), {
-				"xsi:type": "dcterms:W3CDTF"
-			},
-			a, n);
-			if (e.ModifiedDate != null) jn("dcterms:modified", typeof e.ModifiedDate === "string" ? e.ModifiedDate: Mt(e.ModifiedDate, t.WTF), {
-				"xsi:type": "dcterms:W3CDTF"
-			},
-			a, n)
-		}
-		for (var i = 0; i != zn.length; ++i) {
-			var s = zn[i];
-			var l = t.Props && t.Props[s[1]] != null ? t.Props[s[1]] : e ? e[s[1]] : null;
-			if (l === true) l = "1";
-			else if (l === false) l = "0";
-			else if (typeof l == "number") l = String(l);
-			if (l != null) jn(s[0], l, null, a, n)
-		}
-		if (a.length > 2) {
-			a[a.length] = "</cp:coreProperties>";
-			a[1] = a[1].replace("/>", ">")
-		}
-		return a.join("")
-	}
-	var Vn = [["Application", "Application", "string"], ["AppVersion", "AppVersion", "string"], ["Company", "Company", "string"], ["DocSecurity", "DocSecurity", "string"], ["Manager", "Manager", "string"], ["HyperlinksChanged", "HyperlinksChanged", "bool"], ["SharedDoc", "SharedDoc", "bool"], ["LinksUpToDate", "LinksUpToDate", "bool"], ["ScaleCrop", "ScaleCrop", "bool"], ["HeadingPairs", "HeadingPairs", "raw"], ["TitlesOfParts", "TitlesOfParts", "raw"]];
-	var Xn = ["Worksheets", "SheetNames", "NamedRanges", "DefinedNames", "Chartsheets", "ChartNames"];
+	var Vn = [["Application", "Application", "string"], ["AppVersion", "AppVersion", "string"], ["Company", "Company", "string"], ["DocSecurity", "DocSecurity", "string"], ["Manager", "Manager", "string"], ["HyperlinksChanged", "HyperlinksChanged", "bool"], ["SharedDoc", "SharedDoc", "bool"], ["LinksUpToDate", "LinksUpToDate", "bool"], ["ScaleCrop", "ScaleCrop", "bool"], ["HeadingPairs", "HeadingPairs", "raw"], ["TitlesOfParts", "TitlesOfParts", "raw"], ];
 	function Gn(e, r, t, a) {
 		var n = [];
 		if (typeof e == "string") n = Tt(e, a);
 		else for (var i = 0; i < e.length; ++i) n = n.concat(e[i].map(function(e) {
 			return {
-				v: e
+				v: e,
 			}
 		}));
 		var s = typeof r == "string" ? Tt(r, a).map(function(e) {
@@ -6137,55 +5218,36 @@ function make_xlsx_lib(e) {
 			o = +n[c + 1].v;
 			switch (n[c].v) {
 			case "Worksheets":
-				;
 			case "工作表":
-				;
 			case "Листы":
-				;
 			case "أوراق العمل":
-				;
 			case "ワークシート":
-				;
 			case "גליונות עבודה":
-				;
 			case "Arbeitsblätter":
-				;
 			case "Çalışma Sayfaları":
-				;
 			case "Feuilles de calcul":
-				;
 			case "Fogli di lavoro":
-				;
 			case "Folhas de cálculo":
-				;
 			case "Planilhas":
-				;
 			case "Regneark":
-				;
 			case "Hojas de cálculo":
-				;
 			case "Werkbladen":
 				t.Worksheets = o;
 				t.SheetNames = s.slice(l, l + o);
 				break;
 			case "Named Ranges":
-				;
 			case "Rangos con nombre":
-				;
 			case "名前付き一覧":
-				;
 			case "Benannte Bereiche":
-				;
 			case "Navngivne områder":
 				t.NamedRanges = o;
 				t.DefinedNames = s.slice(l, l + o);
 				break;
 			case "Charts":
-				;
 			case "Diagramme":
 				t.Chartsheets = o;
 				t.ChartNames = s.slice(l, l + o);
-				break;
+				break
 			}
 			l += o
 		}
@@ -6206,50 +5268,11 @@ function make_xlsx_lib(e) {
 			case "raw":
 				var i = e.match(new RegExp("<" + t[0] + "[^>]*>([\\s\\S]*?)</" + t[0] + ">"));
 				if (i && i.length > 0) a[t[1]] = i[1];
-				break;
+				break
 			}
 		});
 		if (a.HeadingPairs && a.TitlesOfParts) Gn(a.HeadingPairs, a.TitlesOfParts, r, t);
 		return r
-	}
-	function Jn(e) {
-		var r = [],
-		t = Ot;
-		if (!e) e = {};
-		e.Application = "SheetJS";
-		r[r.length] = Yr;
-		r[r.length] = Ot("Properties", null, {
-			xmlns: Rt.EXT_PROPS,
-			"xmlns:vt": Rt.vt
-		});
-		Vn.forEach(function(a) {
-			if (e[a[1]] === undefined) return;
-			var n;
-			switch (a[2]) {
-			case "string":
-				n = ot(String(e[a[1]]));
-				break;
-			case "bool":
-				n = e[a[1]] ? "true": "false";
-				break;
-			}
-			if (n !== undefined) r[r.length] = t(a[0], n)
-		});
-		r[r.length] = t("HeadingPairs", t("vt:vector", t("vt:variant", "<vt:lpstr>Worksheets</vt:lpstr>") + t("vt:variant", t("vt:i4", String(e.Worksheets))), {
-			size: 2,
-			baseType: "variant"
-		}));
-		r[r.length] = t("TitlesOfParts", t("vt:vector", e.SheetNames.map(function(e) {
-			return "<vt:lpstr>" + ot(e) + "</vt:lpstr>"
-		}).join(""), {
-			size: e.Worksheets,
-			baseType: "lpstr"
-		}));
-		if (r.length > 2) {
-			r[r.length] = "</Properties>";
-			r[1] = r[1].replace("/>", ">")
-		}
-		return r.join("")
 	}
 	var Zn = /<[^>]+>[^<]*/g;
 	function Kn(e, r) {
@@ -6277,9 +5300,7 @@ function make_xlsx_lib(e) {
 					f = o[1];
 					switch (c) {
 					case "lpstr":
-						;
 					case "bstr":
-						;
 					case "lpwstr":
 						t[a] = it(f);
 						break;
@@ -6287,66 +5308,37 @@ function make_xlsx_lib(e) {
 						t[a] = mt(f);
 						break;
 					case "i1":
-						;
 					case "i2":
-						;
 					case "i4":
-						;
 					case "i8":
-						;
 					case "int":
-						;
 					case "uint":
 						t[a] = parseInt(f, 10);
 						break;
 					case "r4":
-						;
 					case "r8":
-						;
 					case "decimal":
 						t[a] = parseFloat(f);
 						break;
 					case "filetime":
-						;
 					case "date":
 						t[a] = wr(f);
 						break;
 					case "cy":
-						;
 					case "error":
 						t[a] = it(f);
 						break;
 					default:
 						if (c.slice(-1) == "/") break;
-						if (r.WTF && typeof console !== "undefined") console.warn("Unexpected", s, c, o);
+						if (r.WTF && typeof console !== "undefined") console.warn("Unexpected", s, c, o)
 					}
 				} else if (s.slice(0, 2) === "</") {} else if (r.WTF) throw new Error(s);
 			}
 		}
 		return t
 	}
-	function qn(e) {
-		var r = [Yr, Ot("Properties", null, {
-			xmlns: Rt.CUST_PROPS,
-			"xmlns:vt": Rt.vt
-		})];
-		if (!e) return r.join("");
-		var t = 1;
-		ir(e).forEach(function a(n) {++t;
-			r[r.length] = Ot("property", Nt(e[n], true), {
-				fmtid: "{D5CDD505-2E9C-101B-9397-08002B2CF9AE}",
-				pid: t,
-				name: ot(n)
-			})
-		});
-		if (r.length > 2) {
-			r[r.length] = "</Properties>";
-			r[1] = r[1].replace("/>", ">")
-		}
-		return r.join("")
-	}
 	var Qn = [2, 3, 48, 49, 131, 139, 140, 245];
-	var ei = function() {
+	var ei = (function() {
 		var e = {
 			1 : 437,
 			2 : 850,
@@ -6416,7 +5408,7 @@ function make_xlsx_lib(e) {
 			135 : 852,
 			136 : 857,
 			204 : 1257,
-			255 : 16969
+			255 : 16969,
 		};
 		var n = lr({
 			1 : 437,
@@ -6445,7 +5437,7 @@ function make_xlsx_lib(e) {
 			201 : 1251,
 			202 : 1254,
 			203 : 1253,
-			0 : 20127
+			0 : 20127,
 		});
 		function i(r, t) {
 			var n = [];
@@ -6458,10 +5450,9 @@ function make_xlsx_lib(e) {
 				i = D(r);
 				break;
 			case "buffer":
-				;
 			case "array":
 				i = r;
-				break;
+				break
 			}
 			ya(i, 0);
 			var s = i._R(1);
@@ -6530,34 +5521,21 @@ function make_xlsx_lib(e) {
 					if ((!o || m.len != 8) && t.WTF) console.log("Skipping " + m.name + ":" + m.type);
 					break;
 				case "G":
-					;
 				case "P":
 					if (t.WTF) console.log("Skipping " + m.name + ":" + m.type);
 					break;
 				case "+":
-					;
 				case "0":
-					;
 				case "@":
-					;
 				case "C":
-					;
 				case "D":
-					;
 				case "F":
-					;
 				case "I":
-					;
 				case "L":
-					;
 				case "M":
-					;
 				case "N":
-					;
 				case "O":
-					;
 				case "T":
-					;
 				case "Y":
 					break;
 				default:
@@ -6599,26 +5577,21 @@ function make_xlsx_lib(e) {
 						n[b][w] = parseFloat(y.trim());
 						break;
 					case "+":
-						;
 					case "I":
 						n[b][w] = c ? k._R(-4, "i") ^ 2147483648 : k._R(4, "i");
 						break;
 					case "L":
 						switch (y.trim().toUpperCase()) {
 						case "Y":
-							;
 						case "T":
 							n[b][w] = true;
 							break;
 						case "N":
-							;
 						case "F":
 							n[b][w] = false;
 							break;
 						case "":
-							;
 						case "\0":
-							;
 						case "?":
 							break;
 						default:
@@ -6646,7 +5619,7 @@ function make_xlsx_lib(e) {
 						}
 						break;
 					case "Y":
-						n[b][w] = k._R(4, "i") / 1e4 + k._R(4, "i") / 1e4 * Math.pow(2, 32);
+						n[b][w] = k._R(4, "i") / 1e4 + (k._R(4, "i") / 1e4) * Math.pow(2, 32);
 						break;
 					case "O":
 						n[b][w] = -k._R(-8, "f");
@@ -6655,9 +5628,8 @@ function make_xlsx_lib(e) {
 						if (o && p[w].len == 8) {
 							n[b][w] = k._R(8, "f");
 							break
-						};
+						}
 					case "G":
-						;
 					case "P":
 						k.l += p[w].len;
 						break;
@@ -6680,7 +5652,7 @@ function make_xlsx_lib(e) {
 			a["!cols"] = t.DBF.map(function(e) {
 				return {
 					wch: e.len,
-					DBF: e
+					DBF: e,
 				}
 			});
 			delete t.DBF;
@@ -6692,11 +5664,11 @@ function make_xlsx_lib(e) {
 				t.bookType = "dbf";
 				return t
 			} catch(a) {
-				if (r && r.WTF) throw a
+				if (r && r.WTF) throw a;
 			}
 			return {
 				SheetNames: [],
-				Sheets: {}
+				Sheets: {},
 			}
 		}
 		var c = {
@@ -6705,7 +5677,7 @@ function make_xlsx_lib(e) {
 			L: 1,
 			D: 8,
 			"?": 0,
-			"": 0
+			"": 0,
 		};
 		function f(i, s) {
 			if (!i["!ref"]) throw new Error("Cannot export empty sheet to DBF");
@@ -6717,7 +5689,7 @@ function make_xlsx_lib(e) {
 			var h = dc(i, {
 				header: 1,
 				raw: true,
-				cellDates: true
+				cellDates: true,
 			});
 			var d = h[0],
 			p = h.slice(1),
@@ -6770,7 +5742,7 @@ function make_xlsx_lib(e) {
 						_ = T[g] instanceof Date ? "D": "C";
 						break;
 					default:
-						_ = "C";
+						_ = "C"
 					}
 					A = Math.max(A, (typeof a !== "undefined" && typeof T[g] == "string" ? a.utils.encode(t, T[g]) : String(T[g])).length);
 					C = C && C != _ ? "C": _
@@ -6796,7 +5768,7 @@ function make_xlsx_lib(e) {
 			E._W(2, w);
 			for (v = 0; v < 4; ++v) E._W(4, 0);
 			var F = +n[r] || 3;
-			E._W(4, 0 | F << 8);
+			E._W(4, 0 | (F << 8));
 			if (e[F] != +l.codepage) {
 				if (l.codepage) console.error("DBF Unsupported codepage " + r + ", using 1252");
 				r = 1252
@@ -6853,7 +5825,7 @@ function make_xlsx_lib(e) {
 						N._W(1, R, "cpstr");
 						P += x[g] - N.l;
 						for (b = 0; b < P; ++b) N._W(1, 32);
-						break;
+						break
 					}
 				}
 			}
@@ -6864,10 +5836,10 @@ function make_xlsx_lib(e) {
 		return {
 			to_workbook: l,
 			to_sheet: s,
-			from_sheet: f
+			from_sheet: f,
 		}
-	} ();
-	var ri = function() {
+	})();
+	var ri = (function() {
 		var e = {
 			AA: "À",
 			BA: "Á",
@@ -6955,7 +5927,7 @@ function make_xlsx_lib(e) {
 			"=": 189,
 			">": 190,
 			"?": 191,
-			"{": 223
+			"{": 223,
 		};
 		var r = new RegExp("N(" + ir(e).join("|").replace(/\|\|\|/, "|\\||").replace(/([?()+])/g, "\\$1").replace("{", "\\{") + "|\\|)", "gm");
 		try {
@@ -6966,7 +5938,7 @@ function make_xlsx_lib(e) {
 			return typeof a == "number" ? v(a) : a
 		};
 		var i = function(e, r, t) {
-			var a = r.charCodeAt(0) - 32 << 4 | t.charCodeAt(0) - 48;
+			var a = ((r.charCodeAt(0) - 32) << 4) | (t.charCodeAt(0) - 48);
 			return a == 59 ? e: v(a)
 		};
 		e["|"] = 254;
@@ -6982,9 +5954,9 @@ function make_xlsx_lib(e) {
 			case "buffer":
 				return c(_ && Buffer.isBuffer(e) ? e.toString("binary") : M(e), r);
 			case "array":
-				return c(kr(e), r);
+				return c(kr(e), r)
 			}
-			throw new Error("Unrecognized type " + r.type)
+			throw new Error("Unrecognized type " + r.type);
 		}
 		function c(e, t) {
 			var s = e.split(/[\n\r]+/),
@@ -7004,8 +5976,8 @@ function make_xlsx_lib(e) {
 			var y = {
 				Workbook: {
 					WBProps: {},
-					Names: []
-				}
+					Names: [],
+				},
 			};
 			if ( + t.codepage >= 0) o( + t.codepage);
 			for (; f !== s.length; ++f) {
@@ -7030,7 +6002,7 @@ function make_xlsx_lib(e) {
 							var A = parseInt(S[u].slice(1), 10);
 							if (A >= 1 && A <= 4) y.Workbook.WBProps.date1904 = true
 						}
-						break;
+						break
 					}
 					break;
 				case "W":
@@ -7039,21 +6011,21 @@ function make_xlsx_lib(e) {
 					switch (S[1].charAt(0)) {
 					case "P":
 						d.push(x.slice(3).replace(/;;/g, ";"));
-						break;
+						break
 					}
 					break;
 				case "NN":
 					{
 						var T = {
-							Sheet: 0
+							Sheet: 0,
 						};
 						for (u = 1; u < S.length; ++u) switch (S[u].charAt(0)) {
 						case "N":
 							T.Name = S[u].slice(1);
 							break;
 						case "E":
-							T.Ref = (t && t.sheet || "Sheet1") + "!" + Os(S[u].slice(1));
-							break;
+							T.Ref = ((t && t.sheet) || "Sheet1") + "!" + Os(S[u].slice(1));
+							break
 						}
 						y.Workbook.Names.push(T)
 					}
@@ -7104,7 +6076,7 @@ function make_xlsx_lib(e) {
 						O = true;
 						I = Os(S[u].slice(1), {
 							r: l,
-							c: c
+							c: c,
 						});
 						break;
 					case "S":
@@ -7124,7 +6096,7 @@ function make_xlsx_lib(e) {
 					if (E) {
 						if (!h[l][c]) h[l][c] = {
 							t: P,
-							v: _
+							v: _,
 						};
 						else {
 							h[l][c].t = P;
@@ -7132,7 +6104,7 @@ function make_xlsx_lib(e) {
 						}
 						if (p) h[l][c].z = p;
 						if (t.cellText !== false && p) h[l][c].w = $e(h[l][c].z, h[l][c].v, {
-							date1904: y.Workbook.WBProps.date1904
+							date1904: y.Workbook.WBProps.date1904,
 						});
 						p = null
 					}
@@ -7142,24 +6114,25 @@ function make_xlsx_lib(e) {
 						if (!L || !L[1]) throw new Error("SYLK shared formula cannot find base");
 						I = Ps(L[1], {
 							r: l - M,
-							c: c - N
+							c: c - N,
 						})
 					}
 					if (I) {
 						if (!h[l][c]) h[l][c] = {
 							t: "n",
-							f: I
+							f: I,
 						};
 						else h[l][c].f = I
 					}
 					if (R) {
 						if (!h[l][c]) h[l][c] = {
-							t: "z"
+							t: "z",
 						};
 						h[l][c].c = [{
 							a: "SheetJSYLK",
-							t: R
-						}]
+							t: R,
+						},
+						]
 					}
 					break;
 				case "F":
@@ -7193,9 +6166,9 @@ function make_xlsx_lib(e) {
 						for (k = parseInt(b[0], 10); k <= parseInt(b[1], 10); ++k) {
 							w = parseInt(b[2], 10);
 							g[k - 1] = w === 0 ? {
-								hidden: true
+								hidden: true,
 							}: {
-								wch: w
+								wch: w,
 							}
 						}
 						break;
@@ -7253,7 +6226,7 @@ function make_xlsx_lib(e) {
 				s += e.v || 0;
 				if (e.f && !e.F) s += ";E" + Is(e.f, {
 					r: t,
-					c: a
+					c: a,
 				});
 				break;
 			case "b":
@@ -7267,7 +6240,7 @@ function make_xlsx_lib(e) {
 				break;
 			case "s":
 				s += '"' + (e.v == null ? "": String(e.v)).replace(/"/g, "").replace(/;/g, ";;") + '"';
-				break;
+				break
 			}
 			return s
 		}
@@ -7329,7 +6302,7 @@ function make_xlsx_lib(e) {
 				g = [];
 				for (v = i.s.c; v <= i.e.c; ++v) {
 					s = l ? e["!data"][m][v] : e[Ra(v) + Ma(m)];
-					if (!s || s.v == null && (!s.f || s.F)) continue;
+					if (!s || (s.v == null && (!s.f || s.F))) continue;
 					if ((s.z || (s.t == "d" ? q[14] : "General")) != f) {
 						var b = r._formats.indexOf(s.z);
 						if (b == -1) {
@@ -7353,10 +6326,10 @@ function make_xlsx_lib(e) {
 		}
 		return {
 			to_workbook: f,
-			from_sheet: m
+			from_sheet: m,
 		}
-	} ();
-	var ti = function() {
+	})();
+	var ti = (function() {
 		function e(e, t) {
 			switch (t.type) {
 			case "base64":
@@ -7366,9 +6339,9 @@ function make_xlsx_lib(e) {
 			case "buffer":
 				return r(_ && Buffer.isBuffer(e) ? e.toString("binary") : M(e), t);
 			case "array":
-				return r(kr(e), t);
+				return r(kr(e), t)
 			}
-			throw new Error("Unrecognized type " + t.type)
+			throw new Error("Unrecognized type " + t.type);
 		}
 		function r(e, r) {
 			var t = e.split("\n"),
@@ -7412,7 +6385,7 @@ function make_xlsx_lib(e) {
 					f = f.replace(/""/g, '"');
 					if (w && f && f.match(/^=".*"$/)) f = f.slice(2, -1);
 					s[a][n++] = f !== "" ? f: null;
-					break;
+					break
 				}
 				if (f === "EOD") break
 			}
@@ -7438,14 +6411,14 @@ function make_xlsx_lib(e) {
 			if (!e["!ref"]) throw new Error("Cannot export empty sheet to DIF");
 			var t = Xa(e["!ref"]);
 			var a = e["!data"] != null;
-			var s = ['TABLE\r\n0,1\r\n"sheetjs"\r\n', "VECTORS\r\n0," + (t.e.r - t.s.r + 1) + '\r\n""\r\n', "TUPLES\r\n0," + (t.e.c - t.s.c + 1) + '\r\n""\r\n', 'DATA\r\n0,0\r\n""\r\n'];
+			var s = ['TABLE\r\n0,1\r\n"sheetjs"\r\n', "VECTORS\r\n0," + (t.e.r - t.s.r + 1) + '\r\n""\r\n', "TUPLES\r\n0," + (t.e.c - t.s.c + 1) + '\r\n""\r\n', 'DATA\r\n0,0\r\n""\r\n', ];
 			for (var l = t.s.r; l <= t.e.r; ++l) {
 				var o = a ? e["!data"][l] : [];
 				var c = "-1,0\r\nBOT\r\n";
 				for (var f = t.s.c; f <= t.e.c; ++f) {
 					var u = a ? o && o[f] : e[$a({
 						r: l,
-						c: f
+						c: f,
 					})];
 					if (u == null) {
 						c += '1,0\r\n""\r\n';
@@ -7475,7 +6448,7 @@ function make_xlsx_lib(e) {
 						else c += i(u.w);
 						break;
 					default:
-						c += '1,0\r\n""';
+						c += '1,0\r\n""'
 					}
 					c += "\r\n"
 				}
@@ -7486,10 +6459,10 @@ function make_xlsx_lib(e) {
 		return {
 			to_workbook: a,
 			to_sheet: t,
-			from_sheet: s
+			from_sheet: s,
 		}
-	} ();
-	var ai = function() {
+	})();
+	var ai = (function() {
 		function e(e) {
 			return e.replace(/\\b/g, "\\").replace(/\\c/g, ":").replace(/\\n/g, "\n")
 		}
@@ -7525,9 +6498,9 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l[n][i] = +o[4];
-						break;
+						break
 					}
-					if (o[2] == "vtf") l[n][i] = [l[n][i], f];
+					if (o[2] == "vtf") l[n][i] = [l[n][i], f]
 				}
 			}
 			if (t && t.sheetRows) l = l.slice(0, t.sheetRows);
@@ -7539,8 +6512,8 @@ function make_xlsx_lib(e) {
 		function n(e, r) {
 			return Ja(a(e, r), r)
 		}
-		var i = ["socialcalc:version:1.5", "MIME-Version: 1.0", "Content-Type: multipart/mixed; boundary=SocialCalcSpreadsheetControlSave"].join("\n");
-		var s = ["--SocialCalcSpreadsheetControlSave", "Content-type: text/plain; charset=UTF-8"].join("\n") + "\n";
+		var i = ["socialcalc:version:1.5", "MIME-Version: 1.0", "Content-Type: multipart/mixed; boundary=SocialCalcSpreadsheetControlSave", ].join("\n");
+		var s = ["--SocialCalcSpreadsheetControlSave", "Content-type: text/plain; charset=UTF-8", ].join("\n") + "\n";
 		var l = ["# SocialCalc Spreadsheet Control Save", "part:sheet"].join("\n");
 		var o = "--SocialCalcSpreadsheetControlSave--";
 		function c(e) {
@@ -7555,14 +6528,13 @@ function make_xlsx_lib(e) {
 				for (var c = s.s.c; c <= s.e.c; ++c) {
 					i = $a({
 						r: o,
-						c: c
+						c: c,
 					});
 					n = l ? (e["!data"][o] || [])[c] : e[i];
 					if (!n || n.v == null || n.t === "z") continue;
 					a = ["cell", i, "t"];
 					switch (n.t) {
 					case "s":
-						;
 					case "str":
 						a.push(r(n.v));
 						break;
@@ -7591,7 +6563,7 @@ function make_xlsx_lib(e) {
 						a[5] = n.w || $e(n.z || q[14], f);
 						break;
 					case "e":
-						continue;
+						continue
 					}
 					t.push(a.join(":"))
 				}
@@ -7606,10 +6578,10 @@ function make_xlsx_lib(e) {
 		return {
 			to_workbook: n,
 			to_sheet: a,
-			from_sheet: f
+			from_sheet: f,
 		}
-	} ();
-	var ni = function() {
+	})();
+	var ni = (function() {
 		function e(e, r, t, a, n) {
 			if (n.raw) r[t][a] = e;
 			else if (e === "") {} else if (e === "TRUE") r[t][a] = true;
@@ -7647,13 +6619,13 @@ function make_xlsx_lib(e) {
 			44 : ",",
 			9 : "\t",
 			59 : ";",
-			124 : "|"
+			124 : "|",
 		};
 		var n = {
 			44 : 3,
 			9 : 2,
 			59 : 1,
-			124 : 0
+			124 : 0,
 		};
 		function i(e) {
 			var r = {},
@@ -7688,12 +6660,12 @@ function make_xlsx_lib(e) {
 			var s = {
 				s: {
 					c: 0,
-					r: 0
+					r: 0,
 				},
 				e: {
 					c: 0,
-					r: 0
-				}
+					r: 0,
+				},
 			};
 			if (e.slice(0, 4) == "sep=") {
 				if (e.charCodeAt(5) == 13 && e.charCodeAt(6) == 10) {
@@ -7746,10 +6718,10 @@ function make_xlsx_lib(e) {
 				} else if (r == "FALSE") {
 					a.t = "b";
 					a.v = false
-				} else if (!isNaN(c = Sr(r))) {
+				} else if (!isNaN((c = Sr(r)))) {
 					a.t = "n";
 					a.v = c
-				} else if (!isNaN((c = Or(r)).getDate()) || v && r.match(v)) {
+				} else if (!isNaN((c = Or(r)).getDate()) || (v && r.match(v))) {
 					a.z = t.dateNF || q[14];
 					if (v && r.match(v)) {
 						var i = Je(r, t.dateNF, r.match(v) || []);
@@ -7774,7 +6746,7 @@ function make_xlsx_lib(e) {
 					n["!data"][l][o] = a
 				} else n[$a({
 					c: o,
-					r: l
+					r: l,
 				})] = a;
 				f = u + 1;
 				m = e.charCodeAt(f);
@@ -7786,7 +6758,7 @@ function make_xlsx_lib(e) {
 					if (t.sheetRows && t.sheetRows <= l) return true
 				}
 			}
-			e: for (; u < e.length; ++u) switch (p = e.charCodeAt(u)) {
+			e: for (; u < e.length; ++u) switch ((p = e.charCodeAt(u))) {
 			case 34:
 				if (m === 34) d = !d;
 				break;
@@ -7794,12 +6766,11 @@ function make_xlsx_lib(e) {
 				if (d) break;
 				if (e.charCodeAt(u + 1) == 10)++u;
 			case h:
-				;
 			case 10:
 				if (!d && g()) break e;
 				break;
 			default:
-				break;
+				break
 			}
 			if (u - f > 0) g();
 			n["!ref"] = ja(s);
@@ -7856,7 +6827,7 @@ function make_xlsx_lib(e) {
 				for (var l = t.s.c; l <= t.e.c; ++l) {
 					var o = $a({
 						r: i,
-						c: l
+						c: l,
 					});
 					a = n ? (e["!data"][i] || [])[l] : e[o];
 					if (!a || a.v == null) {
@@ -7874,9 +6845,9 @@ function make_xlsx_lib(e) {
 		return {
 			to_workbook: c,
 			to_sheet: o,
-			from_sheet: f
+			from_sheet: f,
 		}
-	} ();
+	})();
 	function ii(e, r) {
 		var t = r || {},
 		a = !!t.WTF;
@@ -7906,7 +6877,6 @@ function make_xlsx_lib(e) {
 			case "<shadow":
 				if (!s.val) break;
 			case "<shadow>":
-				;
 			case "<shadow/>":
 				r.shadow = 1;
 				break;
@@ -7919,7 +6889,6 @@ function make_xlsx_lib(e) {
 			case "<outline":
 				if (!s.val) break;
 			case "<outline>":
-				;
 			case "<outline/>":
 				r.outline = 1;
 				break;
@@ -7934,7 +6903,6 @@ function make_xlsx_lib(e) {
 			case "<strike":
 				if (!s.val) break;
 			case "<strike>":
-				;
 			case "<strike/>":
 				r.strike = 1;
 				break;
@@ -7951,10 +6919,9 @@ function make_xlsx_lib(e) {
 					break;
 				case "doubleAccounting":
 					r.uval = "double-accounting";
-					break;
-				};
+					break
+				}
 			case "<u>":
-				;
 			case "<u/>":
 				r.u = 1;
 				break;
@@ -7963,7 +6930,6 @@ function make_xlsx_lib(e) {
 			case "<b":
 				if (s.val == "0") break;
 			case "<b>":
-				;
 			case "<b/>":
 				r.b = 1;
 				break;
@@ -7972,7 +6938,6 @@ function make_xlsx_lib(e) {
 			case "<i":
 				if (s.val == "0") break;
 			case "<i>":
-				;
 			case "<i/>":
 				r.i = 1;
 				break;
@@ -7982,41 +6947,31 @@ function make_xlsx_lib(e) {
 				if (s.rgb) r.color = s.rgb.slice(2, 8);
 				break;
 			case "<color>":
-				;
 			case "<color/>":
-				;
 			case "</color>":
 				break;
 			case "<family":
 				r.family = s.val;
 				break;
 			case "<family>":
-				;
 			case "<family/>":
-				;
 			case "</family>":
 				break;
 			case "<vertAlign":
 				r.valign = s.val;
 				break;
 			case "<vertAlign>":
-				;
 			case "<vertAlign/>":
-				;
 			case "</vertAlign>":
 				break;
 			case "<scheme":
 				break;
 			case "<scheme>":
-				;
 			case "<scheme/>":
-				;
 			case "</scheme>":
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
 				break;
 			case "<ext":
@@ -8031,18 +6986,18 @@ function make_xlsx_lib(e) {
 		}
 		return r
 	}
-	var li = function() {
+	var li = (function() {
 		var e = xt("t"),
 		r = xt("rPr");
 		function t(t) {
 			var a = t.match(e);
 			if (!a) return {
 				t: "s",
-				v: ""
+				v: "",
 			};
 			var n = {
 				t: "s",
-				v: it(a[1])
+				v: it(a[1]),
 			};
 			var i = t.match(r);
 			if (i) n.s = si(i[1]);
@@ -8055,8 +7010,8 @@ function make_xlsx_lib(e) {
 				return e.v
 			})
 		}
-	} ();
-	var oi = function Yc() {
+	})();
+	var oi = (function Yc() {
 		var e = /(\r\n|\n)/g;
 		function r(e, r, t) {
 			var a = [];
@@ -8097,7 +7052,7 @@ function make_xlsx_lib(e) {
 		return function a(e) {
 			return e.map(t).join("")
 		}
-	} ();
+	})();
 	var ci = /<(?:\w+:)?t[^>]*>([^<]*)<\/(?:\w+:)?t>/g,
 	fi = /<(?:\w+:)?r\b[^>]*>/;
 	var ui = /<(?:\w+:)?rPh.*?>([\s\S]*?)<\/(?:\w+:)?rPh>/g;
@@ -8105,7 +7060,7 @@ function make_xlsx_lib(e) {
 		var t = r ? r.cellHTML: true;
 		var a = {};
 		if (!e) return {
-			t: ""
+			t: "",
 		};
 		if (e.match(/^\s*<(?:\w+:)?t[^>]*>/)) {
 			a.t = it(kt(e.slice(e.indexOf(">") + 1).split(/<\/(?:\w+:)?t>/)[0] || ""), true);
@@ -8138,39 +7093,9 @@ function make_xlsx_lib(e) {
 		}
 		return t
 	}
-	var gi = /^\s|\s$|[\t\n\r]/;
-	function bi(e, r) {
-		if (!r.bookSST) return "";
-		var t = [Yr];
-		t[t.length] = Ot("sst", null, {
-			xmlns: Lt[0],
-			count: e.Count,
-			uniqueCount: e.Unique
-		});
-		for (var a = 0; a != e.length; ++a) {
-			if (e[a] == null) continue;
-			var n = e[a];
-			var i = "<si>";
-			if (n.r) i += n.r;
-			else {
-				i += "<t";
-				if (!n.t) n.t = "";
-				if (typeof n.t !== "string") n.t = String(n.t);
-				if (n.t.match(gi)) i += ' xml:space="preserve"';
-				i += ">" + ot(n.t) + "</t>"
-			}
-			i += "</si>";
-			t[t.length] = i
-		}
-		if (t.length > 2) {
-			t[t.length] = "</sst>";
-			t[1] = t[1].replace("/>", ">")
-		}
-		return t.join("")
-	}
 	function wi(e) {
 		var r = e.slice(e[0] === "#" ? 1 : 0).slice(0, 6);
-		return [parseInt(r.slice(0, 2), 16), parseInt(r.slice(2, 4), 16), parseInt(r.slice(4, 6), 16)]
+		return [parseInt(r.slice(0, 2), 16), parseInt(r.slice(2, 4), 16), parseInt(r.slice(4, 6), 16), ]
 	}
 	function ki(e) {
 		for (var r = 0,
@@ -8198,7 +7123,7 @@ function make_xlsx_lib(e) {
 			break;
 		case a:
 			l = (r - t) / s + 4;
-			break;
+			break
 		}
 		return [l / 6, o, c / 2]
 	}
@@ -8206,14 +7131,13 @@ function make_xlsx_lib(e) {
 		var r = e[0],
 		t = e[1],
 		a = e[2];
-		var n = t * 2 * (a < .5 ? a: 1 - a),
+		var n = t * 2 * (a < 0.5 ? a: 1 - a),
 		i = a - n / 2;
 		var s = [i, i, i],
 		l = 6 * r;
 		var o;
 		if (t !== 0) switch (l | 0) {
 		case 0:
-			;
 		case 6:
 			o = n * l;
 			s[0] += n;
@@ -8243,7 +7167,7 @@ function make_xlsx_lib(e) {
 			o = n * (6 - l);
 			s[2] += o;
 			s[0] += n;
-			break;
+			break
 		}
 		for (var c = 0; c != 3; ++c) s[c] = Math.round(s[c] * 255);
 		return s
@@ -8263,10 +7187,10 @@ function make_xlsx_lib(e) {
 		return Math.floor((e + Math.round(128 / Ti) / 256) * Ti)
 	}
 	function Fi(e) {
-		return Math.floor((e - 5) / Ti * 100 + .5) / 100
+		return Math.floor(((e - 5) / Ti) * 100 + 0.5) / 100
 	}
 	function Di(e) {
-		return Math.round((e * Ti + 5) / Ti * 256) / 256
+		return Math.round(((e * Ti + 5) / Ti) * 256) / 256
 	}
 	function Oi(e) {
 		return Di(Fi(Ei(e)))
@@ -8274,7 +7198,7 @@ function make_xlsx_lib(e) {
 	function Mi(e) {
 		var r = Math.abs(e - Oi(e)),
 		t = Ti;
-		if (r > .005) for (Ti = Ai; Ti < _i; ++Ti) if (Math.abs(e - Oi(e)) <= r) {
+		if (r > 0.005) for (Ti = Ai; Ti < _i; ++Ti) if (Math.abs(e - Oi(e)) <= r) {
 			r = Math.abs(e - Oi(e));
 			t = Ti
 		}
@@ -8299,28 +7223,11 @@ function make_xlsx_lib(e) {
 	var Ii = 96,
 	Pi = Ii;
 	function Ri(e) {
-		return e * 96 / Pi
+		return (e * 96) / Pi
 	}
 	function Li(e) {
-		return e * Pi / 96
+		return (e * Pi) / 96
 	}
-	var Bi = {
-		None: "none",
-		Solid: "solid",
-		Gray50: "mediumGray",
-		Gray75: "darkGray",
-		Gray25: "lightGray",
-		HorzStripe: "darkHorizontal",
-		VertStripe: "darkVertical",
-		ReverseDiagStripe: "darkDown",
-		DiagStripe: "darkUp",
-		DiagCross: "darkGrid",
-		ThickDiagCross: "darkTrellis",
-		ThinHorzStripe: "lightHorizontal",
-		ThinVertStripe: "lightVertical",
-		ThinReverseDiagStripe: "lightDown",
-		ThinHorzCross: "lightGrid"
-	};
 	function Ui(e, r, t, a) {
 		r.Borders = [];
 		var n = {};
@@ -8328,15 +7235,11 @@ function make_xlsx_lib(e) {
 			var t = rt(e);
 			switch (tt(t[0])) {
 			case "<borders":
-				;
 			case "<borders>":
-				;
 			case "</borders>":
 				break;
 			case "<border":
-				;
 			case "<border>":
-				;
 			case "<border/>":
 				n = {};
 				if (t.diagonalUp) n.diagonalUp = mt(t.diagonalUp);
@@ -8348,7 +7251,6 @@ function make_xlsx_lib(e) {
 			case "<left/>":
 				break;
 			case "<left":
-				;
 			case "<left>":
 				break;
 			case "</left>":
@@ -8356,7 +7258,6 @@ function make_xlsx_lib(e) {
 			case "<right/>":
 				break;
 			case "<right":
-				;
 			case "<right>":
 				break;
 			case "</right>":
@@ -8364,7 +7265,6 @@ function make_xlsx_lib(e) {
 			case "<top/>":
 				break;
 			case "<top":
-				;
 			case "<top>":
 				break;
 			case "</top>":
@@ -8372,63 +7272,48 @@ function make_xlsx_lib(e) {
 			case "<bottom/>":
 				break;
 			case "<bottom":
-				;
 			case "<bottom>":
 				break;
 			case "</bottom>":
 				break;
 			case "<diagonal":
-				;
 			case "<diagonal>":
-				;
 			case "<diagonal/>":
 				break;
 			case "</diagonal>":
 				break;
 			case "<horizontal":
-				;
 			case "<horizontal>":
-				;
 			case "<horizontal/>":
 				break;
 			case "</horizontal>":
 				break;
 			case "<vertical":
-				;
 			case "<vertical>":
-				;
 			case "<vertical/>":
 				break;
 			case "</vertical>":
 				break;
 			case "<start":
-				;
 			case "<start>":
-				;
 			case "<start/>":
 				break;
 			case "</start>":
 				break;
 			case "<end":
-				;
 			case "<end>":
-				;
 			case "<end/>":
 				break;
 			case "</end>":
 				break;
 			case "<color":
-				;
 			case "<color>":
 				break;
 			case "<color/>":
-				;
 			case "</color>":
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
 				break;
 			case "<ext":
@@ -8439,8 +7324,8 @@ function make_xlsx_lib(e) {
 				break;
 			default:
 				if (a && a.WTF) {
-					if (!i) throw new Error("unrecognized " + t[0] + " in borders")
-				};
+					if (!i) throw new Error("unrecognized " + t[0] + " in borders");
+				}
 			}
 		})
 	}
@@ -8451,15 +7336,11 @@ function make_xlsx_lib(e) {
 			var t = rt(e);
 			switch (tt(t[0])) {
 			case "<fills":
-				;
 			case "<fills>":
-				;
 			case "</fills>":
 				break;
 			case "<fill>":
-				;
 			case "<fill":
-				;
 			case "<fill/>":
 				n = {};
 				r.Fills.push(n);
@@ -8469,18 +7350,15 @@ function make_xlsx_lib(e) {
 			case "<gradientFill>":
 				break;
 			case "<gradientFill":
-				;
 			case "</gradientFill>":
 				r.Fills.push(n);
 				n = {};
 				break;
 			case "<patternFill":
-				;
 			case "<patternFill>":
 				if (t.patternType) n.patternType = t.patternType;
 				break;
 			case "<patternFill/>":
-				;
 			case "</patternFill>":
 				break;
 			case "<bgColor":
@@ -8491,7 +7369,6 @@ function make_xlsx_lib(e) {
 				if (t.rgb) n.bgColor.rgb = t.rgb.slice(-6);
 				break;
 			case "<bgColor/>":
-				;
 			case "</bgColor>":
 				break;
 			case "<fgColor":
@@ -8501,25 +7378,20 @@ function make_xlsx_lib(e) {
 				if (t.rgb != null) n.fgColor.rgb = t.rgb.slice(-6);
 				break;
 			case "<fgColor/>":
-				;
 			case "</fgColor>":
 				break;
 			case "<stop":
-				;
 			case "<stop/>":
 				break;
 			case "</stop>":
 				break;
 			case "<color":
-				;
 			case "<color/>":
 				break;
 			case "</color>":
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
 				break;
 			case "<ext":
@@ -8530,8 +7402,8 @@ function make_xlsx_lib(e) {
 				break;
 			default:
 				if (a && a.WTF) {
-					if (!i) throw new Error("unrecognized " + t[0] + " in fills")
-				};
+					if (!i) throw new Error("unrecognized " + t[0] + " in fills");
+				}
 			}
 		})
 	}
@@ -8542,17 +7414,13 @@ function make_xlsx_lib(e) {
 			var l = rt(e);
 			switch (tt(l[0])) {
 			case "<fonts":
-				;
 			case "<fonts>":
-				;
 			case "</fonts>":
 				break;
 			case "<font":
-				;
 			case "<font>":
 				break;
 			case "</font>":
-				;
 			case "<font/>":
 				r.Fonts.push(n);
 				n = {};
@@ -8561,7 +7429,6 @@ function make_xlsx_lib(e) {
 				if (l.val) n.name = kt(l.val);
 				break;
 			case "<name/>":
-				;
 			case "</name>":
 				break;
 			case "<b":
@@ -8592,7 +7459,7 @@ function make_xlsx_lib(e) {
 					break;
 				case "doubleAccounting":
 					n.underline = 34;
-					break;
+					break
 				}
 				break;
 			case "<u/>":
@@ -8632,28 +7499,24 @@ function make_xlsx_lib(e) {
 				if (l.val) n.sz = +l.val;
 				break;
 			case "<sz/>":
-				;
 			case "</sz>":
 				break;
 			case "<vertAlign":
 				if (l.val) n.vertAlign = l.val;
 				break;
 			case "<vertAlign/>":
-				;
 			case "</vertAlign>":
 				break;
 			case "<family":
 				if (l.val) n.family = parseInt(l.val, 10);
 				break;
 			case "<family/>":
-				;
 			case "</family>":
 				break;
 			case "<scheme":
 				if (l.val) n.scheme = l.val;
 				break;
 			case "<scheme/>":
-				;
 			case "</scheme>":
 				break;
 			case "<charset":
@@ -8679,7 +7542,6 @@ function make_xlsx_lib(e) {
 				}
 				break;
 			case "<color/>":
-				;
 			case "</color>":
 				break;
 			case "<AlternateContent":
@@ -8689,9 +7551,7 @@ function make_xlsx_lib(e) {
 				s = false;
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
 				break;
 			case "<ext":
@@ -8702,8 +7562,8 @@ function make_xlsx_lib(e) {
 				break;
 			default:
 				if (a && a.WTF) {
-					if (!s) throw new Error("unrecognized " + l[0] + " in fonts")
-				};
+					if (!s) throw new Error("unrecognized " + l[0] + " in fonts");
+				}
 			}
 		})
 	}
@@ -8717,11 +7577,8 @@ function make_xlsx_lib(e) {
 			var s = rt(i[n]);
 			switch (tt(s[0])) {
 			case "<numFmts":
-				;
 			case "</numFmts>":
-				;
 			case "<numFmts/>":
-				;
 			case "<numFmts>":
 				break;
 			case "<numFmt":
@@ -8745,22 +7602,8 @@ function make_xlsx_lib(e) {
 			}
 		}
 	}
-	function ji(e) {
-		var r = ["<numFmts>"]; [[5, 8], [23, 26], [41, 44], [50, 392]].forEach(function(t) {
-			for (var a = t[0]; a <= t[1]; ++a) if (e[a] != null) r[r.length] = Ot("numFmt", null, {
-				numFmtId: a,
-				formatCode: ot(e[a])
-			})
-		});
-		if (r.length === 1) return "";
-		r[r.length] = "</numFmts>";
-		r[0] = Ot("numFmts", null, {
-			count: r.length - 2
-		}).replace("/>", ">");
-		return r.join("")
-	}
 	var Hi = ["numFmtId", "fillId", "fontId", "borderId", "xfId"];
-	var Vi = ["applyAlignment", "applyBorder", "applyFill", "applyFont", "applyNumberFormat", "applyProtection", "pivotButton", "quotePrefix"];
+	var Vi = ["applyAlignment", "applyBorder", "applyFill", "applyFont", "applyNumberFormat", "applyProtection", "pivotButton", "quotePrefix", ];
 	function Xi(e, r, t) {
 		r.CellXf = [];
 		var a;
@@ -8769,17 +7612,12 @@ function make_xlsx_lib(e) {
 			s = 0;
 			switch (tt(i[0])) {
 			case "<cellXfs":
-				;
 			case "<cellXfs>":
-				;
 			case "<cellXfs/>":
-				;
 			case "</cellXfs>":
 				break;
 			case "<xf":
-				;
 			case "<xf/>":
-				;
 			case "<xf>":
 				a = i;
 				delete a[0];
@@ -8796,9 +7634,7 @@ function make_xlsx_lib(e) {
 			case "</xf>":
 				break;
 			case "<alignment":
-				;
 			case "<alignment/>":
-				;
 			case "<alignment>":
 				var l = {};
 				if (i.vertical) l.vertical = i.vertical;
@@ -8811,15 +7647,12 @@ function make_xlsx_lib(e) {
 			case "</alignment>":
 				break;
 			case "<protection":
-				;
 			case "<protection>":
 				break;
 			case "</protection>":
-				;
 			case "<protection/>":
 				break;
 			case "<AlternateContent":
-				;
 			case "<AlternateContent>":
 				n = true;
 				break;
@@ -8827,9 +7660,7 @@ function make_xlsx_lib(e) {
 				n = false;
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
 				break;
 			case "<ext":
@@ -8840,25 +7671,12 @@ function make_xlsx_lib(e) {
 				break;
 			default:
 				if (t && t.WTF) {
-					if (!n) throw new Error("unrecognized " + i[0] + " in cellXfs")
-				};
+					if (!n) throw new Error("unrecognized " + i[0] + " in cellXfs");
+				}
 			}
 		})
 	}
-	function Gi(e) {
-		var r = [];
-		r[r.length] = Ot("cellXfs", null);
-		e.forEach(function(e) {
-			r[r.length] = Ot("xf", null, e)
-		});
-		r[r.length] = "</cellXfs>";
-		if (r.length === 2) return "";
-		r[0] = Ot("cellXfs", null, {
-			count: r.length - 2
-		}).replace("/>", ">");
-		return r.join("")
-	}
-	var Yi = function Jc() {
+	var Yi = (function Jc() {
 		var e = /<(?:\w+:)?numFmts([^>]*)>[\S\s]*?<\/(?:\w+:)?numFmts>/;
 		var r = /<(?:\w+:)?cellXfs([^>]*)>[\S\s]*?<\/(?:\w+:)?cellXfs>/;
 		var t = /<(?:\w+:)?fills([^>]*)>[\S\s]*?<\/(?:\w+:)?fills>/;
@@ -8869,43 +7687,21 @@ function make_xlsx_lib(e) {
 			if (!s) return c;
 			s = s.replace(/<!--([\s\S]*?)-->/gm, "").replace(/<!DOCTYPE[^\[]*\[[^\]]*\]>/gm, "");
 			var f;
-			if (f = s.match(e)) Wi(f, c, o);
-			if (f = s.match(a)) $i(f, c, l, o);
-			if (f = s.match(t)) zi(f, c, l, o);
-			if (f = s.match(n)) Ui(f, c, l, o);
-			if (f = s.match(r)) Xi(f, c, o);
+			if ((f = s.match(e))) Wi(f, c, o);
+			if ((f = s.match(a))) $i(f, c, l, o);
+			if ((f = s.match(t))) zi(f, c, l, o);
+			if ((f = s.match(n))) Ui(f, c, l, o);
+			if ((f = s.match(r))) Xi(f, c, o);
 			return c
 		}
-	} ();
-	function Ji(e, r) {
-		var t = [Yr, Ot("styleSheet", null, {
-			xmlns: Lt[0],
-			"xmlns:vt": Rt.vt
-		})],
-		a;
-		if (e.SSF && (a = ji(e.SSF)) != null) t[t.length] = a;
-		t[t.length] = '<fonts count="1"><font><sz val="12"/><color theme="1"/><name val="Calibri"/><family val="2"/><scheme val="minor"/></font></fonts>';
-		t[t.length] = '<fills count="2"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill></fills>';
-		t[t.length] = '<borders count="1"><border><left/><right/><top/><bottom/><diagonal/></border></borders>';
-		t[t.length] = '<cellStyleXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0"/></cellStyleXfs>';
-		if (a = Gi(r.cellXfs)) t[t.length] = a;
-		t[t.length] = '<cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles>';
-		t[t.length] = '<dxfs count="0"/>';
-		t[t.length] = '<tableStyles count="0" defaultTableStyle="TableStyleMedium9" defaultPivotStyle="PivotStyleMedium4"/>';
-		if (t.length > 2) {
-			t[t.length] = "</styleSheet>";
-			t[1] = t[1].replace("/>", ">")
-		}
-		return t.join("")
-	}
-	var Zi = ["</a:lt1>", "</a:dk1>", "</a:lt2>", "</a:dk2>", "</a:accent1>", "</a:accent2>", "</a:accent3>", "</a:accent4>", "</a:accent5>", "</a:accent6>", "</a:hlink>", "</a:folHlink>"];
+	})();
+	var Zi = ["</a:lt1>", "</a:dk1>", "</a:lt2>", "</a:dk2>", "</a:accent1>", "</a:accent2>", "</a:accent3>", "</a:accent4>", "</a:accent5>", "</a:accent6>", "</a:hlink>", "</a:folHlink>", ];
 	function Ki(e, r, t) {
 		r.themeElements.clrScheme = [];
 		var a = {}; (e[0].match(qr) || []).forEach(function(e) {
 			var n = rt(e);
 			switch (n[0]) {
 			case "<a:clrScheme":
-				;
 			case "</a:clrScheme>":
 				break;
 			case "<a:srgbClr":
@@ -8915,51 +7711,28 @@ function make_xlsx_lib(e) {
 				a.rgb = n.lastClr;
 				break;
 			case "<a:dk1>":
-				;
 			case "</a:dk1>":
-				;
 			case "<a:lt1>":
-				;
 			case "</a:lt1>":
-				;
 			case "<a:dk2>":
-				;
 			case "</a:dk2>":
-				;
 			case "<a:lt2>":
-				;
 			case "</a:lt2>":
-				;
 			case "<a:accent1>":
-				;
 			case "</a:accent1>":
-				;
 			case "<a:accent2>":
-				;
 			case "</a:accent2>":
-				;
 			case "<a:accent3>":
-				;
 			case "</a:accent3>":
-				;
 			case "<a:accent4>":
-				;
 			case "</a:accent4>":
-				;
 			case "<a:accent5>":
-				;
 			case "</a:accent5>":
-				;
 			case "<a:accent6>":
-				;
 			case "</a:accent6>":
-				;
 			case "<a:hlink>":
-				;
 			case "</a:hlink>":
-				;
 			case "<a:folHlink>":
-				;
 			case "</a:folHlink>":
 				if (n[0].charAt(1) === "/") {
 					r.themeElements.clrScheme[Zi.indexOf(n[0])] = a;
@@ -8980,7 +7753,7 @@ function make_xlsx_lib(e) {
 	var ts = /<a:fmtScheme([^>]*)>[\s\S]*<\/a:fmtScheme>/;
 	function as(e, r, t) {
 		r.themeElements = {};
-		var a; [["clrScheme", es, Ki], ["fontScheme", rs, qi], ["fmtScheme", ts, Qi]].forEach(function(n) {
+		var a; [["clrScheme", es, Ki], ["fontScheme", rs, qi], ["fmtScheme", ts, Qi], ].forEach(function(n) {
 			if (! (a = e.match(n[1]))) throw new Error(n[0] + " not found in themeElements");
 			n[2](a, r, t)
 		})
@@ -9166,7 +7939,7 @@ function make_xlsx_lib(e) {
 		var a = {
 			Types: [],
 			Cell: [],
-			Value: []
+			Value: [],
 		};
 		if (!e) return a;
 		var n = false;
@@ -9179,17 +7952,15 @@ function make_xlsx_lib(e) {
 			case "<?xml":
 				break;
 			case "<metadata":
-				;
 			case "</metadata>":
 				break;
 			case "<metadataTypes":
-				;
 			case "</metadataTypes>":
 				break;
 			case "<metadataType":
 				a.Types.push({
 					name:
-					r.name
+					r.name,
 				});
 				break;
 			case "</metadataType>":
@@ -9206,11 +7977,11 @@ function make_xlsx_lib(e) {
 			case "<rc":
 				if (i == 1) a.Cell.push({
 					type: a.Types[r.t - 1].name,
-					index: +r.v
+					index: +r.v,
 				});
 				else if (i == 0) a.Value.push({
 					type: a.Types[r.t - 1].name,
-					index: +r.v
+					index: +r.v,
 				});
 				break;
 			case "</rc>":
@@ -9228,11 +7999,8 @@ function make_xlsx_lib(e) {
 				i = 2;
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
-				;
 			case "<extLst/>":
 				break;
 			case "<ext":
@@ -9253,11 +8021,6 @@ function make_xlsx_lib(e) {
 		});
 		return a
 	}
-	function os() {
-		var e = [Yr];
-		e.push('<metadata xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:xlrd="http://schemas.microsoft.com/office/spreadsheetml/2017/richdata" xmlns:xda="http://schemas.microsoft.com/office/spreadsheetml/2017/dynamicarray">\n  <metadataTypes count="1">\n    <metadataType name="XLDAPR" minSupportedVersion="120000" copy="1" pasteAll="1" pasteValues="1" merge="1" splitFirst="1" rowColShift="1" clearFormats="1" clearComments="1" assign="1" coerce="1" cellMeta="1"/>\n  </metadataTypes>\n  <futureMetadata name="XLDAPR" count="1">\n    <bk>\n      <extLst>\n        <ext uri="{bdbb8cdc-fa1e-496e-a857-3c3f30c029c3}">\n          <xda:dynamicArrayProperties fDynamic="1" fCollapsed="0"/>\n        </ext>\n      </extLst>\n    </bk>\n  </futureMetadata>\n  <cellMetadata count="1">\n    <bk>\n      <rc t="1" v="0"/>\n    </bk>\n  </cellMetadata>\n</metadata>');
-		return e.join("")
-	}
 	function cs() {}
 	function fs(e, r, t, a) {
 		if (!e) return e;
@@ -9269,45 +8032,25 @@ function make_xlsx_lib(e) {
 			if (s) return;
 			switch (t) {
 			case 359:
-				;
 			case 363:
-				;
 			case 364:
-				;
 			case 366:
-				;
 			case 367:
-				;
 			case 368:
-				;
 			case 369:
-				;
 			case 370:
-				;
 			case 371:
-				;
 			case 472:
-				;
 			case 577:
-				;
 			case 578:
-				;
 			case 579:
-				;
 			case 580:
-				;
 			case 581:
-				;
 			case 582:
-				;
 			case 583:
-				;
 			case 584:
-				;
 			case 585:
-				;
 			case 586:
-				;
 			case 587:
 				break;
 			case 35:
@@ -9343,12 +8086,10 @@ function make_xlsx_lib(e) {
 					if (a.ObjectType) n = a.ObjectType;
 					break;
 				case "<Visible":
-					;
 				case "<Visible/>":
 					i = false;
 					break;
 				case "<Row":
-					;
 				case "<Row>":
 					s = t + r.length;
 					break;
@@ -9356,13 +8097,12 @@ function make_xlsx_lib(e) {
 					l = +e.slice(s, t).trim();
 					break;
 				case "<Column":
-					;
 				case "<Column>":
 					s = t + r.length;
 					break;
 				case "</Column>":
 					o = +e.slice(s, t).trim();
-					break;
+					break
 				}
 				return ""
 			});
@@ -9370,73 +8110,14 @@ function make_xlsx_lib(e) {
 			case "Note":
 				var c = yc(r, l >= 0 && o >= 0 ? $a({
 					r: l,
-					c: o
+					c: o,
 				}) : t[a].ref);
 				if (c.c) {
 					c.c.hidden = i
 				}++a;
-				break;
+				break
 			}
 		})
-	}
-	function ps(e, r, t) {
-		var a = [21600, 21600];
-		var n = ["m0,0l0", a[1], a[0], a[1], a[0], "0xe"].join(",");
-		var i = [Ot("xml", null, {
-			"xmlns:v": Bt.v,
-			"xmlns:o": Bt.o,
-			"xmlns:x": Bt.x,
-			"xmlns:mv": Bt.mv
-		}).replace(/\/>/, ">"), Ot("o:shapelayout", Ot("o:idmap", null, {
-			"v:ext": "edit",
-			data: e
-		}), {
-			"v:ext": "edit"
-		})];
-		var s = 65536 * e;
-		var l = r || [];
-		if (l.length > 0) i.push(Ot("v:shapetype", [Ot("v:stroke", null, {
-			joinstyle: "miter"
-		}), Ot("v:path", null, {
-			gradientshapeok: "t",
-			"o:connecttype": "rect"
-		})].join(""), {
-			id: "_x0000_t202",
-			coordsize: a.join(","),
-			"o:spt": 202,
-			path: n
-		}));
-		l.forEach(function(e) {++s;
-			i.push(ms(e, s))
-		});
-		i.push("</xml>");
-		return i.join("")
-	}
-	function ms(e, r, t) {
-		var a = za(e[0]);
-		var n = {
-			color2: "#BEFF82",
-			type: "gradient"
-		};
-		if (n.type == "gradient") n.angle = "-180";
-		var i = n.type == "gradient" ? Ot("o:fill", null, {
-			type: "gradientUnscaled",
-			"v:ext": "view"
-		}) : null;
-		var s = Ot("v:fill", i, n);
-		var l = {
-			on: "t",
-			obscured: "t"
-		};
-		return ["<v:shape" + Dt({
-			id: "_x0000_s" + r,
-			type: "#_x0000_t202",
-			style: "position:absolute; margin-left:80pt;margin-top:5pt;width:104pt;height:64pt;z-index:10" + (e[1].hidden ? ";visibility:hidden": ""),
-			fillcolor: "#ECFAD4",
-			strokecolor: "#edeaa1"
-		}) + ">", s, Ot("v:shadow", null, l), Ot("v:path", null, {
-			"o:connecttype": "none"
-		}), '<v:textbox><div style="text-align:left"></div></v:textbox>', '<x:ClientData ObjectType="Note">', "<x:MoveWithCells/>", "<x:SizeWithCells/>", Ft("x:Anchor", [a.c + 1, 0, a.r + 1, 0, a.c + 3, 20, a.r + 5, 20].join(",")), Ft("x:AutoFill", "False"), Ft("x:Row", String(a.r)), Ft("x:Column", String(a.c)), e[1].hidden ? "": "<x:Visible/>", "</x:ClientData>", "</v:shape>"].join("")
 	}
 	function vs(e, r, t, a) {
 		var n = e["!data"] != null;
@@ -9450,7 +8131,7 @@ function make_xlsx_lib(e) {
 			} else i = e[r.ref];
 			if (!i) {
 				i = {
-					t: "z"
+					t: "z",
 				};
 				if (n) e["!data"][s.r][s.c] = i;
 				else e[r.ref] = i;
@@ -9467,7 +8148,7 @@ function make_xlsx_lib(e) {
 				a: r.author,
 				t: r.t,
 				r: r.r,
-				T: t
+				T: t,
 			};
 			if (r.h) c.h = r.h;
 			for (var f = i.c.length - 1; f >= 0; --f) {
@@ -9500,17 +8181,17 @@ function make_xlsx_lib(e) {
 			if (!n) return;
 			var i = rt(n[0]);
 			var s = {
-				author: i.authorId && t[i.authorId] || "sheetjsghost",
+				author: (i.authorId && t[i.authorId]) || "sheetjsghost",
 				ref: i.ref,
-				guid: i.guid
+				guid: i.guid,
 			};
 			var l = za(i.ref);
 			if (r.sheetRows && r.sheetRows <= l.r) return;
 			var o = e.match(/<(?:\w+:)?text>([\s\S]*)<\/(?:\w+:)?text>/);
-			var c = !!o && !!o[1] && hi(o[1]) || {
+			var c = ( !! o && !!o[1] && hi(o[1])) || {
 				r: "",
 				t: "",
-				h: ""
+				h: "",
 			};
 			s.r = c.r;
 			if (c.r == "<t></t>") c.t = c.h = "";
@@ -9519,63 +8200,6 @@ function make_xlsx_lib(e) {
 			a.push(s)
 		});
 		return a
-	}
-	function bs(e) {
-		var r = [Yr, Ot("comments", null, {
-			xmlns: Lt[0]
-		})];
-		var t = [];
-		r.push("<authors>");
-		e.forEach(function(e) {
-			e[1].forEach(function(e) {
-				var a = ot(e.a);
-				if (t.indexOf(a) == -1) {
-					t.push(a);
-					r.push("<author>" + a + "</author>")
-				}
-				if (e.T && e.ID && t.indexOf("tc=" + e.ID) == -1) {
-					t.push("tc=" + e.ID);
-					r.push("<author>" + "tc=" + e.ID + "</author>")
-				}
-			})
-		});
-		if (t.length == 0) {
-			t.push("SheetJ5");
-			r.push("<author>SheetJ5</author>")
-		}
-		r.push("</authors>");
-		r.push("<commentList>");
-		e.forEach(function(e) {
-			var a = 0,
-			n = [],
-			i = 0;
-			if (e[1][0] && e[1][0].T && e[1][0].ID) a = t.indexOf("tc=" + e[1][0].ID);
-			e[1].forEach(function(e) {
-				if (e.a) a = t.indexOf(ot(e.a));
-				if (e.T)++i;
-				n.push(e.t == null ? "": ot(e.t))
-			});
-			if (i === 0) {
-				e[1].forEach(function(a) {
-					r.push('<comment ref="' + e[0] + '" authorId="' + t.indexOf(ot(a.a)) + '"><text>');
-					r.push(Ft("t", a.t == null ? "": ot(a.t)));
-					r.push("</text></comment>")
-				})
-			} else {
-				if (e[1][0] && e[1][0].T && e[1][0].ID) a = t.indexOf("tc=" + e[1][0].ID);
-				r.push('<comment ref="' + e[0] + '" authorId="' + a + '"><text>');
-				var s = "Comment:\n    " + n[0] + "\n";
-				for (var l = 1; l < n.length; ++l) s += "Reply:\n    " + n[l] + "\n";
-				r.push(Ft("t", ot(s)));
-				r.push("</text></comment>")
-			}
-		});
-		r.push("</commentList>");
-		if (r.length > 2) {
-			r[r.length] = "</comments>";
-			r[1] = r[1].replace("/>", ">")
-		}
-		return r.join("")
 	}
 	function ws(e, r) {
 		var t = [];
@@ -9597,14 +8221,13 @@ function make_xlsx_lib(e) {
 					author: c.personId,
 					guid: c.id,
 					ref: c.ref,
-					T: 1
+					T: 1,
 				};
 				break;
 			case "</threadedComment>":
 				if (n.t != null) t.push(n);
 				break;
 			case "<text>":
-				;
 			case "<text":
 				i = o + l.length;
 				break;
@@ -9612,7 +8235,6 @@ function make_xlsx_lib(e) {
 				n.t = e.slice(i, o).replace(/\r\n/g, "\n").replace(/\r/g, "\n");
 				break;
 			case "<mentions":
-				;
 			case "<mentions>":
 				a = true;
 				break;
@@ -9620,11 +8242,8 @@ function make_xlsx_lib(e) {
 				a = false;
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
-				;
 			case "<extLst/>":
 				break;
 			case "<ext":
@@ -9639,31 +8258,6 @@ function make_xlsx_lib(e) {
 			return l
 		});
 		return t
-	}
-	function ks(e, r, t) {
-		var a = [Yr, Ot("ThreadedComments", null, {
-			xmlns: Rt.TCMNT
-		}).replace(/[\/]>/, ">")];
-		e.forEach(function(e) {
-			var n = ""; (e[1] || []).forEach(function(i, s) {
-				if (!i.T) {
-					delete i.ID;
-					return
-				}
-				if (i.a && r.indexOf(i.a) == -1) r.push(i.a);
-				var l = {
-					ref: e[0],
-					id: "{54EE7951-7262-4200-6969-" + ("000000000000" + t.tcid++).slice(-12) + "}"
-				};
-				if (s == 0) n = l.id;
-				else l.parentId = n;
-				i.ID = l.id;
-				if (i.a) l.personId = "{54EE7950-7262-4200-6969-" + ("000000000000" + r.indexOf(i.a)).slice(-12) + "}";
-				a.push(Ot("threadedComment", Ft("text", i.t || ""), l))
-			})
-		});
-		a.push("</ThreadedComments>");
-		return a.join("")
 	}
 	function ys(e, r) {
 		var t = [];
@@ -9682,17 +8276,14 @@ function make_xlsx_lib(e) {
 				t.push({
 					name:
 					n.displayname,
-					id: n.id
+					id: n.id,
 				});
 				break;
 			case "</person>":
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
-				;
 			case "<extLst/>":
 				break;
 			case "<ext":
@@ -9708,34 +8299,7 @@ function make_xlsx_lib(e) {
 		});
 		return t
 	}
-	function xs(e) {
-		var r = [Yr, Ot("personList", null, {
-			xmlns: Rt.TCMNT,
-			"xmlns:x": Lt[0]
-		}).replace(/[\/]>/, ">")];
-		e.forEach(function(e, t) {
-			r.push(Ot("person", null, {
-				displayName: e,
-				id: "{54EE7950-7262-4200-6969-" + ("000000000000" + t).slice(-12) + "}",
-				userId: e,
-				providerId: "None"
-			}))
-		});
-		r.push("</personList>");
-		return r.join("")
-	}
 	var Ss = "application/vnd.ms-office.vbaProject";
-	function Cs(e) {
-		var r = Qe.utils.cfb_new({
-			root: "R"
-		});
-		e.FullPaths.forEach(function(t, a) {
-			if (t.slice(-1) === "/" || !t.match(/_VBA_PROJECT_CUR/)) return;
-			var n = t.replace(/^[^\/]*/, "R").replace(/\/_VBA_PROJECT_CUR\u0000*/, "");
-			Qe.utils.cfb_add(r, n, e.FileIndex[a].content)
-		});
-		return Qe.write(r)
-	}
 	function _s(e, r) {
 		r.FullPaths.forEach(function(t, a) {
 			if (a == 0) return;
@@ -9743,32 +8307,31 @@ function make_xlsx_lib(e) {
 			if (n.slice(-1) !== "/") Qe.utils.cfb_add(e, n, r.FileIndex[a].content)
 		})
 	}
-	var As = ["xlsb", "xlsm", "xlam", "biff8", "xla"];
 	function Ts() {
 		return {
-			"!type": "dialog"
+			"!type": "dialog",
 		}
 	}
 	function Es() {
 		return {
-			"!type": "dialog"
+			"!type": "dialog",
 		}
 	}
 	function Fs() {
 		return {
-			"!type": "macro"
+			"!type": "macro",
 		}
 	}
 	function Ds() {
 		return {
-			"!type": "macro"
+			"!type": "macro",
 		}
 	}
-	var Os = function() {
+	var Os = (function() {
 		var e = /(^|[^A-Za-z_])R(\[?-?\d+\]|[1-9]\d*|)C(\[?-?\d+\]|[1-9]\d*|)(?![A-Za-z0-9_])/g;
 		var r = {
 			r: 0,
-			c: 0
+			c: 0,
 		};
 		function t(e, t, a, n) {
 			var i = false,
@@ -9795,12 +8358,12 @@ function make_xlsx_lib(e) {
 			r = i;
 			return n.replace(e, t)
 		}
-	} ();
+	})();
 	var Ms = /(^|[^._A-Z0-9])(\$?)([A-Z]{1,2}|[A-W][A-Z]{2}|X[A-E][A-Z]|XF[A-D])(\$?)(\d{1,7})(?![_.\(A-Za-z0-9])/g;
 	try {
 		Ms = /(^|[^._A-Z0-9])([$]?)([A-Z]{1,2}|[A-W][A-Z]{2}|X[A-E][A-Z]|XF[A-D])([$]?)(10[0-3]\d{4}|104[0-7]\d{3}|1048[0-4]\d{2}|10485[0-6]\d|104857[0-6]|[1-9]\d{0,5})(?![_.\(A-Za-z0-9])/g
 	} catch(Ns) {}
-	var Is = function() {
+	var Is = (function() {
 		return function e(r, t) {
 			return r.replace(Ms,
 			function(e, r, a, n, i, s) {
@@ -9811,11 +8374,11 @@ function make_xlsx_lib(e) {
 				return r + "R" + c + "C" + f
 			})
 		}
-	} ();
+	})();
 	function Ps(e, r) {
 		return e.replace(Ms,
 		function(e, t, a, n, i, s) {
-			return t + (a == "$" ? a + n: Ra(Pa(n) + r.c)) + (i == "$" ? i + s: Ma(Oa(s) + r.r))
+			return (t + (a == "$" ? a + n: Ra(Pa(n) + r.c)) + (i == "$" ? i + s: Ma(Oa(s) + r.r)))
 		})
 	}
 	function Rs(e, r, t) {
@@ -9824,7 +8387,7 @@ function make_xlsx_lib(e) {
 		i = za(t);
 		var s = {
 			r: i.r - n.r,
-			c: i.c - n.c
+			c: i.c - n.c,
 		};
 		return Ps(e, s)
 	}
@@ -9857,10 +8420,6 @@ function make_xlsx_lib(e) {
 		e = e.replace(/\[.(#[A-Z]*[?!])\]/g, "$1");
 		return e.replace(/[;~]/g, ",").replace(/\|/g, ";")
 	}
-	function zs(e) {
-		var r = "of:=" + e.replace(Ms, "$1[.$2$3$4$5]").replace(/\]:\[/g, ":");
-		return r.replace(/;/g, "|").replace(/,/g, ";")
-	}
 	function $s(e) {
 		e = e.replace(/\$'([^']|'')+'/g,
 		function(e) {
@@ -9872,108 +8431,15 @@ function make_xlsx_lib(e) {
 		});
 		var r = e.split(":");
 		var t = r[0].split(".")[0];
-		return [t, r[0].split(".")[1] + (r.length > 1 ? ":" + (r[1].split(".")[1] || r[1].split(".")[0]) : "")]
-	}
-	function Ws(e) {
-		return e.replace(/!/, ".").replace(/:/, ":.")
+		return [t, r[0].split(".")[1] + (r.length > 1 ? ":" + (r[1].split(".")[1] || r[1].split(".")[0]) : ""), ]
 	}
 	var js = {};
 	var Hs = {};
-	var Vs = typeof Map !== "undefined";
-	function Xs(e, r, t) {
-		var a = 0,
-		n = e.length;
-		if (t) {
-			if (Vs ? t.has(r) : Object.prototype.hasOwnProperty.call(t, r)) {
-				var i = Vs ? t.get(r) : t[r];
-				for (; a < i.length; ++a) {
-					if (e[i[a]].t === r) {
-						e.Count++;
-						return i[a]
-					}
-				}
-			}
-		} else for (; a < n; ++a) {
-			if (e[a].t === r) {
-				e.Count++;
-				return a
-			}
-		}
-		e[n] = {
-			t: r
-		};
-		e.Count++;
-		e.Unique++;
-		if (t) {
-			if (Vs) {
-				if (!t.has(r)) t.set(r, []);
-				t.get(r).push(n)
-			} else {
-				if (!Object.prototype.hasOwnProperty.call(t, r)) t[r] = [];
-				t[r].push(n)
-			}
-		}
-		return n
-	}
-	function Gs(e, r) {
-		var t = {
-			min: e + 1,
-			max: e + 1
-		};
-		var a = -1;
-		if (r.MDW) Ti = r.MDW;
-		if (r.width != null) t.customWidth = 1;
-		else if (r.wpx != null) a = Fi(r.wpx);
-		else if (r.wch != null) a = r.wch;
-		if (a > -1) {
-			t.width = Di(a);
-			t.customWidth = 1
-		} else if (r.width != null) t.width = r.width;
-		if (r.hidden) t.hidden = true;
-		if (r.level != null) {
-			t.outlineLevel = t.level = r.level
-		}
-		return t
-	}
-	function Ys(e, r) {
-		if (!e) return;
-		var t = [.7, .7, .75, .75, .3, .3];
-		if (r == "xlml") t = [1, 1, 1, 1, .5, .5];
-		if (e.left == null) e.left = t[0];
-		if (e.right == null) e.right = t[1];
-		if (e.top == null) e.top = t[2];
-		if (e.bottom == null) e.bottom = t[3];
-		if (e.header == null) e.header = t[4];
-		if (e.footer == null) e.footer = t[5]
-	}
-	function Js(e, r, t) {
-		var a = t.revssf[r.z != null ? r.z: "General"];
-		var n = 60,
-		i = e.length;
-		if (a == null && t.ssf) {
-			for (; n < 392; ++n) if (t.ssf[n] == null) {
-				Ke(r.z, n);
-				t.ssf[n] = r.z;
-				t.revssf[r.z] = a = n;
-				break
-			}
-		}
-		for (n = 0; n != i; ++n) if (e[n].numFmtId === a) return n;
-		e[i] = {
-			numFmtId: a,
-			fontId: 0,
-			fillId: 0,
-			borderId: 0,
-			xfId: 0,
-			applyNumberFormat: 1
-		};
-		return i
-	}
 	function Zs(e, r, t, a, n, i, s) {
 		try {
 			if (a.cellNF) e.z = q[r]
 		} catch(l) {
-			if (a.WTF) throw l
+			if (a.WTF) throw l;
 		}
 		if (e.t === "z" && !a.cellStyles) return;
 		if (e.t === "d" && typeof e.v === "string") e.v = wr(e.v);
@@ -9993,7 +8459,7 @@ function make_xlsx_lib(e) {
 			} else if (e.t === "d") e.w = $e(r, dr(e.v, !!s), Hs);
 			else e.w = $e(r, e.v, Hs)
 		} catch(l) {
-			if (a.WTF) throw l
+			if (a.WTF) throw l;
 		}
 		if (!a.cellStyles) return;
 		if (t != null) try {
@@ -10007,13 +8473,7 @@ function make_xlsx_lib(e) {
 				if (a.WTF) e.s.bgColor.raw_rgb = n.themeElements.clrScheme[e.s.bgColor.theme].rgb
 			}
 		} catch(l) {
-			if (a.WTF && i.Fills) throw l
-		}
-	}
-	function Ks(e, r, t) {
-		if (e && e["!ref"]) {
-			var a = Xa(e["!ref"]);
-			if (a.e.c < a.s.c || a.e.r < a.s.r) throw new Error("Bad range (" + t + "): " + e["!ref"])
+			if (a.WTF && i.Fills) throw l;
 		}
 	}
 	function qs(e, r) {
@@ -10033,7 +8493,7 @@ function make_xlsx_lib(e) {
 	function cl(e, r, t, a, n, i, s) {
 		if (!e) return e;
 		if (!a) a = {
-			"!id": {}
+			"!id": {},
 		};
 		if (b != null && r.dense == null) r.dense = b;
 		var l = {};
@@ -10041,12 +8501,12 @@ function make_xlsx_lib(e) {
 		var o = {
 			s: {
 				r: 2e6,
-				c: 2e6
+				c: 2e6,
 			},
 			e: {
 				r: 0,
-				c: 0
-			}
+				c: 0,
+			},
 		};
 		var c = "",
 		f = "";
@@ -10057,9 +8517,9 @@ function make_xlsx_lib(e) {
 		} else c = f = e;
 		var h = c.match(sl);
 		if (h) ul(h[0], l, n, t);
-		else if (h = c.match(ll)) hl(h[0], h[1] || "", l, n, t, s, i);
+		else if ((h = c.match(ll))) hl(h[0], h[1] || "", l, n, t, s, i);
 		var d = (c.match(/<(?:\w*:)?dimension/) || {
-			index: -1
+			index: -1,
 		}).index;
 		if (d > 0) {
 			var p = c.slice(d, d + 50).match(tl);
@@ -10083,7 +8543,7 @@ function make_xlsx_lib(e) {
 		var S = f.match(il);
 		if (S) l["!margins"] = bl(rt(S[0]));
 		var C;
-		if (C = f.match(/legacyDrawing r:id="(.*?)"/)) l["!legrel"] = C[1];
+		if ((C = f.match(/legacyDrawing r:id="(.*?)"/))) l["!legrel"] = C[1];
 		if (r && r.nodim) o.s.c = o.s.r = 0;
 		if (!l["!ref"] && o.e.c >= o.s.c && o.e.r >= o.s.r) l["!ref"] = ja(o);
 		if (r.sheetRows > 0 && l["!ref"]) {
@@ -10103,12 +8563,6 @@ function make_xlsx_lib(e) {
 		if (a["!id"][l["!legrel"]]) l["!legdrawel"] = a["!id"][l["!legrel"]];
 		return l
 	}
-	function fl(e) {
-		if (e.length === 0) return "";
-		var r = '<mergeCells count="' + e.length + '">';
-		for (var t = 0; t != e.length; ++t) r += '<mergeCell ref="' + ja(e[t]) + '"/>';
-		return r + "</mergeCells>"
-	}
 	function ul(e, r, t, a) {
 		var n = rt(e);
 		if (!t.Sheets[a]) t.Sheets[a] = {};
@@ -10116,45 +8570,6 @@ function make_xlsx_lib(e) {
 	}
 	function hl(e, r, t, a, n) {
 		ul(e.slice(0, e.indexOf(">")), t, a, n)
-	}
-	function dl(e, r, t, a, n) {
-		var i = false;
-		var s = {},
-		l = null;
-		if (a.bookType !== "xlsx" && r.vbaraw) {
-			var o = r.SheetNames[t];
-			try {
-				if (r.Workbook) o = r.Workbook.Sheets[t].CodeName || o
-			} catch(c) {}
-			i = true;
-			s.codeName = yt(ot(o))
-		}
-		if (e && e["!outline"]) {
-			var f = {
-				summaryBelow: 1,
-				summaryRight: 1
-			};
-			if (e["!outline"].above) f.summaryBelow = 0;
-			if (e["!outline"].left) f.summaryRight = 0;
-			l = (l || "") + Ot("outlinePr", null, f)
-		}
-		if (!i && !l) return;
-		n[n.length] = Ot("sheetPr", l, s)
-	}
-	var pl = ["objects", "scenarios", "selectLockedCells", "selectUnlockedCells"];
-	var ml = ["formatColumns", "formatRows", "formatCells", "insertColumns", "insertRows", "insertHyperlinks", "deleteColumns", "deleteRows", "sort", "autoFilter", "pivotTables"];
-	function vl(e) {
-		var r = {
-			sheet: 1
-		};
-		pl.forEach(function(t) {
-			if (e[t] != null && e[t]) r[t] = "1"
-		});
-		ml.forEach(function(t) {
-			if (e[t] != null && !e[t]) r[t] = "0"
-		});
-		if (e.password) r.password = crypto_CreatePasswordVerifier_Method1(e.password).toString(16).toUpperCase();
-		return Ot("sheetProtection", null, r)
 	}
 	function gl(e, r, t) {
 		var a = e["!data"] != null;
@@ -10169,7 +8584,7 @@ function make_xlsx_lib(e) {
 				i.Target = "#" + it(i.location);
 				s = {
 					Target: i.Target,
-					TargetMode: "Internal"
+					TargetMode: "Internal",
 				}
 			}
 			i.Rel = s;
@@ -10184,13 +8599,13 @@ function make_xlsx_lib(e) {
 					if (!e["!data"][o]) e["!data"][o] = [];
 					if (!e["!data"][o][c]) e["!data"][o][c] = {
 						t: "z",
-						v: undefined
+						v: undefined,
 					};
 					e["!data"][o][c].l = i
 				} else {
 					if (!e[f]) e[f] = {
 						t: "z",
-						v: undefined
+						v: undefined,
 					};
 					e[f].l = i
 				}
@@ -10202,10 +8617,6 @@ function make_xlsx_lib(e) {
 			if (e[t]) r[t] = parseFloat(e[t])
 		});
 		return r
-	}
-	function wl(e) {
-		Ys(e);
-		return Ot("pageMargins", null, e)
 	}
 	function kl(e, r) {
 		var t = false;
@@ -10226,49 +8637,11 @@ function make_xlsx_lib(e) {
 			while (i <= s) e[i++] = yr(n)
 		}
 	}
-	function yl(e, r) {
-		var t = ["<cols>"],
-		a;
-		for (var n = 0; n != r.length; ++n) {
-			if (! (a = r[n])) continue;
-			t[t.length] = Ot("col", null, Gs(n, a))
-		}
-		t[t.length] = "</cols>";
-		return t.join("")
-	}
 	function xl(e) {
 		var r = {
-			ref: (e.match(/ref="([^"]*)"/) || [])[1]
+			ref: (e.match(/ref="([^"]*)"/) || [])[1],
 		};
 		return r
-	}
-	function Sl(e, r, t, a) {
-		var n = typeof e.ref == "string" ? e.ref: ja(e.ref);
-		if (!t.Workbook) t.Workbook = {
-			Sheets: []
-		};
-		if (!t.Workbook.Names) t.Workbook.Names = [];
-		var i = t.Workbook.Names;
-		var s = Wa(n);
-		if (s.s.r == s.e.r) {
-			s.e.r = Wa(r["!ref"]).e.r;
-			n = ja(s)
-		}
-		for (var l = 0; l < i.length; ++l) {
-			var o = i[l];
-			if (o.Name != "_xlnm._FilterDatabase") continue;
-			if (o.Sheet != a) continue;
-			o.Ref = Va(t.SheetNames[a]) + "!" + Ha(n);
-			break
-		}
-		if (l == i.length) i.push({
-			Name: "_xlnm._FilterDatabase",
-			Sheet: a,
-			Ref: "'" + t.SheetNames[a] + "'!" + n
-		});
-		return Ot("autoFilter", null, {
-			ref: n
-		})
 	}
 	var Cl = /<(?:\w:)?sheetView(?:[^>a-z][^>]*)?\/?>/g;
 	function _l(e, r) {
@@ -10279,103 +8652,7 @@ function make_xlsx_lib(e) {
 			if (a.rightToLeft && mt(a.rightToLeft)) r.Views[t].RTL = true
 		})
 	}
-	function Al(e, r, t, a) {
-		var n = {
-			workbookViewId: "0"
-		};
-		if ((((a || {}).Workbook || {}).Views || [])[0]) n.rightToLeft = a.Workbook.Views[0].RTL ? "1": "0";
-		return Ot("sheetViews", Ot("sheetView", null, n), {})
-	}
-	function Tl(e, r, t, a, n, i, s) {
-		if (e.c) t["!comments"].push([r, e.c]);
-		if ((e.v === undefined || e.t === "z" && !(a || {}).sheetStubs) && typeof e.f !== "string" && typeof e.z == "undefined") return "";
-		var l = "";
-		var o = e.t,
-		c = e.v;
-		if (e.t !== "z") switch (e.t) {
-		case "b":
-			l = e.v ? "1": "0";
-			break;
-		case "n":
-			if (isNaN(e.v)) {
-				e.t = "e";
-				l = kn[e.v = 36]
-			} else if (!isFinite(e.v)) {
-				e.t = "e";
-				l = kn[e.v = 7]
-			} else l = "" + e.v;
-			break;
-		case "e":
-			l = kn[e.v];
-			break;
-		case "d":
-			if (a && a.cellDates) {
-				var f = wr(e.v, s);
-				l = f.toISOString();
-				if (f.getUTCFullYear() < 1900) l = l.slice(l.indexOf("T") + 1).replace("Z", "")
-			} else {
-				e = yr(e);
-				e.t = "n";
-				l = "" + (e.v = dr(wr(e.v, s), s))
-			}
-			if (typeof e.z === "undefined") e.z = q[14];
-			break;
-		default:
-			l = e.v;
-			break;
-		}
-		var u = e.t == "z" || e.v == null ? "": Ft("v", ot(l)),
-		h = {
-			r: r
-		};
-		var d = Js(a.cellXfs, e, a);
-		if (d !== 0) h.s = d;
-		switch (e.t) {
-		case "n":
-			break;
-		case "d":
-			h.t = "d";
-			break;
-		case "b":
-			h.t = "b";
-			break;
-		case "e":
-			h.t = "e";
-			break;
-		case "z":
-			break;
-		default:
-			if (e.v == null) {
-				delete e.t;
-				break
-			}
-			if (e.v.length > 32767) throw new Error("Text length must not exceed 32767 characters");
-			if (a && a.bookSST) {
-				u = Ft("v", "" + Xs(a.Strings, e.v, a.revStrings));
-				h.t = "s";
-				break
-			} else h.t = "str";
-			break;
-		}
-		if (e.t != o) {
-			e.t = o;
-			e.v = c
-		}
-		if (typeof e.f == "string" && e.f) {
-			var p = e.F && e.F.slice(0, r.length) == r ? {
-				t: "array",
-				ref: e.F
-			}: null;
-			u = Ot("f", ot(e.f), p) + (e.v != null ? u: "")
-		}
-		if (e.l) {
-			e.l.display = ot(l);
-			t["!links"].push([r, e.l])
-		}
-		if (e.D) h.cm = 1;
-		return Ot("c", u, h)
-	}
-	var El = function() {
+	var El = (function() {
 		var e = /<(?:\w+:)?c[ \/>]/,
 		r = /<\/(?:\w+:)?row>/;
 		var t = /r=["']([^"']*)["']/,
@@ -10443,7 +8720,7 @@ function make_xlsx_lib(e) {
 					break;
 				case "<":
 					V = m;
-					break;
+					break
 				}
 				if (V >= m) break;
 				C = rt(v.slice(V, m), true);
@@ -10496,11 +8773,11 @@ function make_xlsx_lib(e) {
 					C = rt(v.slice(0, k), true);
 					if (!C.r) C.r = $a({
 						r: _ - 1,
-						c: A
+						c: A,
 					});
 					x = v.slice(k);
 					S = {
-						t: ""
+						t: "",
 					};
 					if ((b = x.match(i)) != null && b[1] !== "") S.v = it(b[1]);
 					if (f.cellFormula) {
@@ -10523,7 +8800,7 @@ function make_xlsx_lib(e) {
 									I[parseInt(E.si, 10)] = [E, G, C.r]
 								}
 							}
-						} else if (b = x.match(/<f[^>]*\/>/)) {
+						} else if ((b = x.match(/<f[^>]*\/>/))) {
 							E = rt(b[0]);
 							if (I[E.si]) S.f = Rs(I[E.si][1], I[E.si][2], C.r)
 						}
@@ -10583,7 +8860,7 @@ function make_xlsx_lib(e) {
 					case "e":
 						if (!f || f.cellText !== false) S.w = S.v;
 						S.v = yn[S.v];
-						break;
+						break
 					}
 					F = D = 0;
 					M = null;
@@ -10620,169 +8897,7 @@ function make_xlsx_lib(e) {
 			}
 			if (R.length > 0) c["!rows"] = R
 		}
-	} ();
-	function Fl(e, r, t, a) {
-		var n = [],
-		i = [],
-		s = Xa(e["!ref"]),
-		l = "",
-		o,
-		c = "",
-		f = [],
-		u = 0,
-		h = 0,
-		d = e["!rows"];
-		var p = e["!data"] != null;
-		var m = {
-			r: c
-		},
-		v,
-		g = -1;
-		var b = (((a || {}).Workbook || {}).WBProps || {}).date1904;
-		for (h = s.s.c; h <= s.e.c; ++h) f[h] = Ra(h);
-		for (u = s.s.r; u <= s.e.r; ++u) {
-			i = [];
-			c = Ma(u);
-			for (h = s.s.c; h <= s.e.c; ++h) {
-				o = f[h] + c;
-				var w = p ? (e["!data"][u] || [])[h] : e[o];
-				if (w === undefined) continue;
-				if ((l = Tl(w, o, e, r, t, a, b)) != null) i.push(l)
-			}
-			if (i.length > 0 || d && d[u]) {
-				m = {
-					r: c
-				};
-				if (d && d[u]) {
-					v = d[u];
-					if (v.hidden) m.hidden = 1;
-					g = -1;
-					if (v.hpx) g = Ri(v.hpx);
-					else if (v.hpt) g = v.hpt;
-					if (g > -1) {
-						m.ht = g;
-						m.customHeight = 1
-					}
-					if (v.level) {
-						m.outlineLevel = v.level
-					}
-				}
-				n[n.length] = Ot("row", i.join(""), m)
-			}
-		}
-		if (d) for (; u < d.length; ++u) {
-			if (d && d[u]) {
-				m = {
-					r: u + 1
-				};
-				v = d[u];
-				if (v.hidden) m.hidden = 1;
-				g = -1;
-				if (v.hpx) g = Ri(v.hpx);
-				else if (v.hpt) g = v.hpt;
-				if (g > -1) {
-					m.ht = g;
-					m.customHeight = 1
-				}
-				if (v.level) {
-					m.outlineLevel = v.level
-				}
-				n[n.length] = Ot("row", "", m)
-			}
-		}
-		return n.join("")
-	}
-	function Dl(e, r, t, a) {
-		var n = [Yr, Ot("worksheet", null, {
-			xmlns: Lt[0],
-			"xmlns:r": Rt.r
-		})];
-		var i = t.SheetNames[e],
-		s = 0,
-		l = "";
-		var o = t.Sheets[i];
-		if (o == null) o = {};
-		var c = o["!ref"] || "A1";
-		var f = Xa(c);
-		if (f.e.c > 16383 || f.e.r > 1048575) {
-			if (r.WTF) throw new Error("Range " + c + " exceeds format limit A1:XFD1048576");
-			f.e.c = Math.min(f.e.c, 16383);
-			f.e.r = Math.min(f.e.c, 1048575);
-			c = ja(f)
-		}
-		if (!a) a = {};
-		o["!comments"] = [];
-		var u = [];
-		dl(o, t, e, r, n);
-		n[n.length] = Ot("dimension", null, {
-			ref: c
-		});
-		n[n.length] = Al(o, r, e, t);
-		if (r.sheetFormat) n[n.length] = Ot("sheetFormatPr", null, {
-			defaultRowHeight: r.sheetFormat.defaultRowHeight || "16",
-			baseColWidth: r.sheetFormat.baseColWidth || "10",
-			outlineLevelRow: r.sheetFormat.outlineLevelRow || "7"
-		});
-		if (o["!cols"] != null && o["!cols"].length > 0) n[n.length] = yl(o, o["!cols"]);
-		n[s = n.length] = "<sheetData/>";
-		o["!links"] = [];
-		if (o["!ref"] != null) {
-			l = Fl(o, r, e, t, a);
-			if (l.length > 0) n[n.length] = l
-		}
-		if (n.length > s + 1) {
-			n[n.length] = "</sheetData>";
-			n[s] = n[s].replace("/>", ">")
-		}
-		if (o["!protect"]) n[n.length] = vl(o["!protect"]);
-		if (o["!autofilter"] != null) n[n.length] = Sl(o["!autofilter"], o, t, e);
-		if (o["!merges"] != null && o["!merges"].length > 0) n[n.length] = fl(o["!merges"]);
-		var h = -1,
-		d, p = -1;
-		if (o["!links"].length > 0) {
-			n[n.length] = "<hyperlinks>";
-			o["!links"].forEach(function(e) {
-				if (!e[1].Target) return;
-				d = {
-					ref: e[0]
-				};
-				if (e[1].Target.charAt(0) != "#") {
-					p = Mn(a, -1, ot(e[1].Target).replace(/#.*$/, ""), En.HLINK);
-					d["r:id"] = "rId" + p
-				}
-				if ((h = e[1].Target.indexOf("#")) > -1) d.location = ot(e[1].Target.slice(h + 1));
-				if (e[1].Tooltip) d.tooltip = ot(e[1].Tooltip);
-				d.display = e[1].display;
-				n[n.length] = Ot("hyperlink", null, d)
-			});
-			n[n.length] = "</hyperlinks>"
-		}
-		delete o["!links"];
-		if (o["!margins"] != null) n[n.length] = wl(o["!margins"]);
-		if (!r || r.ignoreEC || r.ignoreEC == void 0) n[n.length] = Ft("ignoredErrors", Ot("ignoredError", null, {
-			numberStoredAsText: 1,
-			sqref: c
-		}));
-		if (u.length > 0) {
-			p = Mn(a, -1, "../drawings/drawing" + (e + 1) + ".xml", En.DRAW);
-			n[n.length] = Ot("drawing", null, {
-				"r:id": "rId" + p
-			});
-			o["!drawing"] = u
-		}
-		if (o["!comments"].length > 0) {
-			p = Mn(a, -1, "../drawings/vmlDrawing" + (e + 1) + ".vml", En.VML);
-			n[n.length] = Ot("legacyDrawing", null, {
-				"r:id": "rId" + p
-			});
-			o["!legacy"] = p
-		}
-		if (n.length > 1) {
-			n[n.length] = "</worksheet>";
-			n[1] = n[1].replace("/>", ">")
-		}
-		return n.join("")
-	}
+	})();
 	function Ol(e) {
 		var r = [];
 		var t = e.match(/^<c:numCache>/);
@@ -10791,14 +8906,14 @@ function make_xlsx_lib(e) {
 			if (!a) return;
 			r[ + a[1]] = t ? +a[2] : a[2]
 		});
-		var n = it((e.match(/<c:formatCode>([\s\S]*?)<\/c:formatCode>/) || ["", "General"])[1]); (e.match(/<c:f>(.*?)<\/c:f>/gm) || []).forEach(function(e) {
+		var n = it((e.match(/<c:formatCode>([\s\S]*?)<\/c:formatCode>/) || ["", "General", ])[1]); (e.match(/<c:f>(.*?)<\/c:f>/gm) || []).forEach(function(e) {
 			a = e.replace(/<.*?>/g, "")
 		});
 		return [r, n, a]
 	}
 	function Ml(e, r, t, a, n, i) {
 		var s = i || {
-			"!type": "chart"
+			"!type": "chart",
 		};
 		if (!e) return i;
 		var l = 0,
@@ -10807,12 +8922,12 @@ function make_xlsx_lib(e) {
 		var f = {
 			s: {
 				r: 2e6,
-				c: 2e6
+				c: 2e6,
 			},
 			e: {
 				r: 0,
-				c: 0
-			}
+				c: 0,
+			},
 		}; (e.match(/<c:numCache>[\s\S]*?<\/c:numCache>/gm) || []).forEach(function(e) {
 			var r = Ol(e);
 			f.s.r = f.s.c = 0;
@@ -10824,12 +8939,12 @@ function make_xlsx_lib(e) {
 					s["!data"][t][l] = {
 						t: "n",
 						v: e,
-						z: r[1]
+						z: r[1],
 					}
 				} else s[c + Ma(t)] = {
 					t: "n",
 					v: e,
-					z: r[1]
+					z: r[1],
 				};
 				o = t
 			});
@@ -10841,24 +8956,24 @@ function make_xlsx_lib(e) {
 	function Nl(e, r, t, a, n) {
 		if (!e) return e;
 		if (!a) a = {
-			"!id": {}
+			"!id": {},
 		};
 		var i = {
 			"!type": "chart",
 			"!drawel": null,
-			"!rel": ""
+			"!rel": "",
 		};
 		var s;
 		var l = e.match(sl);
 		if (l) ul(l[0], i, n, t);
-		if (s = e.match(/drawing r:id="(.*?)"/)) i["!rel"] = s[1];
+		if ((s = e.match(/drawing r:id="(.*?)"/))) i["!rel"] = s[1];
 		if (a["!id"][i["!rel"]]) i["!drawel"] = a["!id"][i["!rel"]];
 		return i
 	}
-	var Il = [["allowRefreshQuery", false, "bool"], ["autoCompressPictures", true, "bool"], ["backupFile", false, "bool"], ["checkCompatibility", false, "bool"], ["CodeName", ""], ["date1904", false, "bool"], ["defaultThemeVersion", 0, "int"], ["filterPrivacy", false, "bool"], ["hidePivotFieldList", false, "bool"], ["promptedSolutions", false, "bool"], ["publishItems", false, "bool"], ["refreshAllConnections", false, "bool"], ["saveExternalLinkValues", true, "bool"], ["showBorderUnselectedTables", true, "bool"], ["showInkAnnotation", true, "bool"], ["showObjects", "all"], ["showPivotChartFilter", false, "bool"], ["updateLinks", "userSet"]];
-	var Pl = [["activeTab", 0, "int"], ["autoFilterDateGrouping", true, "bool"], ["firstSheet", 0, "int"], ["minimized", false, "bool"], ["showHorizontalScroll", true, "bool"], ["showSheetTabs", true, "bool"], ["showVerticalScroll", true, "bool"], ["tabRatio", 600, "int"], ["visibility", "visible"]];
+	var Il = [["allowRefreshQuery", false, "bool"], ["autoCompressPictures", true, "bool"], ["backupFile", false, "bool"], ["checkCompatibility", false, "bool"], ["CodeName", ""], ["date1904", false, "bool"], ["defaultThemeVersion", 0, "int"], ["filterPrivacy", false, "bool"], ["hidePivotFieldList", false, "bool"], ["promptedSolutions", false, "bool"], ["publishItems", false, "bool"], ["refreshAllConnections", false, "bool"], ["saveExternalLinkValues", true, "bool"], ["showBorderUnselectedTables", true, "bool"], ["showInkAnnotation", true, "bool"], ["showObjects", "all"], ["showPivotChartFilter", false, "bool"], ["updateLinks", "userSet"], ];
+	var Pl = [["activeTab", 0, "int"], ["autoFilterDateGrouping", true, "bool"], ["firstSheet", 0, "int"], ["minimized", false, "bool"], ["showHorizontalScroll", true, "bool"], ["showSheetTabs", true, "bool"], ["showVerticalScroll", true, "bool"], ["tabRatio", 600, "int"], ["visibility", "visible"], ];
 	var Rl = [];
-	var Ll = [["calcCompleted", "true"], ["calcMode", "auto"], ["calcOnSave", "true"], ["concurrentCalc", "true"], ["fullCalcOnLoad", "false"], ["fullPrecision", "true"], ["iterate", "false"], ["iterateCount", "100"], ["iterateDelta", "0.001"], ["refMode", "A1"]];
+	var Ll = [["calcCompleted", "true"], ["calcMode", "auto"], ["calcOnSave", "true"], ["concurrentCalc", "true"], ["fullCalcOnLoad", "false"], ["fullPrecision", "true"], ["iterate", "false"], ["iterateCount", "100"], ["iterateDelta", "0.001"], ["refMode", "A1"], ];
 	function Bl(e, r) {
 		for (var t = 0; t != e.length; ++t) {
 			var a = e[t];
@@ -10871,7 +8986,7 @@ function make_xlsx_lib(e) {
 					break;
 				case "int":
 					if (typeof a[i[0]] == "string") a[i[0]] = parseInt(a[i[0]], 10);
-					break;
+					break
 				}
 			}
 		}
@@ -10886,7 +9001,7 @@ function make_xlsx_lib(e) {
 				break;
 			case "int":
 				if (typeof e[a[0]] == "string") e[a[0]] = parseInt(e[a[0]], 10);
-				break;
+				break
 			}
 		}
 	}
@@ -10897,11 +9012,6 @@ function make_xlsx_lib(e) {
 		Bl(e.Sheets, Rl);
 		Hs.date1904 = mt(e.WBProps.date1904)
 	}
-	function $l(e) {
-		if (!e.Workbook) return "false";
-		if (!e.Workbook.WBProps) return "false";
-		return mt(e.Workbook.WBProps.date1904) ? "true": "false"
-	}
 	var Wl = ":][*?/\\".split("");
 	function jl(e, r) {
 		try {
@@ -10911,47 +9021,13 @@ function make_xlsx_lib(e) {
 			if (e.toLowerCase() == "history") throw new Error("Sheet name cannot be 'History'");
 			Wl.forEach(function(r) {
 				if (e.indexOf(r) == -1) return;
-				throw new Error("Sheet name cannot contain : \\ / ? * [ ]")
+				throw new Error("Sheet name cannot contain : \\ / ? * [ ]");
 			})
 		} catch(t) {
 			if (r) return false;
-			throw t
+			throw t;
 		}
 		return true
-	}
-	function Hl(e, r, t) {
-		e.forEach(function(a, n) {
-			jl(a);
-			for (var i = 0; i < n; ++i) if (a == e[i]) throw new Error("Duplicate Sheet Name: " + a);
-			if (t) {
-				var s = r && r[n] && r[n].CodeName || a;
-				if (s.charCodeAt(0) == 95 && s.length > 22) throw new Error("Bad Code Name: Worksheet" + s)
-			}
-		})
-	}
-	function Vl(e) {
-		if (!e || !e.SheetNames || !e.Sheets) throw new Error("Invalid Workbook");
-		if (!e.SheetNames.length) throw new Error("Workbook is empty");
-		var r = e.Workbook && e.Workbook.Sheets || [];
-		Hl(e.SheetNames, r, !!e.vbaraw);
-		for (var t = 0; t < e.SheetNames.length; ++t) Ks(e.Sheets[e.SheetNames[t]], e.SheetNames[t], t);
-		e.SheetNames.forEach(function(r, t) {
-			var a = e.Sheets[r];
-			if (!a || !a["!autofilter"]) return;
-			var n;
-			if (!e.Workbook) e.Workbook = {};
-			if (!e.Workbook.Names) e.Workbook.Names = [];
-			e.Workbook.Names.forEach(function(e) {
-				if (e.Name == "_xlnm._FilterDatabase" && e.Sheet == t) n = e
-			});
-			var i = Va(r) + "!" + Ha(a["!autofilter"].ref);
-			if (n) n.Ref = i;
-			else e.Workbook.Names.push({
-				Name: "_xlnm._FilterDatabase",
-				Sheet: t,
-				Ref: i
-			})
-		})
 	}
 	var Xl = /<\w+:workbook/;
 	function Gl(e, r) {
@@ -10963,7 +9039,7 @@ function make_xlsx_lib(e) {
 			Sheets: [],
 			CalcPr: {},
 			Names: [],
-			xmlns: ""
+			xmlns: "",
 		};
 		var a = false,
 		n = "xmlns";
@@ -10986,7 +9062,6 @@ function make_xlsx_lib(e) {
 				t.AppVersion = f;
 				break;
 			case "<fileVersion/>":
-				;
 			case "</fileVersion>":
 				break;
 			case "<fileSharing":
@@ -10994,7 +9069,6 @@ function make_xlsx_lib(e) {
 			case "<fileSharing/>":
 				break;
 			case "<workbookPr":
-				;
 			case "<workbookPr/>":
 				Il.forEach(function(e) {
 					if (f[e[0]] == null) return;
@@ -11006,7 +9080,7 @@ function make_xlsx_lib(e) {
 						t.WBProps[e[0]] = parseInt(f[e[0]], 10);
 						break;
 					default:
-						t.WBProps[e[0]] = f[e[0]];
+						t.WBProps[e[0]] = f[e[0]]
 					}
 				});
 				if (f.codeName) t.WBProps.CodeName = kt(f.codeName);
@@ -11018,13 +9092,10 @@ function make_xlsx_lib(e) {
 			case "<workbookProtection/>":
 				break;
 			case "<bookViews":
-				;
 			case "<bookViews>":
-				;
 			case "</bookViews>":
 				break;
 			case "<workbookView":
-				;
 			case "<workbookView/>":
 				delete f[0];
 				t.WBView.push(f);
@@ -11032,9 +9103,7 @@ function make_xlsx_lib(e) {
 			case "</workbookView>":
 				break;
 			case "<sheets":
-				;
 			case "<sheets>":
-				;
 			case "</sheets>":
 				break;
 			case "<sheet":
@@ -11046,7 +9115,7 @@ function make_xlsx_lib(e) {
 					f.Hidden = 2;
 					break;
 				default:
-					f.Hidden = 0;
+					f.Hidden = 0
 				}
 				delete f.state;
 				f.name = it(kt(f.name));
@@ -11056,15 +9125,12 @@ function make_xlsx_lib(e) {
 			case "</sheet>":
 				break;
 			case "<functionGroups":
-				;
 			case "<functionGroups/>":
 				break;
 			case "<functionGroup":
 				break;
 			case "<externalReferences":
-				;
 			case "</externalReferences>":
-				;
 			case "<externalReferences>":
 				break;
 			case "<externalReference":
@@ -11072,7 +9138,6 @@ function make_xlsx_lib(e) {
 			case "<definedNames/>":
 				break;
 			case "<definedNames>":
-				;
 			case "<definedNames":
 				a = true;
 				break;
@@ -11110,57 +9175,42 @@ function make_xlsx_lib(e) {
 			case "<oleSize":
 				break;
 			case "<customWorkbookViews>":
-				;
 			case "</customWorkbookViews>":
-				;
 			case "<customWorkbookViews":
 				break;
 			case "<customWorkbookView":
-				;
 			case "</customWorkbookView>":
 				break;
 			case "<pivotCaches>":
-				;
 			case "</pivotCaches>":
-				;
 			case "<pivotCaches":
 				break;
 			case "<pivotCache":
 				break;
 			case "<smartTagPr":
-				;
 			case "<smartTagPr/>":
 				break;
 			case "<smartTagTypes":
-				;
 			case "<smartTagTypes>":
-				;
 			case "</smartTagTypes>":
 				break;
 			case "<smartTagType":
 				break;
 			case "<webPublishing":
-				;
 			case "<webPublishing/>":
 				break;
 			case "<fileRecoveryPr":
-				;
 			case "<fileRecoveryPr/>":
 				break;
 			case "<webPublishObjects>":
-				;
 			case "<webPublishObjects":
-				;
 			case "</webPublishObjects>":
 				break;
 			case "<webPublishObject":
 				break;
 			case "<extLst":
-				;
 			case "<extLst>":
-				;
 			case "</extLst>":
-				;
 			case "<extLst/>":
 				break;
 			case "<ext":
@@ -11172,7 +9222,6 @@ function make_xlsx_lib(e) {
 			case "<ArchID":
 				break;
 			case "<AlternateContent":
-				;
 			case "<AlternateContent>":
 				a = true;
 				break;
@@ -11189,78 +9238,6 @@ function make_xlsx_lib(e) {
 		if (Lt.indexOf(t.xmlns) === -1) throw new Error("Unknown Namespace: " + t.xmlns);
 		zl(t);
 		return t
-	}
-	function Yl(e) {
-		var r = [Yr];
-		r[r.length] = Ot("workbook", null, {
-			xmlns: Lt[0],
-			"xmlns:r": Rt.r
-		});
-		var t = e.Workbook && (e.Workbook.Names || []).length > 0;
-		var a = {
-			codeName: "ThisWorkbook"
-		};
-		if (e.Workbook && e.Workbook.WBProps) {
-			Il.forEach(function(r) {
-				if (e.Workbook.WBProps[r[0]] == null) return;
-				if (e.Workbook.WBProps[r[0]] == r[1]) return;
-				a[r[0]] = e.Workbook.WBProps[r[0]]
-			});
-			if (e.Workbook.WBProps.CodeName) {
-				a.codeName = e.Workbook.WBProps.CodeName;
-				delete a.CodeName
-			}
-		}
-		r[r.length] = Ot("workbookPr", null, a);
-		var n = e.Workbook && e.Workbook.Sheets || [];
-		var i = 0;
-		if (n && n[0] && !!n[0].Hidden) {
-			r[r.length] = "<bookViews>";
-			for (i = 0; i != e.SheetNames.length; ++i) {
-				if (!n[i]) break;
-				if (!n[i].Hidden) break
-			}
-			if (i == e.SheetNames.length) i = 0;
-			r[r.length] = '<workbookView firstSheet="' + i + '" activeTab="' + i + '"/>';
-			r[r.length] = "</bookViews>"
-		}
-		r[r.length] = "<sheets>";
-		for (i = 0; i != e.SheetNames.length; ++i) {
-			var s = {
-				name: ot(e.SheetNames[i].slice(0, 31))
-			};
-			s.sheetId = "" + (i + 1);
-			s["r:id"] = "rId" + (i + 1);
-			if (n[i]) switch (n[i].Hidden) {
-			case 1:
-				s.state = "hidden";
-				break;
-			case 2:
-				s.state = "veryHidden";
-				break;
-			}
-			r[r.length] = Ot("sheet", null, s)
-		}
-		r[r.length] = "</sheets>";
-		if (t) {
-			r[r.length] = "<definedNames>";
-			if (e.Workbook && e.Workbook.Names) e.Workbook.Names.forEach(function(e) {
-				var t = {
-					name: e.Name
-				};
-				if (e.Comment) t.comment = e.Comment;
-				if (e.Sheet != null) t.localSheetId = "" + e.Sheet;
-				if (e.Hidden) t.hidden = "1";
-				if (!e.Ref) return;
-				r[r.length] = Ot("definedName", ot(e.Ref), t)
-			});
-			r[r.length] = "</definedNames>"
-		}
-		if (r.length > 2) {
-			r[r.length] = "</workbook>";
-			r[1] = r[1].replace("/>", ">")
-		}
-		return r.join("")
 	}
 	function Jl(e, r, t) {
 		if (r.slice(-4) === ".bin") return parse_wb_bin(e, t);
@@ -11306,127 +9283,6 @@ function make_xlsx_lib(e) {
 		if (r.slice(-4) === ".bin") return parse_xlmeta_bin(e, r, t);
 		return ls(e, r, t)
 	}
-	function so(e, r) {
-		var t = r || {};
-		var a = t.dense != null ? t.dense: b;
-		var n = {};
-		if (a) n["!data"] = [];
-		e = e.replace(/<!--.*?-->/g, "");
-		var i = e.match(/<table/i);
-		if (!i) throw new Error("Invalid HTML: could not find <table>");
-		var s = e.match(/<\/table/i);
-		var l = i.index,
-		o = s && s.index || e.length;
-		var c = Mr(e.slice(l, o), /(:?<tr[^>]*>)/i, "<tr>");
-		var f = -1,
-		u = 0,
-		h = 0,
-		d = 0;
-		var p = {
-			s: {
-				r: 1e7,
-				c: 1e7
-			},
-			e: {
-				r: 0,
-				c: 0
-			}
-		};
-		var m = [];
-		for (l = 0; l < c.length; ++l) {
-			var v = c[l].trim();
-			var g = v.slice(0, 3).toLowerCase();
-			if (g == "<tr") {++f;
-				if (t.sheetRows && t.sheetRows <= f) {--f;
-					break
-				}
-				u = 0;
-				continue
-			}
-			if (g != "<td" && g != "<th") continue;
-			var w = v.split(/<\/t[dh]>/i);
-			for (o = 0; o < w.length; ++o) {
-				var k = w[o].trim();
-				if (!k.match(/<t[dh]/i)) continue;
-				var y = k,
-				x = 0;
-				while (y.charAt(0) == "<" && (x = y.indexOf(">")) > -1) y = y.slice(x + 1);
-				for (var S = 0; S < m.length; ++S) {
-					var C = m[S];
-					if (C.s.c == u && C.s.r < f && f <= C.e.r) {
-						u = C.e.c + 1;
-						S = -1
-					}
-				}
-				var _ = rt(k.slice(0, k.indexOf(">")));
-				d = _.colspan ? +_.colspan: 1;
-				if ((h = +_.rowspan) > 1 || d > 1) m.push({
-					s: {
-						r: f,
-						c: u
-					},
-					e: {
-						r: f + (h || 1) - 1,
-						c: u + d - 1
-					}
-				});
-				var A = _.t || _["data-t"] || "";
-				if (!y.length) {
-					u += d;
-					continue
-				}
-				y = St(y);
-				if (p.s.r > f) p.s.r = f;
-				if (p.e.r < f) p.e.r = f;
-				if (p.s.c > u) p.s.c = u;
-				if (p.e.c < u) p.e.c = u;
-				if (!y.length) {
-					u += d;
-					continue
-				}
-				var T = {
-					t: "s",
-					v: y
-				};
-				if (t.raw || !y.trim().length || A == "s") {} else if (y === "TRUE") T = {
-					t: "b",
-					v: true
-				};
-				else if (y === "FALSE") T = {
-					t: "b",
-					v: false
-				};
-				else if (!isNaN(Sr(y))) T = {
-					t: "n",
-					v: Sr(y)
-				};
-				else if (!isNaN(Or(y).getDate())) {
-					T = {
-						t: "d",
-						v: wr(y)
-					};
-					if (t.UTC === false) T.v = Nr(T.v);
-					if (!t.cellDates) T = {
-						t: "n",
-						v: dr(T.v)
-					};
-					T.z = t.dateNF || q[14]
-				}
-				if (T.cellText !== false) T.w = y;
-				if (a) {
-					if (!n["!data"][f]) n["!data"][f] = [];
-					n["!data"][f][u] = T
-				} else n[$a({
-					r: f,
-					c: u
-				})] = T;
-				u += d
-			}
-		}
-		n["!ref"] = ja(p);
-		if (m.length) n["!merges"] = m;
-		return n
-	}
 	function lo(e, r, t, a) {
 		var n = e["!merges"] || [];
 		var i = [];
@@ -11449,13 +9305,13 @@ function make_xlsx_lib(e) {
 			if (c < 0) continue;
 			var h = Ra(o) + Ma(t);
 			var d = l ? (e["!data"][t] || [])[o] : e[h];
-			var p = d && d.v != null && (d.h || ut(d.w || (Ya(d), d.w) || "")) || "";
+			var p = (d && d.v != null && (d.h || ut(d.w || (Ya(d), d.w) || ""))) || "";
 			s = {};
 			if (c > 1) s.rowspan = c;
 			if (f > 1) s.colspan = f;
 			if (a.editable) p = '<span contenteditable="true">' + p + "</span>";
 			else if (d) {
-				s["data-t"] = d && d.t || "z";
+				s["data-t"] = (d && d.t) || "z";
 				if (d.v != null) s["data-v"] = d.v instanceof Date ? d.v.toISOString() : d.v;
 				if (d.z != null) s["data-z"] = d.z;
 				if (d.l && (d.l.Target || "#").charAt(0) != "#") p = '<a href="' + ut(d.l.Target) + '">' + p + "</a>"
@@ -11468,24 +9324,9 @@ function make_xlsx_lib(e) {
 	}
 	var oo = '<html><head><meta charset="utf-8"/><title>SheetJS Table Export</title></head><body>';
 	var co = "</body></html>";
-	function fo(e, r) {
-		var t = e.match(/<table[\s\S]*?>[\s\S]*?<\/table>/gi);
-		if (!t || t.length == 0) throw new Error("Invalid HTML: could not find <table>");
-		if (t.length == 1) {
-			var a = Ja(so(t[0], r), r);
-			a.bookType = "html";
-			return a
-		}
-		var n = Sc();
-		t.forEach(function(e, t) {
-			Cc(n, so(e, r), "Sheet" + (t + 1))
-		});
-		n.bookType = "html";
-		return n
-	}
 	function uo(e, r, t) {
 		var a = [];
-		return a.join("") + "<table" + (t && t.id ? ' id="' + t.id + '"': "") + ">"
+		return (a.join("") + "<table" + (t && t.id ? ' id="' + t.id + '"': "") + ">")
 	}
 	function ho(e, r) {
 		var t = r || {};
@@ -11501,7 +9342,7 @@ function make_xlsx_lib(e) {
 	function po(e, r, t) {
 		var a = r.rows;
 		if (!a) {
-			throw "Unsupported origin when " + r.tagName + " is not a TABLE"
+			throw "Unsupported origin when " + r.tagName + " is not a TABLE";
 		}
 		var n = t || {};
 		var i = e["!data"] != null;
@@ -11519,12 +9360,12 @@ function make_xlsx_lib(e) {
 		var f = {
 			s: {
 				r: 0,
-				c: 0
+				c: 0,
 			},
 			e: {
 				r: s,
-				c: l
-			}
+				c: l,
+			},
 		};
 		if (e["!ref"]) {
 			var u = Wa(e["!ref"]);
@@ -11549,7 +9390,7 @@ function make_xlsx_lib(e) {
 			if (go(y)) {
 				if (n.display) continue;
 				p[v] = {
-					hidden: true
+					hidden: true,
 				}
 			}
 			var x = y.cells;
@@ -11569,41 +9410,41 @@ function make_xlsx_lib(e) {
 				if ((w = +S.getAttribute("rowspan") || 1) > 1 || k > 1) h.push({
 					s: {
 						r: v + s,
-						c: b + l
+						c: b + l,
 					},
 					e: {
 						r: v + s + (w || 1) - 1,
-						c: b + l + (k || 1) - 1
-					}
+						c: b + l + (k || 1) - 1,
+					},
 				});
 				var T = {
 					t: "s",
-					v: C
+					v: C,
 				};
 				var E = S.getAttribute("data-t") || S.getAttribute("t") || "";
 				if (C != null) {
 					if (C.length == 0) T.t = E || "z";
 					else if (n.raw || C.trim().length == 0 || E == "s") {} else if (C === "TRUE") T = {
 						t: "b",
-						v: true
+						v: true,
 					};
 					else if (C === "FALSE") T = {
 						t: "b",
-						v: false
+						v: false,
 					};
 					else if (!isNaN(Sr(C))) T = {
 						t: "n",
-						v: Sr(C)
+						v: Sr(C),
 					};
 					else if (!isNaN(Or(C).getDate())) {
 						T = {
 							t: "d",
-							v: wr(C)
+							v: wr(C),
 						};
 						if (n.UTC) T.v = Ir(T.v);
 						if (!n.cellDates) T = {
 							t: "n",
-							v: dr(T.v)
+							v: dr(T.v),
 						};
 						T.z = n.dateNF || q[14]
 					}
@@ -11616,14 +9457,14 @@ function make_xlsx_lib(e) {
 					if (F.charAt(0) != "#") break
 				}
 				if (F && F.charAt(0) != "#" && F.slice(0, 11).toLowerCase() != "javascript:") T.l = {
-					Target: F
+					Target: F,
 				};
 				if (i) {
 					if (!e["!data"][v + s]) e["!data"][v + s] = [];
 					e["!data"][v + s][b + l] = T
 				} else e[$a({
 					c: b + l,
-					r: v + s
+					r: v + s,
 				})] = T;
 				if (f.e.c < b + l) f.e.c = b + l;
 				b += k
@@ -11632,7 +9473,7 @@ function make_xlsx_lib(e) {
 		if (h.length) e["!merges"] = (e["!merges"] || []).concat(h);
 		f.e.r = Math.max(f.e.r, v - 1 + s);
 		e["!ref"] = ja(f);
-		if (v >= c) e["!fullref"] = ja((f.e.r = a.length - m + v - 1 + s, f));
+		if (v >= c) e["!fullref"] = ja(((f.e.r = a.length - m + v - 1 + s), f));
 		return e
 	}
 	function mo(e, r) {
@@ -11676,18 +9517,13 @@ function make_xlsx_lib(e) {
 		u = -1,
 		h = false,
 		d = "";
-		while (i = Pt.exec(n)) {
-			switch (i[3] = i[3].replace(/_.*$/, "")) {
+		while ((i = Pt.exec(n))) {
+			switch ((i[3] = i[3].replace(/_.*$/, ""))) {
 			case "number-style":
-				;
 			case "currency-style":
-				;
 			case "percentage-style":
-				;
 			case "date-style":
-				;
 			case "time-style":
-				;
 			case "text-style":
 				if (i[1] === "/") {
 					h = false;
@@ -11739,7 +9575,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "dd";
-						break;
+						break
 					}
 				}
 				break;
@@ -11755,7 +9591,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "ddd";
-						break;
+						break
 					}
 				}
 				break;
@@ -11771,7 +9607,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "eeee";
-						break;
+						break
 					}
 				}
 				break;
@@ -11787,7 +9623,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "hh";
-						break;
+						break
 					}
 				}
 				break;
@@ -11803,7 +9639,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "mm";
-						break;
+						break
 					}
 				}
 				break;
@@ -11820,7 +9656,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "m";
-						break;
+						break
 					}
 				}
 				break;
@@ -11836,7 +9672,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "ss";
-						break;
+						break
 					}
 					if (c["decimal-places"]) l += "." + xr("0", +c["decimal-places"])
 				}
@@ -11853,7 +9689,7 @@ function make_xlsx_lib(e) {
 						break;
 					default:
 						l += "yy";
-						break;
+						break
 					}
 				}
 				break;
@@ -11861,7 +9697,6 @@ function make_xlsx_lib(e) {
 				l += "AM/PM";
 				break;
 			case "week-of-year":
-				;
 			case "quarter":
 				console.error("Excel does not support ODS format token " + i[3]);
 				break;
@@ -11898,10 +9733,9 @@ function make_xlsx_lib(e) {
 				c = rt(i[0], false);
 				switch ((c["color"] || "").toLowerCase().replace("#", "")) {
 				case "ff0000":
-					;
 				case "red":
 					l = "[Red]" + l;
-					break;
+					break
 				}
 				break;
 			case "text-content":
@@ -11931,7 +9765,7 @@ function make_xlsx_lib(e) {
 					u = Pt.lastIndex;
 					f = -+rt(i[0], false)["position"] || 0
 				}
-				break;
+				break
 			}
 		}
 		return a
@@ -11953,7 +9787,7 @@ function make_xlsx_lib(e) {
 		if (a.dense) m["!data"] = [];
 		var v, g;
 		var w = {
-			value: ""
+			value: "",
 		};
 		var k = "",
 		y = 0,
@@ -11966,12 +9800,12 @@ function make_xlsx_lib(e) {
 		F = {
 			s: {
 				r: 1e6,
-				c: 1e7
+				c: 1e7,
 			},
 			e: {
 				r: 0,
-				c: 0
-			}
+				c: 0,
+			},
 		};
 		var D = 0;
 		var O = t || {},
@@ -11986,7 +9820,7 @@ function make_xlsx_lib(e) {
 		var z = [];
 		var $ = {
 			Names: [],
-			WBProps: {}
+			WBProps: {},
 		};
 		var W = {};
 		var j = ["", ""];
@@ -11999,9 +9833,8 @@ function make_xlsx_lib(e) {
 		var Z = 0;
 		Pt.lastIndex = 0;
 		n = n.replace(/<!--([\s\S]*?)-->/gm, "").replace(/<!DOCTYPE[^\[]*\[[^\]]*\]>/gm, "");
-		while (v = Pt.exec(n)) switch (v[3] = v[3].replace(/_.*$/, "")) {
+		while ((v = Pt.exec(n))) switch ((v[3] = v[3].replace(/_.*$/, ""))) {
 		case "table":
-			;
 		case "工作表":
 			if (v[1] === "/") {
 				if (F.e.c >= F.s.c && F.e.r >= F.s.r) m["!ref"] = ja(F);
@@ -12035,7 +9868,6 @@ function make_xlsx_lib(e) {
 			else++D;
 			break;
 		case "table-row":
-			;
 		case "行":
 			if (v[1] === "/") {
 				T += B;
@@ -12047,7 +9879,7 @@ function make_xlsx_lib(e) {
 			else if (T == -1) T = 0;
 			B = +h["number-rows-repeated"] || 1;
 			if (B < 10) for (Z = 0; Z < B; ++Z) if (D > 0) L[T + Z] = {
-				level: D
+				level: D,
 			};
 			E = -1;
 			break;
@@ -12057,27 +9889,26 @@ function make_xlsx_lib(e) {
 				if (a.dense) {
 					if (!m["!data"][T]) m["!data"][T] = [];
 					m["!data"][T][E] = {
-						t: "z"
+						t: "z",
 					}
 				} else m[$a({
 					r: T,
-					c: E
+					c: E,
 				})] = {
-					t: "z"
+					t: "z",
 				}
 			}
 			k = "";
 			_ = [];
 			break;
 		case "table-cell":
-			;
 		case "数据":
 			if (v[0].charAt(v[0].length - 2) === "/") {++E;
 				w = rt(v[0], false);
 				U = parseInt(w["number-columns-repeated"] || "1", 10);
 				g = {
 					t: "z",
-					v: null
+					v: null,
 				};
 				if (w.formula && a.cellFormula != false) g.f = Us(it(w.formula));
 				if (w["style-name"] && M[w["style-name"]]) g.z = M[w["style-name"]];
@@ -12108,7 +9939,7 @@ function make_xlsx_lib(e) {
 				V = {};
 				g = {
 					t: w["数据类型"] || w["value-type"],
-					v: null
+					v: null,
 				};
 				if (w["style-name"] && M[w["style-name"]]) g.z = M[w["style-name"]];
 				if (a.cellFormula) {
@@ -12119,12 +9950,12 @@ function make_xlsx_lib(e) {
 						I = {
 							s: {
 								r: T,
-								c: E
+								c: E,
 							},
 							e: {
 								r: T + P - 1,
-								c: E + R - 1
-							}
+								c: E + R - 1,
+							},
 						};
 						g.F = ja(I);
 						z.push([I, g.F])
@@ -12138,12 +9969,12 @@ function make_xlsx_lib(e) {
 					I = {
 						s: {
 							r: T,
-							c: E
+							c: E,
 						},
 						e: {
 							r: T + P - 1,
-							c: E + R - 1
-						}
+							c: E + R - 1,
+						},
 					};
 					N.push(I)
 				}
@@ -12228,11 +10059,11 @@ function make_xlsx_lib(e) {
 							} else {
 								m[$a({
 									r: T + q,
-									c: E
+									c: E,
 								})] = g;
 								while (--U > 0) m[$a({
 									r: T + q,
-									c: E + U
+									c: E + U,
 								})] = yr(g)
 							}
 							if (F.e.c <= E) F.e.c = E
@@ -12249,24 +10080,16 @@ function make_xlsx_lib(e) {
 			W = {};
 			break;
 		case "document":
-			;
 		case "document-content":
-			;
 		case "电子表格文档":
-			;
 		case "spreadsheet":
-			;
 		case "主体":
-			;
 		case "scripts":
-			;
 		case "styles":
-			;
 		case "font-face-decls":
-			;
 		case "master-styles":
 			if (v[1] === "/") {
-				if ((s = i.pop())[0] !== v[3]) throw "Bad state: " + s
+				if ((s = i.pop())[0] !== v[3]) throw "Bad state: " + s;
 			} else if (v[0].charAt(v[0].length - 2) !== "/") i.push([v[3], true]);
 			break;
 		case "annotation":
@@ -12299,63 +10122,39 @@ function make_xlsx_lib(e) {
 			} else G = v.index + v[0].length;
 			break;
 		case "meta":
-			;
 		case "元数据":
-			;
 		case "settings":
-			;
 		case "config-item-set":
-			;
 		case "config-item-map-indexed":
-			;
 		case "config-item-map-entry":
-			;
 		case "config-item-map-named":
-			;
 		case "shapes":
-			;
 		case "frame":
-			;
 		case "text-box":
-			;
 		case "image":
-			;
 		case "data-pilot-tables":
-			;
 		case "list-style":
-			;
 		case "form":
-			;
 		case "dde-links":
-			;
 		case "event-listeners":
-			;
 		case "chart":
 			if (v[1] === "/") {
-				if ((s = i.pop())[0] !== v[3]) throw "Bad state: " + s
+				if ((s = i.pop())[0] !== v[3]) throw "Bad state: " + s;
 			} else if (v[0].charAt(v[0].length - 2) !== "/") i.push([v[3], false]);
 			k = "";
 			y = 0;
 			_ = [];
 			break;
 		case "scientific-number":
-			;
 		case "currency-symbol":
-			;
 		case "fill-character":
 			break;
 		case "text-style":
-			;
 		case "boolean-style":
-			;
 		case "number-style":
-			;
 		case "currency-style":
-			;
 		case "percentage-style":
-			;
 		case "date-style":
-			;
 		case "time-style":
 			if (v[1] === "/") {
 				var ee = Pt.lastIndex;
@@ -12372,7 +10171,6 @@ function make_xlsx_lib(e) {
 		case "automatic-styles":
 			break;
 		case "default-style":
-			;
 		case "page-layout":
 			break;
 		case "style":
@@ -12400,25 +10198,15 @@ function make_xlsx_lib(e) {
 		case "fraction":
 			break;
 		case "day":
-			;
 		case "month":
-			;
 		case "year":
-			;
 		case "era":
-			;
 		case "day-of-week":
-			;
 		case "week-of-year":
-			;
 		case "quarter":
-			;
 		case "hours":
-			;
 		case "minutes":
-			;
 		case "seconds":
-			;
 		case "am-pm":
 			break;
 		case "boolean":
@@ -12427,12 +10215,10 @@ function make_xlsx_lib(e) {
 			if (v[0].slice(-2) === "/>") break;
 			else if (v[1] === "/") switch (i[i.length - 1][0]) {
 			case "number-style":
-				;
 			case "date-style":
-				;
 			case "time-style":
 				c += n.slice(f, v.index);
-				break;
+				break
 			} else f = v.index + v[0].length;
 			break;
 		case "named-range":
@@ -12440,7 +10226,7 @@ function make_xlsx_lib(e) {
 			j = $s(l["cell-range-address"]);
 			var te = {
 				Name: l.name,
-				Ref: j[0] + "!" + j[1]
+				Ref: j[0] + "!" + j[1],
 			};
 			if (J) te.Sheet = p.length;
 			$.Names.push(te);
@@ -12452,7 +10238,6 @@ function make_xlsx_lib(e) {
 		case "embedded-text":
 			break;
 		case "body":
-			;
 		case "电子表格":
 			break;
 		case "forms":
@@ -12474,7 +10259,7 @@ function make_xlsx_lib(e) {
 			switch (l["date-value"]) {
 			case "1904-01-01":
 				$.WBProps.date1904 = true;
-				break;
+				break
 			}
 			break;
 		case "graphic-properties":
@@ -12502,7 +10287,6 @@ function make_xlsx_lib(e) {
 		case "span":
 			break;
 		case "p":
-			;
 		case "文本串":
 			if (["master-styles"].indexOf(i[i.length - 1][0]) > -1) break;
 			if (v[1] === "/" && (!w || !w["string-value"])) {
@@ -12522,7 +10306,7 @@ function make_xlsx_lib(e) {
 			try {
 				j = $s(rt(v[0])["target-range-address"]);
 				d[j[0]]["!autofilter"] = {
-					ref: j[1]
+					ref: j[1],
 				}
 			} catch(ne) {}
 			break;
@@ -12531,7 +10315,6 @@ function make_xlsx_lib(e) {
 		case "object":
 			break;
 		case "title":
-			;
 		case "标题":
 			break;
 		case "desc":
@@ -12571,63 +10354,36 @@ function make_xlsx_lib(e) {
 		case "list-level-properties":
 			break;
 		case "sender-firstname":
-			;
 		case "sender-lastname":
-			;
 		case "sender-initials":
-			;
 		case "sender-title":
-			;
 		case "sender-position":
-			;
 		case "sender-email":
-			;
 		case "sender-phone-private":
-			;
 		case "sender-fax":
-			;
 		case "sender-company":
-			;
 		case "sender-phone-work":
-			;
 		case "sender-street":
-			;
 		case "sender-city":
-			;
 		case "sender-postal-code":
-			;
 		case "sender-country":
-			;
 		case "sender-state-or-province":
-			;
 		case "author-name":
-			;
 		case "author-initials":
-			;
 		case "chapter":
-			;
 		case "file-name":
-			;
 		case "template-name":
-			;
 		case "sheet-name":
 			break;
 		case "event-listener":
 			break;
 		case "initial-creator":
-			;
 		case "creation-date":
-			;
 		case "print-date":
-			;
 		case "generator":
-			;
 		case "document-statistic":
-			;
 		case "user-defined":
-			;
 		case "editing-duration":
-			;
 		case "editing-cycles":
 			break;
 		case "config-item":
@@ -12647,45 +10403,27 @@ function make_xlsx_lib(e) {
 		case "highlighted-range":
 			break;
 		case "data-pilot-table":
-			;
 		case "source-cell-range":
-			;
 		case "source-service":
-			;
 		case "data-pilot-field":
-			;
 		case "data-pilot-level":
-			;
 		case "data-pilot-subtotals":
-			;
 		case "data-pilot-subtotal":
-			;
 		case "data-pilot-members":
-			;
 		case "data-pilot-member":
-			;
 		case "data-pilot-display-info":
-			;
 		case "data-pilot-sort-info":
-			;
 		case "data-pilot-layout-info":
-			;
 		case "data-pilot-field-reference":
-			;
 		case "data-pilot-groups":
-			;
 		case "data-pilot-group":
-			;
 		case "data-pilot-group-member":
 			break;
 		case "rect":
 			break;
 		case "dde-connection-decls":
-			;
 		case "dde-connection-decl":
-			;
 		case "dde-link":
-			;
 		case "dde-source":
 			break;
 		case "properties":
@@ -12713,37 +10451,26 @@ function make_xlsx_lib(e) {
 		default:
 			switch (v[2]) {
 			case "dc:":
-				;
 			case "calcext:":
-				;
 			case "loext:":
-				;
 			case "ooo:":
-				;
 			case "chartooo:":
-				;
 			case "draw:":
-				;
 			case "style:":
-				;
 			case "chart:":
-				;
 			case "form:":
-				;
 			case "uof:":
-				;
 			case "表:":
-				;
 			case "字:":
 				break;
 			default:
 				if (a.WTF) throw new Error(v);
-			};
+			}
 		}
 		var ie = {
 			Sheets: d,
 			SheetNames: p,
-			Workbook: $
+			Workbook: $,
 		};
 		if (a.bookSheets) delete ie.Sheets;
 		return ie
@@ -12760,36 +10487,11 @@ function make_xlsx_lib(e) {
 		i.bookType = "ods";
 		return i
 	}
-	function So(e, r) {
-		var t = yo(e, r);
-		t.bookType = "fods";
-		return t
-	}
-	var Co = function() {
-		var e = ["<office:master-styles>", '<style:master-page style:name="mp1" style:page-layout-name="mp1">', "<style:header/>", '<style:header-left style:display="false"/>', "<style:footer/>", '<style:footer-left style:display="false"/>', "</style:master-page>", "</office:master-styles>"].join("");
-		var r = "<office:document-styles " + Dt({
-			"xmlns:office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
-			"xmlns:table": "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
-			"xmlns:style": "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
-			"xmlns:text": "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
-			"xmlns:draw": "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0",
-			"xmlns:fo": "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
-			"xmlns:xlink": "http://www.w3.org/1999/xlink",
-			"xmlns:dc": "http://purl.org/dc/elements/1.1/",
-			"xmlns:number": "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
-			"xmlns:svg": "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0",
-			"xmlns:of": "urn:oasis:names:tc:opendocument:xmlns:of:1.2",
-			"office:version": "1.2"
-		}) + ">" + e + "</office:document-styles>";
-		return function t() {
-			return Yr + r
-		}
-	} ();
 	function _o(e, r) {
 		var t = "number",
 		a = "",
 		n = {
-			"style:name": r
+			"style:name": r,
 		},
 		i = "",
 		s = 0;
@@ -12824,33 +10526,32 @@ function make_xlsx_lib(e) {
 				a += Ot("number:fraction", null, {
 					"number:min-integer-digits": 0,
 					"number:min-numerator-digits": l[1].length,
-					"number:max-denominator-value": Math.max( + l[1].replace(/./g, "9"), +l[2].replace(/./g, "9"))
+					"number:max-denominator-value": Math.max( + l[1].replace(/./g, "9"), +l[2].replace(/./g, "9")),
 				});
 				break e
 			}
-			if (l = e.match(/# (\?+)\/(\d+)/)) {
+			if ((l = e.match(/# (\?+)\/(\d+)/))) {
 				a += Ot("number:fraction", null, {
 					"number:min-integer-digits": 0,
 					"number:min-numerator-digits": l[1].length,
-					"number:denominator-value": +l[2]
+					"number:denominator-value": +l[2],
 				});
 				break e
 			}
-			if (l = e.match(/(\d+)(|\.\d+)%/)) {
+			if ((l = e.match(/(\d+)(|\.\d+)%/))) {
 				t = "percentage";
 				a += Ot("number:number", null, {
-					"number:decimal-places": l[2] && l.length - 1 || 0,
-					"number:min-decimal-places": l[2] && l.length - 1 || 0,
-					"number:min-integer-digits": l[1].length
+					"number:decimal-places": (l[2] && l.length - 1) || 0,
+					"number:min-decimal-places": (l[2] && l.length - 1) || 0,
+					"number:min-integer-digits": l[1].length,
 				}) + "<number:text>%</number:text>";
 				break e
 			}
 			var o = false;
 			if (["y", "m", "d"].indexOf(e[0]) > -1) {
 				t = "date";
-				r: for (; s < e.length; ++s) switch (i = e[s].toLowerCase()) {
+				r: for (; s < e.length; ++s) switch ((i = e[s].toLowerCase())) {
 				case "h":
-					;
 				case "s":
 					o = true; --s;
 					break r;
@@ -12858,51 +10559,41 @@ function make_xlsx_lib(e) {
 					t:
 					for (var c = s + 1; c < e.length; ++c) switch (e[c]) {
 					case "y":
-						;
 					case "d":
 						break t;
 					case "h":
-						;
 					case "s":
 						o = true; --s;
-						break r;
-					};
+						break r
+					}
 				case "y":
-					;
 				case "d":
 					while ((e[++s] || "").toLowerCase() == i[0]) i += i[0]; --s;
 					switch (i) {
 					case "y":
-						;
 					case "yy":
 						a += "<number:year/>";
 						break;
 					case "yyy":
-						;
 					case "yyyy":
 						a += '<number:year number:style="long"/>';
 						break;
 					case "mmmmm":
 						console.error("ODS has no equivalent of format |mmmmm|");
 					case "m":
-						;
 					case "mm":
-						;
 					case "mmm":
-						;
 					case "mmmm":
 						a += '<number:month number:style="' + (i.length % 2 ? "short": "long") + '" number:textual="' + (i.length >= 3 ? "true": "false") + '"/>';
 						break;
 					case "d":
-						;
 					case "dd":
 						a += '<number:day number:style="' + (i.length % 2 ? "short": "long") + '"/>';
 						break;
 					case "ddd":
-						;
 					case "dddd":
 						a += '<number:day-of-week number:style="' + (i.length % 2 ? "short": "long") + '"/>';
-						break;
+						break
 					}
 					break;
 				case '"':
@@ -12914,12 +10605,11 @@ function make_xlsx_lib(e) {
 					a += "<number:text>" + ot(i) + "</number:text>";
 					break;
 				case "/":
-					;
 				case ":":
 					a += "<number:text>" + ot(i) + "</number:text>";
 					break;
 				default:
-					console.error("unrecognized character " + i + " in ODF format " + e);
+					console.error("unrecognized character " + i + " in ODF format " + e)
 				}
 				if (!o) break e;
 				e = e.slice(s + 1);
@@ -12931,32 +10621,27 @@ function make_xlsx_lib(e) {
 					e = e.replace(/[\[\]]/g, "");
 					n["number:truncate-on-overflow"] = "false"
 				}
-				for (; s < e.length; ++s) switch (i = e[s].toLowerCase()) {
+				for (; s < e.length; ++s) switch ((i = e[s].toLowerCase())) {
 				case "h":
-					;
 				case "m":
-					;
 				case "s":
 					while ((e[++s] || "").toLowerCase() == i[0]) i += i[0]; --s;
 					switch (i) {
 					case "h":
-						;
 					case "hh":
 						a += '<number:hours number:style="' + (i.length % 2 ? "short": "long") + '"/>';
 						break;
 					case "m":
-						;
 					case "mm":
 						a += '<number:minutes number:style="' + (i.length % 2 ? "short": "long") + '"/>';
 						break;
 					case "s":
-						;
 					case "ss":
 						if (e[s + 1] == ".") do {
 							i += e[s + 1]; ++s
 						} while ( e [ s + 1 ] == "0");
 						a += '<number:seconds number:style="' + (i.match("ss") ? "long": "short") + '"' + (i.match(/\./) ? ' number:decimal-places="' + (i.match(/0+/) || [""])[0].length + '"': "") + "/>";
-						break;
+						break
 					}
 					break;
 				case '"':
@@ -12964,7 +10649,6 @@ function make_xlsx_lib(e) {
 					a += "<number:text>" + ot(i.slice(1).replace(/""/g, '"')) + "</number:text>";
 					break;
 				case "/":
-					;
 				case ":":
 					a += "<number:text>" + ot(i) + "</number:text>";
 					break;
@@ -12978,9 +10662,9 @@ function make_xlsx_lib(e) {
 						a += "<number:am-pm/>";
 						s += 4;
 						break
-					};
+					}
 				default:
-					console.error("unrecognized character " + i + " in ODF format " + e);
+					console.error("unrecognized character " + i + " in ODF format " + e)
 				}
 				break e
 			}
@@ -13008,7 +10692,7 @@ function make_xlsx_lib(e) {
 			if (!f || !f[0]) console.error("Could not find numeric part of " + e);
 			else {
 				var u = f[1].replace(/,/g, "");
-				a += "<number:" + (f[3] ? "scientific-": "") + "number" + ' number:min-integer-digits="' + (u.indexOf("0") == -1 ? "0": u.length - u.indexOf("0")) + '"' + (f[0].indexOf(",") > -1 ? ' number:grouping="true"': "") + (f[2] && ' number:decimal-places="' + (f[2].length - 1) + '"' || ' number:decimal-places="0"') + (f[3] && f[3].indexOf("+") > -1 ? ' number:forced-exponent-sign="true"': "") + (f[3] ? ' number:min-exponent-digits="' + f[3].match(/0+/)[0].length + '"': "") + ">" + "</number:" + (f[3] ? "scientific-": "") + "number>";
+				a += "<number:" + (f[3] ? "scientific-": "") + "number" + ' number:min-integer-digits="' + (u.indexOf("0") == -1 ? "0": u.length - u.indexOf("0")) + '"' + (f[0].indexOf(",") > -1 ? ' number:grouping="true"': "") + ((f[2] && ' number:decimal-places="' + (f[2].length - 1) + '"') || ' number:decimal-places="0"') + (f[3] && f[3].indexOf("+") > -1 ? ' number:forced-exponent-sign="true"': "") + (f[3] ? ' number:min-exponent-digits="' + f[3].match(/0+/)[0].length + '"': "") + "></number:" + (f[3] ? "scientific-": "") + "number>";
 				s = f.index + f[0].length
 			}
 			if (e[s] == '"') {
@@ -13023,312 +10707,6 @@ function make_xlsx_lib(e) {
 		}
 		return Ot("number:" + t + "-style", a, n)
 	}
-	function Ao(e, r, t) {
-		var a = [];
-		for (var n = 0; n < e.length; ++n) {
-			var i = e[n];
-			if (!i) continue;
-			if (i.Sheet == (t == -1 ? null: t)) a.push(i)
-		}
-		if (!a.length) return "";
-		return "      <table:named-expressions>\n" + a.map(function(e) {
-			var r = (t == -1 ? "$": "") + Ws(e.Ref);
-			return "        " + Ot("table:named-range", null, {
-				"table:name": e.Name,
-				"table:cell-range-address": r,
-				"table:base-cell-address": r.replace(/[\.]?[^\.]*$/, ".$A$1")
-			})
-		}).join("\n") + "\n      </table:named-expressions>\n"
-	}
-	var To = function() {
-		var e = function(e) {
-			return ot(e).replace(/  +/g,
-			function(e) {
-				return '<text:s text:c="' + e.length + '"/>'
-			}).replace(/\t/g, "<text:tab/>").replace(/\n/g, "</text:p><text:p>").replace(/^ /, "<text:s/>").replace(/ $/, "<text:s/>")
-		};
-		var r = "          <table:table-cell />\n";
-		var t = function(t, a, n, i, s, l) {
-			var o = [];
-			o.push('      <table:table table:name="' + ot(a.SheetNames[n]) + '" table:style-name="ta1">\n');
-			var c = 0,
-			f = 0,
-			u = Wa(t["!ref"] || "A1");
-			var h = t["!merges"] || [],
-			d = 0;
-			var p = t["!data"] != null;
-			if (t["!cols"]) {
-				for (f = 0; f <= u.e.c; ++f) o.push("        <table:table-column" + (t["!cols"][f] ? ' table:style-name="co' + t["!cols"][f].ods + '"': "") + "></table:table-column>\n")
-			}
-			var m = "",
-			v = t["!rows"] || [];
-			for (c = 0; c < u.s.r; ++c) {
-				m = v[c] ? ' table:style-name="ro' + v[c].ods + '"': "";
-				o.push("        <table:table-row" + m + "></table:table-row>\n")
-			}
-			for (; c <= u.e.r; ++c) {
-				m = v[c] ? ' table:style-name="ro' + v[c].ods + '"': "";
-				o.push("        <table:table-row" + m + ">\n");
-				for (f = 0; f < u.s.c; ++f) o.push(r);
-				for (; f <= u.e.c; ++f) {
-					var g = false,
-					b = {},
-					w = "";
-					for (d = 0; d != h.length; ++d) {
-						if (h[d].s.c > f) continue;
-						if (h[d].s.r > c) continue;
-						if (h[d].e.c < f) continue;
-						if (h[d].e.r < c) continue;
-						if (h[d].s.c != f || h[d].s.r != c) g = true;
-						b["table:number-columns-spanned"] = h[d].e.c - h[d].s.c + 1;
-						b["table:number-rows-spanned"] = h[d].e.r - h[d].s.r + 1;
-						break
-					}
-					if (g) {
-						o.push("          <table:covered-table-cell/>\n");
-						continue
-					}
-					var k = $a({
-						r: c,
-						c: f
-					}),
-					y = p ? (t["!data"][c] || [])[f] : t[k];
-					if (y && y.f) {
-						b["table:formula"] = ot(zs(y.f));
-						if (y.F) {
-							if (y.F.slice(0, k.length) == k) {
-								var x = Wa(y.F);
-								b["table:number-matrix-columns-spanned"] = x.e.c - x.s.c + 1;
-								b["table:number-matrix-rows-spanned"] = x.e.r - x.s.r + 1
-							}
-						}
-					}
-					if (!y) {
-						o.push(r);
-						continue
-					}
-					switch (y.t) {
-					case "b":
-						w = y.v ? "TRUE": "FALSE";
-						b["office:value-type"] = "boolean";
-						b["office:boolean-value"] = y.v ? "true": "false";
-						break;
-					case "n":
-						w = y.w || String(y.v || 0);
-						b["office:value-type"] = "float";
-						b["office:value"] = y.v || 0;
-						break;
-					case "s":
-						;
-					case "str":
-						w = y.v == null ? "": y.v;
-						b["office:value-type"] = "string";
-						break;
-					case "d":
-						w = y.w || wr(y.v, l).toISOString();
-						b["office:value-type"] = "date";
-						b["office:date-value"] = wr(y.v, l).toISOString();
-						b["table:style-name"] = "ce1";
-						break;
-					default:
-						o.push(r);
-						continue;
-					}
-					var S = e(w);
-					if (y.l && y.l.Target) {
-						var C = y.l.Target;
-						C = C.charAt(0) == "#" ? "#" + Ws(C.slice(1)) : C;
-						if (C.charAt(0) != "#" && !C.match(/^\w+:/)) C = "../" + C;
-						S = Ot("text:a", S, {
-							"xlink:href": C.replace(/&/g, "&amp;")
-						})
-					}
-					if (s[y.z]) b["table:style-name"] = "ce" + s[y.z].slice(1);
-					var _ = Ot("text:p", S, {});
-					if (y.c) {
-						var A = "",
-						T = "",
-						E = {};
-						for (var F = 0; F < y.c.length; ++F) {
-							if (!A && y.c[F].a) A = y.c[F].a;
-							T += "<text:p>" + e(y.c[F].t) + "</text:p>"
-						}
-						if (!y.c.hidden) E["office:display"] = true;
-						_ = Ot("office:annotation", T, E) + _
-					}
-					o.push("          " + Ot("table:table-cell", _, b) + "\n")
-				}
-				o.push("        </table:table-row>\n")
-			}
-			if ((a.Workbook || {}).Names) o.push(Ao(a.Workbook.Names, a.SheetNames, n));
-			o.push("      </table:table>\n");
-			return o.join("")
-		};
-		var a = function(e, r) {
-			e.push(" <office:automatic-styles>\n");
-			var t = 0;
-			r.SheetNames.map(function(e) {
-				return r.Sheets[e]
-			}).forEach(function(r) {
-				if (!r) return;
-				if (r["!cols"]) {
-					for (var a = 0; a < r["!cols"].length; ++a) if (r["!cols"][a]) {
-						var n = r["!cols"][a];
-						if (n.width == null && n.wpx == null && n.wch == null) continue;
-						Ni(n);
-						n.ods = t;
-						var i = r["!cols"][a].wpx + "px";
-						e.push('  <style:style style:name="co' + t + '" style:family="table-column">\n');
-						e.push('   <style:table-column-properties fo:break-before="auto" style:column-width="' + i + '"/>\n');
-						e.push("  </style:style>\n"); ++t
-					}
-				}
-			});
-			var a = 0;
-			r.SheetNames.map(function(e) {
-				return r.Sheets[e]
-			}).forEach(function(r) {
-				if (!r) return;
-				if (r["!rows"]) {
-					for (var t = 0; t < r["!rows"].length; ++t) if (r["!rows"][t]) {
-						r["!rows"][t].ods = a;
-						var n = r["!rows"][t].hpx + "px";
-						e.push('  <style:style style:name="ro' + a + '" style:family="table-row">\n');
-						e.push('   <style:table-row-properties fo:break-before="auto" style:row-height="' + n + '"/>\n');
-						e.push("  </style:style>\n"); ++a
-					}
-				}
-			});
-			e.push('  <style:style style:name="ta1" style:family="table" style:master-page-name="mp1">\n');
-			e.push('   <style:table-properties table:display="true" style:writing-mode="lr-tb"/>\n');
-			e.push("  </style:style>\n");
-			e.push('  <number:date-style style:name="N37" number:automatic-order="true">\n');
-			e.push('   <number:month number:style="long"/>\n');
-			e.push("   <number:text>/</number:text>\n");
-			e.push('   <number:day number:style="long"/>\n');
-			e.push("   <number:text>/</number:text>\n");
-			e.push("   <number:year/>\n");
-			e.push("  </number:date-style>\n");
-			var n = {};
-			var i = 69;
-			r.SheetNames.map(function(e) {
-				return r.Sheets[e]
-			}).forEach(function(r) {
-				if (!r) return;
-				var t = r["!data"] != null;
-				if (!r["!ref"]) return;
-				var a = Wa(r["!ref"]);
-				for (var s = 0; s <= a.e.r; ++s) for (var l = 0; l <= a.e.c; ++l) {
-					var o = t ? (r["!data"][s] || [])[l] : r[$a({
-						r: s,
-						c: l
-					})];
-					if (!o || !o.z || o.z.toLowerCase() == "general") continue;
-					if (!n[o.z]) {
-						var c = _o(o.z, "N" + i);
-						if (c) {
-							n[o.z] = "N" + i; ++i;
-							e.push(c + "\n")
-						}
-					}
-				}
-			});
-			e.push('  <style:style style:name="ce1" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="N37"/>\n');
-			ir(n).forEach(function(r) {
-				e.push('<style:style style:name="ce' + n[r].slice(1) + '" style:family="table-cell" style:parent-style-name="Default" style:data-style-name="' + n[r] + '"/>\n')
-			});
-			e.push(" </office:automatic-styles>\n");
-			return n
-		};
-		return function n(e, r) {
-			var n = [Yr];
-			var i = Dt({
-				"xmlns:office": "urn:oasis:names:tc:opendocument:xmlns:office:1.0",
-				"xmlns:table": "urn:oasis:names:tc:opendocument:xmlns:table:1.0",
-				"xmlns:style": "urn:oasis:names:tc:opendocument:xmlns:style:1.0",
-				"xmlns:text": "urn:oasis:names:tc:opendocument:xmlns:text:1.0",
-				"xmlns:draw": "urn:oasis:names:tc:opendocument:xmlns:drawing:1.0",
-				"xmlns:fo": "urn:oasis:names:tc:opendocument:xmlns:xsl-fo-compatible:1.0",
-				"xmlns:xlink": "http://www.w3.org/1999/xlink",
-				"xmlns:dc": "http://purl.org/dc/elements/1.1/",
-				"xmlns:meta": "urn:oasis:names:tc:opendocument:xmlns:meta:1.0",
-				"xmlns:number": "urn:oasis:names:tc:opendocument:xmlns:datastyle:1.0",
-				"xmlns:presentation": "urn:oasis:names:tc:opendocument:xmlns:presentation:1.0",
-				"xmlns:svg": "urn:oasis:names:tc:opendocument:xmlns:svg-compatible:1.0",
-				"xmlns:chart": "urn:oasis:names:tc:opendocument:xmlns:chart:1.0",
-				"xmlns:dr3d": "urn:oasis:names:tc:opendocument:xmlns:dr3d:1.0",
-				"xmlns:math": "http://www.w3.org/1998/Math/MathML",
-				"xmlns:form": "urn:oasis:names:tc:opendocument:xmlns:form:1.0",
-				"xmlns:script": "urn:oasis:names:tc:opendocument:xmlns:script:1.0",
-				"xmlns:ooo": "http://openoffice.org/2004/office",
-				"xmlns:ooow": "http://openoffice.org/2004/writer",
-				"xmlns:oooc": "http://openoffice.org/2004/calc",
-				"xmlns:dom": "http://www.w3.org/2001/xml-events",
-				"xmlns:xforms": "http://www.w3.org/2002/xforms",
-				"xmlns:xsd": "http://www.w3.org/2001/XMLSchema",
-				"xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
-				"xmlns:sheet": "urn:oasis:names:tc:opendocument:sh33tjs:1.0",
-				"xmlns:rpt": "http://openoffice.org/2005/report",
-				"xmlns:of": "urn:oasis:names:tc:opendocument:xmlns:of:1.2",
-				"xmlns:xhtml": "http://www.w3.org/1999/xhtml",
-				"xmlns:grddl": "http://www.w3.org/2003/g/data-view#",
-				"xmlns:tableooo": "http://openoffice.org/2009/table",
-				"xmlns:drawooo": "http://openoffice.org/2010/draw",
-				"xmlns:calcext": "urn:org:documentfoundation:names:experimental:calc:xmlns:calcext:1.0",
-				"xmlns:loext": "urn:org:documentfoundation:names:experimental:office:xmlns:loext:1.0",
-				"xmlns:field": "urn:openoffice:names:experimental:ooo-ms-interop:xmlns:field:1.0",
-				"xmlns:formx": "urn:openoffice:names:experimental:ooxml-odf-interop:xmlns:form:1.0",
-				"xmlns:css3t": "http://www.w3.org/TR/css3-text/",
-				"office:version": "1.2"
-			});
-			var s = Dt({
-				"xmlns:config": "urn:oasis:names:tc:opendocument:xmlns:config:1.0",
-				"office:mimetype": "application/vnd.oasis.opendocument.spreadsheet"
-			});
-			if (r.bookType == "fods") {
-				n.push("<office:document" + i + s + ">\n");
-				n.push(Un().replace(/<office:document-meta.*?>/, "").replace(/<\/office:document-meta>/, "") + "\n")
-			} else n.push("<office:document-content" + i + ">\n");
-			var l = a(n, e);
-			n.push("  <office:body>\n");
-			n.push("    <office:spreadsheet>\n");
-			if (((e.Workbook || {}).WBProps || {}).date1904) n.push('      <table:calculation-settings table:case-sensitive="false" table:search-criteria-must-apply-to-whole-cell="true" table:use-wildcards="true" table:use-regular-expressions="false" table:automatic-find-labels="false">\n        <table:null-date table:date-value="1904-01-01"/>\n      </table:calculation-settings>\n');
-			for (var o = 0; o != e.SheetNames.length; ++o) n.push(t(e.Sheets[e.SheetNames[o]], e, o, r, l, ((e.Workbook || {}).WBProps || {}).date1904));
-			if ((e.Workbook || {}).Names) n.push(Ao(e.Workbook.Names, e.SheetNames, -1));
-			n.push("    </office:spreadsheet>\n");
-			n.push("  </office:body>\n");
-			if (r.bookType == "fods") n.push("</office:document>");
-			else n.push("</office:document-content>");
-			return n.join("")
-		}
-	} ();
-	function Eo(e, r) {
-		if (r.bookType == "fods") return To(e, r);
-		var t = Vr();
-		var a = "";
-		var n = [];
-		var i = [];
-		a = "mimetype";
-		Hr(t, a, "application/vnd.oasis.opendocument.spreadsheet");
-		a = "content.xml";
-		Hr(t, a, To(e, r));
-		n.push([a, "text/xml"]);
-		i.push([a, "ContentFile"]);
-		a = "styles.xml";
-		Hr(t, a, Co(e, r));
-		n.push([a, "text/xml"]);
-		i.push([a, "StylesFile"]);
-		a = "meta.xml";
-		Hr(t, a, Yr + Un());
-		n.push([a, "text/xml"]);
-		i.push([a, "MetadataFile"]);
-		a = "manifest.rdf";
-		Hr(t, a, Bn(i));
-		n.push([a, "application/rdf+xml"]);
-		a = "META-INF/manifest.xml";
-		Hr(t, a, Pn(n));
-		return t
-	}
 	function Fo(e) {
 		return function r(t) {
 			for (var a = 0; a != e.length; ++a) {
@@ -13339,10 +10717,7 @@ function make_xlsx_lib(e) {
 		}
 	}
 	function Do(e) {
-		Fo([["cellNF", false], ["cellHTML", true], ["cellFormula", true], ["cellStyles", false], ["cellText", true], ["cellDates", false], ["sheetStubs", false], ["sheetRows", 0, "n"], ["bookDeps", false], ["bookSheets", false], ["bookProps", false], ["bookFiles", false], ["bookVBA", false], ["password", ""], ["WTF", false]])(e)
-	}
-	function Oo(e) {
-		Fo([["cellDates", false], ["bookSST", false], ["bookType", "xlsx"], ["compression", false], ["WTF", false]])(e)
+		Fo([["cellNF", false], ["cellHTML", true], ["cellFormula", true], ["cellStyles", false], ["cellText", true], ["cellDates", false], ["sheetStubs", false], ["sheetRows", 0, "n"], ["bookDeps", false], ["bookSheets", false], ["bookProps", false], ["bookFiles", false], ["bookVBA", false], ["password", ""], ["WTF", false], ])(e)
 	}
 	function Mo(e) {
 		if (En.WS.indexOf(e) > -1) return "sheet";
@@ -13416,7 +10791,7 @@ function make_xlsx_lib(e) {
 			if (k && k.length) vs(d, k, true, o.people || []);
 			Io(d, l, e, r, n, o, c, w)
 		} catch(y) {
-			if (o.WTF) throw y
+			if (o.WTF) throw y;
 		}
 	}
 	function Ro(e) {
@@ -13438,7 +10813,7 @@ function make_xlsx_lib(e) {
 				});
 				return parse_numbers_iwa(t, r)
 			}
-			throw new Error("Unsupported NUMBERS file")
+			throw new Error("Unsupported NUMBERS file");
 		}
 		if (!Br(e, "[Content_Types].xml")) {
 			if (Br(e, "index.xml.gz")) throw new Error("Unsupported NUMBERS 08 file");
@@ -13451,7 +10826,7 @@ function make_xlsx_lib(e) {
 				if (typeof Bun !== "undefined" && Buffer.isBuffer(a.content)) return Jo(new Uint8Array(a.content), r);
 				return Jo(a.content, r)
 			}
-			throw new Error("Unsupported ZIP file")
+			throw new Error("Unsupported ZIP file");
 		}
 		var n = jr(e);
 		var i = An($r(e, "[Content_Types].xml"));
@@ -13475,7 +10850,7 @@ function make_xlsx_lib(e) {
 			if (i.sst) try {
 				js = ro(zr(e, Ro(i.sst)), i.sst, r)
 			} catch(u) {
-				if (r.WTF) throw u
+				if (r.WTF) throw u;
 			}
 			if (r.cellStyles && i.themes.length) c = is($r(e, i.themes[0].replace(/^\//, ""), true) || "", r);
 			if (i.style) f = eo(zr(e, Ro(i.style)), i.style, c, r)
@@ -13570,7 +10945,7 @@ function make_xlsx_lib(e) {
 						if (typeof r.sheets[O] == "string" && r.sheets[O].toLowerCase() == d.SheetNames[b].toLowerCase()) D = 1
 					}
 					if (!D) continue e
-				};
+				}
 			}
 			Po(e, k, y, d.SheetNames[b], b, w, l, F, r, h, c, f)
 		}
@@ -13585,7 +10960,7 @@ function make_xlsx_lib(e) {
 			Strings: js,
 			Styles: f,
 			Themes: c,
-			SSF: yr(q)
+			SSF: yr(q),
 		};
 		if (r && r.bookFiles) {
 			if (e.files) {
@@ -13641,302 +11016,7 @@ function make_xlsx_lib(e) {
 		if (!n || !n.content) throw new Error("ECMA-376 Encrypted file missing " + a);
 		if (o[0] == 4 && typeof decrypt_agile !== "undefined") return decrypt_agile(o[1], n.content, t.password || "", t);
 		if (o[0] == 2 && typeof decrypt_std76 !== "undefined") return decrypt_std76(o[1], n.content, t.password || "", t);
-		throw new Error("File is password-protected")
-	}
-	function Uo(e, r) {
-		if (e && !e.SSF) {
-			e.SSF = yr(q)
-		}
-		if (e && e.SSF) {
-			He();
-			je(e.SSF);
-			r.revssf = or(e.SSF);
-			r.revssf[e.SSF[65535]] = 0;
-			r.ssf = e.SSF
-		}
-		r.rels = {};
-		r.wbrels = {};
-		r.Strings = [];
-		r.Strings.Count = 0;
-		r.Strings.Unique = 0;
-		if (Vs) r.revStrings = new Map;
-		else {
-			r.revStrings = {};
-			r.revStrings.foo = [];
-			delete r.revStrings.foo
-		}
-		var t = "bin";
-		var a = true;
-		var n = _n();
-		Oo(r = r || {});
-		var i = Vr();
-		var s = "",
-		l = 0;
-		r.cellXfs = [];
-		Js(r.cellXfs, {},
-		{
-			revssf: {
-				General: 0
-			}
-		});
-		if (!e.Props) e.Props = {};
-		s = "docProps/core.xml";
-		Hr(i, s, Hn(e.Props, r));
-		n.coreprops.push(s);
-		Mn(r.rels, 2, s, En.CORE_PROPS);
-		s = "docProps/app.xml";
-		if (e.Props && e.Props.SheetNames) {} else if (!e.Workbook || !e.Workbook.Sheets) e.Props.SheetNames = e.SheetNames;
-		else {
-			var o = [];
-			for (var c = 0; c < e.SheetNames.length; ++c) if ((e.Workbook.Sheets[c] || {}).Hidden != 2) o.push(e.SheetNames[c]);
-			e.Props.SheetNames = o
-		}
-		e.Props.Worksheets = e.Props.SheetNames.length;
-		Hr(i, s, Jn(e.Props, r));
-		n.extprops.push(s);
-		Mn(r.rels, 3, s, En.EXT_PROPS);
-		if (e.Custprops !== e.Props && ir(e.Custprops || {}).length > 0) {
-			s = "docProps/custom.xml";
-			Hr(i, s, qn(e.Custprops, r));
-			n.custprops.push(s);
-			Mn(r.rels, 4, s, En.CUST_PROPS)
-		}
-		var f = ["SheetJ5"];
-		r.tcid = 0;
-		for (l = 1; l <= e.SheetNames.length; ++l) {
-			var u = {
-				"!id": {}
-			};
-			var h = e.Sheets[e.SheetNames[l - 1]];
-			var d = (h || {})["!type"] || "sheet";
-			switch (d) {
-			case "chart":
-				;
-			default:
-				s = "xl/worksheets/sheet" + l + "." + t;
-				Hr(i, s, write_ws_bin(l - 1, r, e, u));
-				n.sheets.push(s);
-				Mn(r.wbrels, -1, "worksheets/sheet" + l + "." + t, En.WS[0]);
-			}
-			if (h) {
-				var p = h["!comments"];
-				var m = false;
-				var v = "";
-				if (p && p.length > 0) {
-					var g = false;
-					p.forEach(function(e) {
-						e[1].forEach(function(e) {
-							if (e.T == true) g = true
-						})
-					});
-					if (g) {
-						v = "xl/threadedComments/threadedComment" + l + ".xml";
-						Hr(i, v, ks(p, f, r));
-						n.threadedcomments.push(v);
-						Mn(u, -1, "../threadedComments/threadedComment" + l + ".xml", En.TCMNT)
-					}
-					v = "xl/comments" + l + "." + t;
-					Hr(i, v, write_comments_bin(p, r));
-					n.comments.push(v);
-					Mn(u, -1, "../comments" + l + "." + t, En.CMNT);
-					m = true
-				}
-				if (h["!legacy"]) {
-					if (m) Hr(i, "xl/drawings/vmlDrawing" + l + ".vml", ps(l, h["!comments"]))
-				}
-				delete h["!comments"];
-				delete h["!legacy"]
-			}
-			if (u["!id"].rId1) Hr(i, Fn(s), On(u))
-		}
-		if (r.Strings != null && r.Strings.length > 0) {
-			s = "xl/sharedStrings." + t;
-			Hr(i, s, write_sst_bin(r.Strings, r));
-			n.strs.push(s);
-			Mn(r.wbrels, -1, "sharedStrings." + t, En.SST)
-		}
-		s = "xl/workbook." + t;
-		Hr(i, s, write_wb_bin(e, r));
-		n.workbooks.push(s);
-		Mn(r.rels, 1, s, En.WB);
-		s = "xl/theme/theme1.xml";
-		var b = ss(e.Themes, r);
-		Hr(i, s, b);
-		n.themes.push(s);
-		Mn(r.wbrels, -1, "theme/theme1.xml", En.THEME);
-		s = "xl/styles." + t;
-		Hr(i, s, write_sty_bin(e, r));
-		n.styles.push(s);
-		Mn(r.wbrels, -1, "styles." + t, En.STY);
-		if (e.vbaraw && a) {
-			s = "xl/vbaProject.bin";
-			Hr(i, s, e.vbaraw);
-			n.vba.push(s);
-			Mn(r.wbrels, -1, "vbaProject.bin", En.VBA)
-		}
-		s = "xl/metadata." + t;
-		Hr(i, s, write_xlmeta_bin());
-		n.metadata.push(s);
-		Mn(r.wbrels, -1, "metadata." + t, En.XLMETA);
-		if (f.length > 1) {
-			s = "xl/persons/person.xml";
-			Hr(i, s, xs(f, r));
-			n.people.push(s);
-			Mn(r.wbrels, -1, "persons/person.xml", En.PEOPLE)
-		}
-		Hr(i, "[Content_Types].xml", Tn(n, r));
-		Hr(i, "_rels/.rels", On(r.rels));
-		Hr(i, "xl/_rels/workbook." + t + ".rels", On(r.wbrels));
-		delete r.revssf;
-		delete r.ssf;
-		return i
-	}
-	function zo(e, r) {
-		if (e && !e.SSF) {
-			e.SSF = yr(q)
-		}
-		if (e && e.SSF) {
-			He();
-			je(e.SSF);
-			r.revssf = or(e.SSF);
-			r.revssf[e.SSF[65535]] = 0;
-			r.ssf = e.SSF
-		}
-		r.rels = {};
-		r.wbrels = {};
-		r.Strings = [];
-		r.Strings.Count = 0;
-		r.Strings.Unique = 0;
-		if (Vs) r.revStrings = new Map;
-		else {
-			r.revStrings = {};
-			r.revStrings.foo = [];
-			delete r.revStrings.foo;
-		}
-		var t = "xml";
-		var a = As.indexOf(r.bookType) > -1;
-		var n = _n();
-		Oo(r = r || {});
-		var i = Vr();
-		var s = "",
-		l = 0;
-		r.cellXfs = [];
-		Js(r.cellXfs, {},
-		{
-			revssf: {
-				General: 0
-			}
-		});
-		if (!e.Props) e.Props = {};
-		s = "docProps/core.xml";
-		Hr(i, s, Hn(e.Props, r));
-		n.coreprops.push(s);
-		Mn(r.rels, 2, s, En.CORE_PROPS);
-		s = "docProps/app.xml";
-		if (e.Props && e.Props.SheetNames) {} else if (!e.Workbook || !e.Workbook.Sheets) e.Props.SheetNames = e.SheetNames;
-		else {
-			var o = [];
-			for (var c = 0; c < e.SheetNames.length; ++c) if ((e.Workbook.Sheets[c] || {}).Hidden != 2) o.push(e.SheetNames[c]);
-			e.Props.SheetNames = o
-		}
-		e.Props.Worksheets = e.Props.SheetNames.length;
-		Hr(i, s, Jn(e.Props, r));
-		n.extprops.push(s);
-		Mn(r.rels, 3, s, En.EXT_PROPS);
-		if (e.Custprops !== e.Props && ir(e.Custprops || {}).length > 0) {
-			s = "docProps/custom.xml";
-			Hr(i, s, qn(e.Custprops, r));
-			n.custprops.push(s);
-			Mn(r.rels, 4, s, En.CUST_PROPS)
-		}
-		var f = ["SheetJ5"];
-		r.tcid = 0;
-		for (l = 1; l <= e.SheetNames.length; ++l) {
-			var u = {
-				"!id": {}
-			};
-			var h = e.Sheets[e.SheetNames[l - 1]];
-			var d = (h || {})["!type"] || "sheet";
-			switch (d) {
-			case "chart":
-				;
-			default:
-				s = "xl/worksheets/sheet" + l + "." + t;
-				Hr(i, s, Dl(l - 1, r, e, u));
-				n.sheets.push(s);
-				Mn(r.wbrels, -1, "worksheets/sheet" + l + "." + t, En.WS[0]);
-			}
-			if (h) {
-				var p = h["!comments"];
-				var m = false;
-				var v = "";
-				if (p && p.length > 0) {
-					var g = false;
-					p.forEach(function(e) {
-						e[1].forEach(function(e) {
-							if (e.T == true) g = true
-						})
-					});
-					if (g) {
-						v = "xl/threadedComments/threadedComment" + l + ".xml";
-						Hr(i, v, ks(p, f, r));
-						n.threadedcomments.push(v);
-						Mn(u, -1, "../threadedComments/threadedComment" + l + ".xml", En.TCMNT)
-					}
-					v = "xl/comments" + l + "." + t;
-					Hr(i, v, bs(p, r));
-					n.comments.push(v);
-					Mn(u, -1, "../comments" + l + "." + t, En.CMNT);
-					m = true
-				}
-				if (h["!legacy"]) {
-					if (m) Hr(i, "xl/drawings/vmlDrawing" + l + ".vml", ps(l, h["!comments"]))
-				}
-				delete h["!comments"];
-				delete h["!legacy"]
-			}
-			if (u["!id"].rId1) Hr(i, Fn(s), On(u))
-		}
-		if (r.Strings != null && r.Strings.length > 0) {
-			s = "xl/sharedStrings." + t;
-			Hr(i, s, bi(r.Strings, r));
-			n.strs.push(s);
-			Mn(r.wbrels, -1, "sharedStrings." + t, En.SST)
-		}
-		s = "xl/workbook." + t;
-		Hr(i, s, Yl(e, r));
-		n.workbooks.push(s);
-		Mn(r.rels, 1, s, En.WB);
-		s = "xl/theme/theme1.xml";
-		Hr(i, s, ss(e.Themes, r));
-		n.themes.push(s);
-		Mn(r.wbrels, -1, "theme/theme1.xml", En.THEME);
-		s = "xl/styles." + t;
-		Hr(i, s, Ji(e, r));
-		n.styles.push(s);
-		Mn(r.wbrels, -1, "styles." + t, En.STY);
-		if (e.vbaraw && a) {
-			s = "xl/vbaProject.bin";
-			Hr(i, s, e.vbaraw);
-			n.vba.push(s);
-			Mn(r.wbrels, -1, "vbaProject.bin", En.VBA)
-		}
-		s = "xl/metadata." + t;
-		Hr(i, s, os());
-		n.metadata.push(s);
-		Mn(r.wbrels, -1, "metadata." + t, En.XLMETA);
-		if (f.length > 1) {
-			s = "xl/persons/person.xml";
-			Hr(i, s, xs(f, r));
-			n.people.push(s);
-			Mn(r.wbrels, -1, "persons/person.xml", En.PEOPLE)
-		}
-		Hr(i, "[Content_Types].xml", Tn(n, r));
-		Hr(i, "_rels/.rels", On(r.rels));
-		Hr(i, "xl/_rels/workbook." + t + ".rels", On(r.wbrels));
-		delete r.revssf;
-		delete r.ssf;
-		return i
+		throw new Error("File is password-protected");
 	}
 	function $o(e, r) {
 		var t = "";
@@ -13952,9 +11032,9 @@ function make_xlsx_lib(e) {
 		case "array":
 			return [e[0], e[1], e[2], e[3], e[4], e[5], e[6], e[7]];
 		default:
-			throw new Error("Unrecognized type " + (r && r.type || "undefined"));
+			throw new Error("Unrecognized type " + ((r && r.type) || "undefined"));
 		}
-		return [t.charCodeAt(0), t.charCodeAt(1), t.charCodeAt(2), t.charCodeAt(3), t.charCodeAt(4), t.charCodeAt(5), t.charCodeAt(6), t.charCodeAt(7)]
+		return [t.charCodeAt(0), t.charCodeAt(1), t.charCodeAt(2), t.charCodeAt(3), t.charCodeAt(4), t.charCodeAt(5), t.charCodeAt(6), t.charCodeAt(7), ]
 	}
 	function Wo(e, r) {
 		if (Qe.find(e, "EncryptedPackage")) return Bo(e, r);
@@ -13971,16 +11051,14 @@ function make_xlsx_lib(e) {
 		var t = 0;
 		e: while (t < e.length) switch (e.charCodeAt(t)) {
 		case 10:
-			;
 		case 13:
-			;
 		case 32:
 			++t;
 			break;
 		case 60:
 			return parse_xlml(e.slice(t), r);
 		default:
-			break e;
+			break e
 		}
 		return ni.to_workbook(e, r)
 	}
@@ -14029,7 +11107,7 @@ function make_xlsx_lib(e) {
 		c();
 		var t = r || {};
 		if (t.codepage && typeof a === "undefined") console.error("Codepage tables are not loaded.  Non-ASCII characters may not give expected results");
-		if (typeof ArrayBuffer !== "undefined" && e instanceof ArrayBuffer) return Jo(new Uint8Array(e), (t = yr(t), t.type = "array", t));
+		if (typeof ArrayBuffer !== "undefined" && e instanceof ArrayBuffer) return Jo(new Uint8Array(e), ((t = yr(t)), (t.type = "array"), t));
 		if (typeof Uint8Array !== "undefined" && e instanceof Uint8Array && !t.type) t.type = typeof Deno !== "undefined" ? "buffer": "array";
 		var n = e,
 		i = [0, 0, 0, 0],
@@ -14094,20 +11172,15 @@ function make_xlsx_lib(e) {
 			}
 			break;
 		case 3:
-			;
 		case 131:
-			;
 		case 139:
-			;
 		case 140:
 			return ei.to_workbook(n, t);
 		case 123:
 			if (i[1] === 92 && i[2] === 114 && i[3] === 116) return rtf_to_workbook(n, t);
 			break;
 		case 10:
-			;
 		case 13:
-			;
 		case 32:
 			return Vo(n, t);
 		case 137:
@@ -14119,305 +11192,10 @@ function make_xlsx_lib(e) {
 		case 12:
 			if (i[1] === 236) throw new Error("Unsupported Multiplan 2.x file!");
 			if (i[1] === 237) throw new Error("Unsupported Multiplan 3.x file!");
-			break;
+			break
 		}
 		if (Qn.indexOf(i[0]) > -1 && i[2] <= 12 && i[3] <= 31) return ei.to_workbook(n, t);
 		return Yo(e, n, t, s)
-	}
-	function Zo(e, r) {
-		var t = r || {};
-		t.type = "file";
-		return Jo(e, t)
-	}
-	function Ko(e, r) {
-		switch (r.type) {
-		case "base64":
-			;
-		case "binary":
-			break;
-		case "buffer":
-			;
-		case "array":
-			r.type = "";
-			break;
-		case "file":
-			return ar(r.file, Qe.write(e, {
-				type: _ ? "buffer": ""
-			}));
-		case "string":
-			throw new Error("'string' output type invalid for '" + r.bookType + "' files");
-		default:
-			throw new Error("Unrecognized type " + r.type);
-		}
-		return Qe.write(e, r)
-	}
-	function qo(e, r) {
-		switch (r.bookType) {
-		case "ods":
-			return Eo(e, r);
-		case "numbers":
-			return write_numbers_iwa(e, r);
-		case "xlsb":
-			return Uo(e, r);
-		default:
-			return zo(e, r);
-		}
-	}
-	function Qo(e, r) {
-		var t = yr(r || {});
-		var a = qo(e, t);
-		return rc(a, t)
-	}
-	function ec(e, r) {
-		var t = yr(r || {});
-		var a = zo(e, t);
-		return rc(a, t)
-	}
-	function rc(e, r) {
-		var t = {};
-		var a = _ ? "nodebuffer": typeof Uint8Array !== "undefined" ? "array": "string";
-		if (r.compression) t.compression = "DEFLATE";
-		if (r.password) t.type = a;
-		else switch (r.type) {
-		case "base64":
-			t.type = "base64";
-			break;
-		case "binary":
-			t.type = "string";
-			break;
-		case "string":
-			throw new Error("'string' output type invalid for '" + r.bookType + "' files");
-		case "buffer":
-			;
-		case "file":
-			t.type = a;
-			break;
-		default:
-			throw new Error("Unrecognized type " + r.type);
-		}
-		var n = e.FullPaths ? Qe.write(e, {
-			fileType: "zip",
-			type: {
-				nodebuffer: "buffer",
-				string: "binary"
-			} [t.type] || t.type,
-			compression: !!r.compression
-		}) : e.generate(t);
-		if (typeof Deno !== "undefined") {
-			if (typeof n == "string") {
-				if (r.type == "binary" || r.type == "base64") return n;
-				n = new Uint8Array(O(n))
-			}
-		}
-		if (r.password && typeof encrypt_agile !== "undefined") return Ko(encrypt_agile(n, r.password), r);
-		if (r.type === "file") return ar(r.file, n);
-		return r.type == "string" ? kt(n) : n
-	}
-	function tc(e, r) {
-		var t = r || {};
-		var a = write_xlscfb(e, t);
-		return Ko(a, t)
-	}
-	function ac(e, r, t) {
-		if (!t) t = "";
-		var a = t + e;
-		switch (r.type) {
-		case "base64":
-			return y(yt(a));
-		case "binary":
-			return yt(a);
-		case "string":
-			return e;
-		case "file":
-			return ar(r.file, a, "utf8");
-		case "buffer":
-			{
-				if (_) return A(a, "utf8");
-				else if (typeof TextEncoder !== "undefined") return (new TextEncoder).encode(a);
-				else return ac(a, {
-					type: "binary"
-				}).split("").map(function(e) {
-					return e.charCodeAt(0)
-				})
-			};
-		}
-		throw new Error("Unrecognized type " + r.type)
-	}
-	function nc(e, r) {
-		switch (r.type) {
-		case "base64":
-			return x(e);
-		case "binary":
-			return e;
-		case "string":
-			return e;
-		case "file":
-			return ar(r.file, e, "binary");
-		case "buffer":
-			{
-				if (_) return A(e, "binary");
-				else return e.split("").map(function(e) {
-					return e.charCodeAt(0)
-				})
-			};
-		}
-		throw new Error("Unrecognized type " + r.type)
-	}
-	function ic(e, r) {
-		switch (r.type) {
-		case "string":
-			;
-		case "base64":
-			;
-		case "binary":
-			var t = "";
-			for (var a = 0; a < e.length; ++a) t += String.fromCharCode(e[a]);
-			return r.type == "base64" ? y(t) : r.type == "string" ? kt(t) : t;
-		case "file":
-			return ar(r.file, e);
-		case "buffer":
-			return e;
-		default:
-			throw new Error("Unrecognized type " + r.type);
-		}
-	}
-	function sc(e, r) {
-		c();
-		Vl(e);
-		var t = yr(r || {});
-		if (t.cellStyles) {
-			t.cellNF = true;
-			t.sheetStubs = true
-		}
-		if (t.type == "array") {
-			t.type = "binary";
-			var a = sc(e, t);
-			t.type = "array";
-			return O(a)
-		}
-		return ec(e, t)
-	}
-	function lc(e, r) {
-		c();
-		Vl(e);
-		var t = yr(r || {});
-		if (t.cellStyles) {
-			t.cellNF = true;
-			t.sheetStubs = true
-		}
-		if (t.type == "array") {
-			t.type = "binary";
-			var a = lc(e, t);
-			t.type = "array";
-			return O(a)
-		}
-		var n = 0;
-		if (t.sheet) {
-			if (typeof t.sheet == "number") n = t.sheet;
-			else n = e.SheetNames.indexOf(t.sheet);
-			if (!e.SheetNames[n]) throw new Error("Sheet not found: " + t.sheet + " : " + typeof t.sheet)
-		}
-		switch (t.bookType || "xlsb") {
-		case "xml":
-			;
-		case "xlml":
-			return ac(write_xlml(e, t), t);
-		case "slk":
-			;
-		case "sylk":
-			return ac(ri.from_sheet(e.Sheets[e.SheetNames[n]], t, e), t);
-		case "htm":
-			;
-		case "html":
-			return ac(ho(e.Sheets[e.SheetNames[n]], t), t);
-		case "txt":
-			return nc(gc(e.Sheets[e.SheetNames[n]], t), t);
-		case "csv":
-			return ac(vc(e.Sheets[e.SheetNames[n]], t), t, "\ufeff");
-		case "dif":
-			return ac(ti.from_sheet(e.Sheets[e.SheetNames[n]], t), t);
-		case "dbf":
-			return ic(ei.from_sheet(e.Sheets[e.SheetNames[n]], t), t);
-		case "prn":
-			return ac(ni.from_sheet(e.Sheets[e.SheetNames[n]], t), t);
-		case "rtf":
-			return ac(sheet_to_rtf(e.Sheets[e.SheetNames[n]], t), t);
-		case "eth":
-			return ac(ai.from_sheet(e.Sheets[e.SheetNames[n]], t), t);
-		case "fods":
-			return ac(Eo(e, t), t);
-		case "wk1":
-			return ic(WK_.sheet_to_wk1(e.Sheets[e.SheetNames[n]], t), t);
-		case "wk3":
-			return ic(WK_.book_to_wk3(e, t), t);
-		case "biff2":
-			if (!t.biff) t.biff = 2;
-		case "biff3":
-			if (!t.biff) t.biff = 3;
-		case "biff4":
-			if (!t.biff) t.biff = 4;
-			return ic(write_biff_buf(e, t), t);
-		case "biff5":
-			if (!t.biff) t.biff = 5;
-		case "biff8":
-			;
-		case "xla":
-			;
-		case "xls":
-			if (!t.biff) t.biff = 8;
-			return tc(e, t);
-		case "xlsx":
-			;
-		case "xlsm":
-			;
-		case "xlam":
-			;
-		case "xlsb":
-			;
-		case "numbers":
-			;
-		case "ods":
-			return Qo(e, t);
-		default:
-			throw new Error("Unrecognized bookType |" + t.bookType + "|");
-		}
-	}
-	function oc(e) {
-		if (e.bookType) return;
-		var r = {
-			xls: "biff8",
-			htm: "html",
-			slk: "sylk",
-			socialcalc: "eth",
-			Sh33tJS: "WTF"
-		};
-		var t = e.file.slice(e.file.lastIndexOf(".")).toLowerCase();
-		if (t.match(/^\.[a-z]+$/)) e.bookType = t.slice(1);
-		e.bookType = r[e.bookType] || e.bookType
-	}
-	function cc(e, r, t) {
-		var a = t || {};
-		a.type = "file";
-		a.file = r;
-		oc(a);
-		return lc(e, a)
-	}
-	function fc(e, r, t) {
-		var a = t || {};
-		a.type = "file";
-		a.file = r;
-		oc(a);
-		return sc(e, a)
-	}
-	function uc(e, r, t, a) {
-		var n = t || {};
-		n.type = "file";
-		n.file = e;
-		oc(n);
-		n.type = "buffer";
-		var i = a;
-		if (! (i instanceof Function)) i = t;
-		return er.writeFile(e, lc(r, n), i)
 	}
 	function hc(e, r, t, a, n, i, s) {
 		var l = Ma(t);
@@ -14430,7 +11208,7 @@ function make_xlsx_lib(e) {
 			if (Object.defineProperty) try {
 				Object.defineProperty(h, "__rowNum__", {
 					value: t,
-					enumerable: false
+					enumerable: false,
 				})
 			} catch(d) {
 				h.__rowNum__ = t
@@ -14454,9 +11232,7 @@ function make_xlsx_lib(e) {
 				v = v == 0 ? null: void 0;
 				break;
 			case "s":
-				;
 			case "b":
-				;
 			case "n":
 				if (!m.z || !Re(m.z)) break;
 				v = pr(v);
@@ -14481,14 +11257,14 @@ function make_xlsx_lib(e) {
 		}
 		return {
 			row: h,
-			isempty: f
+			isempty: f,
 		}
 	}
 	function dc(e, r) {
 		if (e == null || e["!ref"] == null) return [];
 		var t = {
 			t: "n",
-			v: 0
+			v: 0,
 		},
 		a = 0,
 		n = 1,
@@ -14498,12 +11274,12 @@ function make_xlsx_lib(e) {
 		var o = {
 			s: {
 				r: 0,
-				c: 0
+				c: 0,
 			},
 			e: {
 				r: 0,
-				c: 0
-			}
+				c: 0,
+			},
 		};
 		var c = r || {};
 		var f = c.range != null ? c.range: e["!ref"];
@@ -14520,7 +11296,7 @@ function make_xlsx_lib(e) {
 			o.s.r = f;
 			break;
 		default:
-			o = f;
+			o = f
 		}
 		if (a > 0) n = 0;
 		var u = Ma(o.s.r);
@@ -14533,8 +11309,8 @@ function make_xlsx_lib(e) {
 		b = 0;
 		var w = {};
 		if (v && !e["!data"][g]) e["!data"][g] = [];
-		var k = c.skipHidden && e["!cols"] || [];
-		var y = c.skipHidden && e["!rows"] || [];
+		var k = (c.skipHidden && e["!cols"]) || [];
+		var y = (c.skipHidden && e["!rows"]) || [];
 		for (b = o.s.c; b <= o.e.c; ++b) {
 			if ((k[b] || {}).hidden) continue;
 			h[b] = Ra(b);
@@ -14552,7 +11328,7 @@ function make_xlsx_lib(e) {
 			default:
 				if (t == null) t = {
 					w: "__EMPTY",
-					t: "s"
+					t: "s",
 				};
 				l = s = Ya(t, null, c);
 				m = w[s] || 0;
@@ -14564,7 +11340,7 @@ function make_xlsx_lib(e) {
 					w[s] = m;
 					w[l] = 1
 				}
-				i[b] = l;
+				i[b] = l
 			}
 		}
 		for (g = o.s.r + n; g <= o.e.r; ++g) {
@@ -14582,7 +11358,7 @@ function make_xlsx_lib(e) {
 		f = "",
 		u = Ma(t);
 		var h = e["!data"] != null;
-		var d = h && e["!data"][t] || [];
+		var d = (h && e["!data"][t]) || [];
 		for (var p = r.s.c; p <= r.e.c; ++p) {
 			if (!a[p]) continue;
 			var m = h ? d[p] : e[a[p] + u];
@@ -14618,8 +11394,8 @@ function make_xlsx_lib(e) {
 		var c = new RegExp((i == "|" ? "\\|": i) + "+$");
 		var f = "",
 		u = [];
-		var h = a.skipHidden && e["!cols"] || [];
-		var d = a.skipHidden && e["!rows"] || [];
+		var h = (a.skipHidden && e["!cols"]) || [];
+		var d = (a.skipHidden && e["!rows"]) || [];
 		for (var p = n.s.c; p <= n.e.c; ++p) if (! (h[p] || {}).hidden) u[p] = Ra(p);
 		var m = 0;
 		for (var v = n.s.r; v <= n.e.r; ++v) {
@@ -14699,12 +11475,12 @@ function make_xlsx_lib(e) {
 		var f = {
 			s: {
 				c: 0,
-				r: 0
+				r: 0,
 			},
 			e: {
 				c: o,
-				r: l + r.length - 1 + i
-			}
+				r: l + r.length - 1 + i,
+			},
 		};
 		if (s["!ref"]) {
 			var u = Xa(s["!ref"]);
@@ -14727,7 +11503,7 @@ function make_xlsx_lib(e) {
 			if (n && !s["!data"][l + r + i]) s["!data"][l + r + i] = [];
 			if (n) p = s["!data"][l + r + i];
 			ir(e).forEach(function(t) {
-				if ((d = h.indexOf(t)) == -1) h[d = h.length] = t;
+				if ((d = h.indexOf(t)) == -1) h[(d = h.length)] = t;
 				var c = e[t];
 				var f = "z";
 				var u = "";
@@ -14755,11 +11531,11 @@ function make_xlsx_lib(e) {
 					if (!v) {
 						if (!n) s[m] = v = {
 							t: f,
-							v: c
+							v: c,
 						};
 						else p[o + d] = v = {
 							t: f,
-							v: c
+							v: c,
 						}
 					} else {
 						v.t = f;
@@ -14778,31 +11554,29 @@ function make_xlsx_lib(e) {
 		if (i) for (d = 0; d < h.length; ++d) {
 			if (n) s["!data"][l][d + o] = {
 				t: "s",
-				v: h[d]
+				v: h[d],
 			};
 			else s[Ra(d + o) + m] = {
 				t: "s",
-				v: h[d]
+				v: h[d],
 			}
 		}
 		s["!ref"] = ja(f);
 		return s
 	}
-	function kc(e, r) {
-		return wc(null, e, r)
-	}
+	
 	function yc(e, r, t) {
 		if (typeof r == "string") {
 			if (e["!data"] != null) {
 				var a = za(r);
 				if (!e["!data"][a.r]) e["!data"][a.r] = [];
-				return e["!data"][a.r][a.c] || (e["!data"][a.r][a.c] = {
-					t: "z"
-				})
+				return (e["!data"][a.r][a.c] || (e["!data"][a.r][a.c] = {
+					t: "z",
+				}))
 			}
-			return e[r] || (e[r] = {
-				t: "z"
-			})
+			return (e[r] || (e[r] = {
+				t: "z",
+			}))
 		}
 		if (typeof r != "number") return yc(e, $a(r));
 		return yc(e, Ra(t || 0) + Ma(r))
@@ -14810,30 +11584,30 @@ function make_xlsx_lib(e) {
 	function xc(e, r) {
 		if (typeof r == "number") {
 			if (r >= 0 && e.SheetNames.length > r) return r;
-			throw new Error("Cannot find sheet # " + r)
+			throw new Error("Cannot find sheet # " + r);
 		} else if (typeof r == "string") {
 			var t = e.SheetNames.indexOf(r);
 			if (t > -1) return t;
-			throw new Error("Cannot find sheet name |" + r + "|")
-		} else throw new Error("Cannot find sheet |" + r + "|")
+			throw new Error("Cannot find sheet name |" + r + "|");
+		} else throw new Error("Cannot find sheet |" + r + "|");
 	}
 	function Sc(e, r) {
 		var t = {
 			SheetNames: [],
-			Sheets: {}
+			Sheets: {},
 		};
 		if (e) Cc(t, e, r || "Sheet1");
 		return t
 	}
 	function Cc(e, r, t, a) {
 		var n = 1;
-		if (!t) for (; n <= 65535; ++n, t = undefined) if (e.SheetNames.indexOf(t = "Sheet" + n) == -1) break;
+		if (!t) for (; n <= 65535; ++n, t = undefined) if (e.SheetNames.indexOf((t = "Sheet" + n)) == -1) break;
 		if (!t || e.SheetNames.length >= 65535) throw new Error("Too many worksheets");
 		if (a && e.SheetNames.indexOf(t) >= 0) {
 			var i = t.match(/(^.*?)(\d+)$/);
-			n = i && +i[2] || 0;
-			var s = i && i[1] || t;
-			for (++n; n <= 65535; ++n) if (e.SheetNames.indexOf(t = s + n) == -1) break
+			n = (i && +i[2]) || 0;
+			var s = (i && i[1]) || t;
+			for (++n; n <= 65535; ++n) if (e.SheetNames.indexOf((t = s + n)) == -1) break
 		}
 		jl(t);
 		if (e.SheetNames.indexOf(t) >= 0) throw new Error("Worksheet with name |" + t + "| already exists!");
@@ -14848,9 +11622,7 @@ function make_xlsx_lib(e) {
 		if (!e.Workbook.Sheets[a]) e.Workbook.Sheets[a] = {};
 		switch (t) {
 		case 0:
-			;
 		case 1:
-			;
 		case 2:
 			break;
 		default:
@@ -14867,7 +11639,7 @@ function make_xlsx_lib(e) {
 			delete e.l
 		} else {
 			e.l = {
-				Target: r
+				Target: r,
 			};
 			if (t) e.l.Tooltip = t
 		}
@@ -14880,7 +11652,7 @@ function make_xlsx_lib(e) {
 		if (!e.c) e.c = [];
 		e.c.push({
 			t: r,
-			a: t || "SheetJS"
+			a: t || "SheetJS",
 		})
 	}
 	function Dc(e, r, t, a) {
@@ -14919,9 +11691,6 @@ function make_xlsx_lib(e) {
 		sheet_add_aoa: Ka,
 		sheet_add_json: wc,
 		sheet_add_dom: po,
-		aoa_to_sheet: qa,
-		json_to_sheet: kc,
-		table_to_sheet: mo,
 		table_to_book: vo,
 		sheet_to_csv: vc,
 		sheet_to_txt: gc,
@@ -14941,26 +11710,11 @@ function make_xlsx_lib(e) {
 		consts: {
 			SHEET_VISIBLE: 0,
 			SHEET_HIDDEN: 1,
-			SHEET_VERY_HIDDEN: 2
-		}
+			SHEET_VERY_HIDDEN: 2,
+		},
 	};
-	if (typeof parse_xlscfb !== "undefined") e.parse_xlscfb = parse_xlscfb;
-	e.parse_zip = Lo;
 	e.read = Jo;
-	e.readFile = Zo;
-	e.readFileSync = Zo;
-	e.write = lc;
-	e.writeFile = cc;
-	e.writeFileSync = cc;
-	e.writeFileAsync = uc;
 	e.utils = Oc;
-	e.writeXLSX = sc;
-	e.writeFileXLSX = fc;
-	e.set_fs = rr;
-	e.set_cptable = g;
-	e.SSF = Ve;
-	if (typeof __stream !== "undefined") e.stream = __stream;
-	if (typeof Qe !== "undefined") e.CFB = Qe;
 	if (typeof require !== "undefined") {
 		var Mc = undefined;
 		if ((Mc || {}).Readable) set_readable(Mc.Readable);
