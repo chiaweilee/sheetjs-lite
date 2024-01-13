@@ -42,23 +42,33 @@ npm install r-xlsx
 ### via CDN
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/r-xlsx"></script>
-<!--<script src="https://cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.full.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.core.min.js"></script>-->
-<!--<script src="https://cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.mini.min.js"></script>-->
+<script src="//cdn.jsdelivr.net/npm/r-xlsx"></script>
+```
+
+or
+
+```html
+<script src="//cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.full.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.core.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/r-xlsx/dist/xlsx.mini.min.js"></script>
 ```
 
 ## Usage
 
 ```ts
 import XLSX from "r-xlsx";
-// import XLSX from "r-xlsx/dist/xlsx.full.min.js";
-// import XLSX from "r-xlsx/dist/xlsx.core.min.js";
-// import XLSX from "r-xlsx/dist/xlsx.mini.min.js";
 
 const workbook = XLSX.read(fileData);
 const { SheetNames, Sheets } = workbook;
 const content = XLSX.utils.sheet_to_json(Sheets[SheetNames[0]]);
+```
+
+or
+
+```ts
+import XLSX from "r-xlsx/dist/xlsx.full.min.js";
+import XLSX from "r-xlsx/dist/xlsx.core.min.js";
+import XLSX from "r-xlsx/dist/xlsx.mini.min.js";
 ```
 
 ### Use Web Worker
