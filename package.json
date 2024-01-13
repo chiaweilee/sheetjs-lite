@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/chiaweilee/sheetjs-lite#readme",
   "devDependencies": {
+    "eslint-plugin-unused-vars": "^0.0.3",
     "jest": "^29.7.0"
   }
 }

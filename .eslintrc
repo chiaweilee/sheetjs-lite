@@ -1,0 +1,16 @@
+{
+  "rules": {
+    "no-unused-vars": "off",
+    "unused-vars/no-unused-imports": "error",
+    "unused-vars/no-unused-vars": [
+      "error",
+      {
+        "autoFix": true,
+        "vars": "all",
+        "varsIgnorePattern": "^_",
+        "args": "after-used",
+        "argsIgnorePattern": "^_"
+      }
+    ]
+  }
+}
